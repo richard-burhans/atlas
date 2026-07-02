@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Analysis — Dispensary Atlas</title>
+<style>
+body{font-family:system-ui,-apple-system,sans-serif;max-width:60rem;margin:3rem auto;padding:0 1.2rem;line-height:1.6;color:#1d3557}
+h1{margin-bottom:.2rem}small,.note{color:#64748b}
+a{color:#2a9d8f}
+.back{display:inline-block;margin-bottom:1rem;text-decoration:none}
+.feature{display:block;margin:1.2rem 0;padding:1rem 1.2rem;border:1px solid #cbd5e1;border-radius:.6rem;text-decoration:none;color:inherit}
+.feature:hover{border-color:#2a9d8f;background:#f7fafc}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(20rem,1fr));gap:1.4rem;margin-top:1.5rem}
+figure{margin:0;border:1px solid #e2e8f0;border-radius:.6rem;overflow:hidden;background:#fff}
+figure img{width:100%;height:auto;display:block;background:#fff}
+figcaption{padding:.7rem .9rem;font-size:.92rem}
+figcaption b{color:#1d3557}
+.disc{margin-top:2.5rem;font-size:.85rem;border-top:1px solid #e2e8f0;padding-top:1rem}
+</style>
+</head><body>
+<a class="back" href="../">← Dispensary Atlas</a>
+<h1>Analysis</h1>
+<p>Descriptive findings on market structure, access, and pricing, built from public dispensary rosters
+and live menus. Figures are <b>as-published label/menu values</b> (not lab assays or transactions) —
+they characterize the market at scale, not clinical effect.</p>
+
+<a class="feature" href="./county_hhi.html"><strong>Market concentration by county (interactive) →</strong><br>
+<small>Herfindahl–Hirschman Index of retail concentration per county — pan/zoom map.</small></a>
+
+<div class="grid">
+
+  <figure><img src="./figs/fig_rural_urban_price_gradient.png" alt="Rural vs urban price and assortment">
+  <figcaption><b>Rural vs urban.</b> By USDA RUCA class: no meaningful rural price penalty, but rural
+  menus carry ~35% fewer distinct products — the gap is in selection, not price.</figcaption></figure>
+
+  <figure><img src="./figs/fig_cross_border_price_gradient.png" alt="Cross-border price gradient">
+  <figcaption><b>Cross-border prices.</b> Distance to the nearest stricter-law state border barely
+  moves listed $/g once each store is compared to its own state — a null.</figcaption></figure>
+
+  <figure><img src="./figs/fig_deserts_borders.png" alt="Cannabis deserts and borders">
+  <figcaption><b>Cannabis deserts.</b> ~17.6M people live &gt;30 mi from any licensed store; visible
+  cross-border corridors toward prohibition neighbours.</figcaption></figure>
+
+  <figure><img src="./figs/fig_dispensary_density_svi.png" alt="Dispensary density vs social vulnerability">
+  <figcaption><b>Density &amp; disadvantage.</b> Dispensaries per capita rise with county social
+  vulnerability (~1.7× across the quartile extremes).</figcaption></figure>
+
+  <figure><img src="./figs/fig_price_by_market.png" alt="Price dispersion by market">
+  <figcaption><b>Price dispersion.</b> A ~2.3× gap in eighth $/g across states — the law of one price
+  fails hard across markets.</figcaption></figure>
+
+  <figure><img src="./figs/fig_thc_threshold_bunching.png" alt="Labeled THC bunching at 20%">
+  <figcaption><b>The 20% tell.</b> Labeled flower THC bunches just above the 20% marketing threshold in
+  23 of 25 markets — a label-inflation fingerprint.</figcaption></figure>
+
+  <figure><img src="./figs/fig_potency_by_category.png" alt="Potency by product category">
+  <figcaption><b>Potency by form.</b> Over-labeling lives in flower &amp; pre-rolls; concentrate and
+  vape labels don't show the same threshold-bunching.</figcaption></figure>
+
+  <figure><img src="./figs/fig_platform_share.png" alt="Menu-platform market share">
+  <figcaption><b>Platform share.</b> Dutchie powers ~half of menu-bearing stores; aggregators make up
+  the independent tail.</figcaption></figure>
+
+  <figure><img src="./figs/fig_roster_scorecard.png" alt="State roster accuracy scorecard">
+  <figcaption><b>Roster accuracy.</b> State license lists vs operators' own store pages — where each
+  state's roster lags (closures still listed, stores missing).</figcaption></figure>
+
+</div>
+
+<p class="disc"><b>Note.</b> Association, not causation — where a store locates is not random. All
+potency/price values are as-published labels; label inflation is itself one of the findings.</p>
+</body></html>
