@@ -255,6 +255,7 @@ function search(){
   RANKS:[{k:"value",label:"Smart value"},{k:"thc",label:"THC"},{k:"ppg",label:"Cheapest"},{k:"tt",label:"Terpene-rich"},{k:"cons",label:"Trusted brand"}],
   products:[], stores:{}, params:{brands:{},terpBreaks:[],weights:{terp:.6,cons:.4},gameAbove:[20,25,30],impossible:35},
   states:["PA"], state:"PA", snapshot:"", currency:"USD",
+  shardBase:"",   // '' = same-origin; a cross-origin base pulls shards from a data-repo Pages site (GH Pages CORS)
   q:"",cat:"",ptype:"",strain:"",brand:"",store:"",city:"",thc:"",pmax:"",
   zip:"",radius:15,center:null,centerLabel:"",
   rank:"value", priceBias:60, showTerps:false, groupByProduct:true,
@@ -270,14 +271,17 @@ function search(){
     .forEach(k=>this.$watch(k,()=>this.recompute())); },
 
   async loadState(){
-   const d = await fetch(`products/${this.state}.json`).then(r=>r.json());
-   this.currency = d.currency || "USD";   // per-shard (one state); labels $ / C$ accordingly (D2)
-   this.params = Object.assign(this.params, d.params||{});
+   const m = await fetch(`${this.shardBase}products/${this.state}.json`).then(r=>r.json());
+   this.currency = m.currency || "USD";   // per-shard (one state); labels $ / C$ accordingly (D2)
+   this.params = Object.assign(this.params, m.params||{});
    const ef = this.params.effects;   // present only in --with-effects (staging) builds
    if(ef){ this.effects = ef.profiles||[]; this.cbdWall = ef.cbdWall||0; this.effectDisclaimer = ef.disclaimer||""; }
-   this.products = d.products.map((p,i)=>{ p._i=i; this.score(p); return p; });
-   this.snapshot = d.count?`(${d.count.toLocaleString()} live products)`:"";
-   if(!Object.keys(this.stores).length) this.stores = await fetch("stores.json").then(r=>r.json());
+   // products are split across m.parts size-bounded files (GitHub caps a file at 100MB); fetch + concat
+   const chunks = await Promise.all(Array.from({length:m.parts||1},
+     (_,i)=>fetch(`${this.shardBase}products/${this.state}.${i}.json`).then(r=>r.json())));
+   this.products = chunks.flat().map((p,i)=>{ p._i=i; this.score(p); return p; });
+   this.snapshot = m.count?`(${m.count.toLocaleString()} live products)`:"";
+   if(!Object.keys(this.stores).length) this.stores = await fetch(`${this.shardBase}stores.json`).then(r=>r.json());
    this.recompute();
   },
 
