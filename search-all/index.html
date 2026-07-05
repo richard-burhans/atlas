@@ -276,10 +276,20 @@ function search(){
    this.params = Object.assign(this.params, m.params||{});
    const ef = this.params.effects;   // present only in --with-effects (staging) builds
    if(ef){ this.effects = ef.profiles||[]; this.cbdWall = ef.cbdWall||0; this.effectDisclaimer = ef.disclaimer||""; }
-   // products are split across m.parts size-bounded files (GitHub caps a file at 100MB); fetch + concat
+   // shards are columnar + dictionary-encoded and split across m.parts size-bounded files (GitHub
+   // caps a file at 100MB and a whole site at ~1GB). Fetch the parts and rehydrate rows: each part
+   // is {cols:{field:[…]}}; a dict-encoded field's value is an int index into m.dicts[field].
+   const dicts = m.dicts||{};
    const chunks = await Promise.all(Array.from({length:m.parts||1},
      (_,i)=>fetch(`${this.shardBase}products/${this.state}.${i}.json`).then(r=>r.json())));
-   this.products = chunks.flat().map((p,i)=>{ p._i=i; this.score(p); return p; });
+   const rows=[];
+   for(const {cols} of chunks){
+    const fields=Object.keys(cols||{}), n=fields.length?cols[fields[0]].length:0;
+    for(let i=0;i<n;i++){ const r={};
+     for(const f of fields){ let v=cols[f][i]; if(dicts[f]&&v!=null) v=dicts[f][v]; r[f]=v; }
+     rows.push(r); }
+   }
+   this.products = rows.map((p,i)=>{ p._i=i; this.score(p); return p; });
    this.snapshot = m.count?`(${m.count.toLocaleString()} live products)`:"";
    if(!Object.keys(this.stores).length) this.stores = await fetch(`${this.shardBase}stores.json`).then(r=>r.json());
    this.recompute();
