@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The honest menu — value over the label · redesign</title>
+<style>
+ /* ── tokens: "measured honesty" — pine + assayed gold, green-biased neutrals.
+    Semantic clay for the inflated-label warning is deliberately NOT the accent. ── */
+ :root{
+  --paper:#eef2e9; --card:#f8fbf4; --sunk:#e7ede0;
+  --ink:#17231b; --mut:#5d6c60; --faint:#8a988c; --line:#d6ddcd;
+  --gold:#b5811b; --gold-2:#d7a231; --pine:#1f5638; --pine-2:#2f7a51;
+  --clay:#b3502f; --clay-bg:#f6e7e0;
+  --mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
+  --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --shadow:0 1px 2px rgba(20,40,28,.06),0 8px 24px -12px rgba(20,40,28,.14);
+ }
+ @media (prefers-color-scheme: dark){
+  :root{
+   --paper:#0f150f; --card:#161d15; --sunk:#1b241a;
+   --ink:#e8efe2; --mut:#9aa89b; --faint:#6c7a6d; --line:#28321f;
+   --gold:#e0a52e; --gold-2:#f0b944; --pine:#3f9469; --pine-2:#5cb384;
+   --clay:#e07a54; --clay-bg:#2a1c15;
+   --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.55);
+  }
+ }
+ :root[data-theme="light"]{
+  --paper:#eef2e9; --card:#f8fbf4; --sunk:#e7ede0; --ink:#17231b; --mut:#5d6c60; --faint:#8a988c;
+  --line:#d6ddcd; --gold:#b5811b; --gold-2:#d7a231; --pine:#1f5638; --pine-2:#2f7a51;
+  --clay:#b3502f; --clay-bg:#f6e7e0; --shadow:0 1px 2px rgba(20,40,28,.06),0 8px 24px -12px rgba(20,40,28,.14);
+ }
+ :root[data-theme="dark"]{
+  --paper:#0f150f; --card:#161d15; --sunk:#1b241a; --ink:#e8efe2; --mut:#9aa89b; --faint:#6c7a6d;
+  --line:#28321f; --gold:#e0a52e; --gold-2:#f0b944; --pine:#3f9469; --pine-2:#5cb384;
+  --clay:#e07a54; --clay-bg:#2a1c15; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.55);
+ }
+ *{box-sizing:border-box}
+ html{-webkit-text-size-adjust:100%}
+ body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 var(--sans);
+  padding:0 clamp(.9rem,3vw,2rem) 5rem;transition:background .2s,color .2s}
+ .wrap{max-width:1200px;margin:0 auto}
+
+ /* ── masthead: the thesis is the hero ── */
+ header.mast{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;padding:2rem 0 1rem}
+ .brand .kicker{font:700 11px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--pine-2);margin:0 0 .7rem}
+ .brand h1{margin:0;font-weight:820;font-size:clamp(1.7rem,4.6vw,2.9rem);line-height:.98;letter-spacing:-.025em;text-wrap:balance;max-width:16ch}
+ .brand h1 .strike{position:relative;color:var(--faint);white-space:nowrap}
+ .brand h1 .strike::after{content:"";position:absolute;left:-.04em;right:-.04em;top:54%;height:.11em;background:var(--clay);transform:rotate(-4deg)}
+ .brand h1 .lit{color:var(--gold)}
+ .brand p.dek{margin:.8rem 0 0;color:var(--mut);max-width:56ch;font-size:.98rem}
+ .brand p.dek b{color:var(--ink);font-weight:600}
+ .toolbtns{display:flex;gap:.4rem;flex-shrink:0}
+ .icon{width:38px;height:38px;border:1px solid var(--line);background:var(--card);border-radius:9px;color:var(--mut);
+  cursor:pointer;font-size:15px;display:grid;place-items:center;transition:.15s}
+ .icon:hover{border-color:var(--pine-2);color:var(--pine-2)}
+
+ /* the scoring key — encodes what "value" means here, not decoration */
+ .key{display:flex;flex-wrap:wrap;gap:.5rem 1.1rem;margin:1.1rem 0 0;padding:.7rem .9rem;background:var(--sunk);
+  border:1px solid var(--line);border-radius:11px;font-size:12.5px;color:var(--mut)}
+ .key b{color:var(--ink);font-weight:650}
+ .key .dot{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:-1px;margin-right:.35rem}
+
+ /* ── controls ── */
+ .bar{display:flex;flex-wrap:wrap;gap:.55rem;align-items:center;margin:1.4rem 0 .3rem}
+ .seg{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:var(--shadow)}
+ .seg button{border:0;border-right:1px solid var(--line);background:transparent;color:var(--mut);
+  font:640 13px/1 var(--sans);padding:.55rem .8rem;cursor:pointer;transition:.12s;white-space:nowrap}
+ .seg button:last-child{border-right:0}
+ .seg button[aria-pressed="true"]{background:var(--pine);color:#fff}
+ :root[data-theme="dark"] .seg button[aria-pressed="true"]{color:#0f150f;background:var(--pine-2)}
+ .grow{flex:1 1 200px;min-width:160px}
+ input.search{width:100%;padding:.55rem .7rem;border:1px solid var(--line);border-radius:10px;background:var(--card);
+  color:var(--ink);font:inherit}
+ input.search:focus,select.f:focus{outline:2px solid var(--pine-2);outline-offset:1px;border-color:var(--pine-2)}
+ select.f{padding:.55rem .6rem;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit}
+ .slider{display:flex;align-items:center;gap:.5rem;color:var(--mut);font-size:12px;padding:.3rem .2rem}
+ .slider input{accent-color:var(--gold)}
+ .cur{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;font:700 12px/1 var(--mono)}
+ .cur button{border:0;background:var(--card);color:var(--mut);padding:.5rem .6rem;cursor:pointer}
+ .cur button[aria-pressed="true"]{background:var(--gold);color:#fff}
+ :root[data-theme="dark"] .cur button[aria-pressed="true"]{color:#161d15}
+
+ .count{color:var(--mut);font-size:13px;margin:1rem 0 .5rem}
+ .count b{color:var(--ink)}
+
+ /* ── the value ledger ── */
+ .ledger{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+ .scroll{overflow:auto;max-height:calc(100vh - 8rem)}
+ table{width:100%;border-collapse:separate;border-spacing:0;font-size:13.5px}
+ thead th{position:sticky;top:0;z-index:3;background:var(--card);box-shadow:inset 0 -1px var(--line);
+  text-align:left;padding:.65rem .7rem;font:700 10.5px/1 var(--sans);letter-spacing:.07em;text-transform:uppercase;
+  color:var(--faint);white-space:nowrap;cursor:pointer;user-select:none}
+ thead th.r{text-align:right}
+ thead th:hover{color:var(--pine-2)}
+ thead th .ar{color:var(--gold)}
+ td{padding:.6rem .7rem;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}
+ tbody tr:last-child td{border-bottom:0}
+ tbody tr:hover{background:var(--sunk)}
+ td.r{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+ /* value cell — the signature device */
+ .vcell{width:172px}
+ .vhead{display:flex;align-items:center;gap:.4rem}
+ .vscore{font:800 15px/1 var(--mono);font-variant-numeric:tabular-nums;color:var(--ink);min-width:2.4ch}
+ .pick{font:800 9.5px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--gold);
+  border-radius:5px;padding:.2rem .34rem}
+ :root[data-theme="dark"] .pick{color:#161d15}
+ .meter{height:8px;border-radius:5px;background:var(--sunk);overflow:hidden;margin-top:.4rem;border:1px solid var(--line)}
+ .meter > i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--pine-2),var(--gold-2));
+  width:0;transition:width .7s cubic-bezier(.2,.7,.2,1)}
+ @media(prefers-reduced-motion:reduce){.meter > i{transition:none}}
+
+ .prod .nm{font-weight:660;letter-spacing:-.005em}
+ .prod .meta{color:var(--mut);font-size:12px;margin-top:.05rem}
+ .prod .meta .type{color:var(--pine-2)}
+
+ /* THC honesty treatment: an inflated label is struck, a flag names why */
+ .thc{font:700 14px/1 var(--mono);font-variant-numeric:tabular-nums;color:var(--ink)}
+ .thc.flagged{color:var(--faint);text-decoration:line-through;text-decoration-color:var(--clay);text-decoration-thickness:2px}
+ .flag{display:inline-block;margin-top:.28rem;font:800 9px/1 var(--sans);letter-spacing:.04em;text-transform:uppercase;
+  color:var(--clay);background:var(--clay-bg);border:1px solid var(--clay);border-radius:5px;padding:.16rem .32rem}
+ .flag.imp{color:#fff;background:var(--clay)}
+ :root[data-theme="dark"] .flag.imp{color:#161d15}
+
+ .price{font:800 14px/1 var(--mono);font-variant-numeric:tabular-nums}
+ .price .cur-sym{color:var(--gold);font-weight:700}
+ .terps{font-family:var(--mono);font-size:11.5px;color:var(--mut)}
+ .terps .t{color:var(--pine-2)}
+ .store{font-size:12.5px;color:var(--mut);white-space:normal;max-width:20ch}
+ .store b{color:var(--ink);font-weight:600}
+
+ footer{color:var(--faint);font-size:12px;margin-top:1.6rem;line-height:1.6}
+ footer a{color:var(--pine-2)}
+ @media(max-width:820px){ .hideSm{display:none} .vcell{width:120px} .brand h1{font-size:1.8rem} }
+</style>
+</head>
+<body>
+<div class="wrap">
+ <header class="mast">
+  <div class="brand">
+   <p class="kicker">Pennsylvania flower · live menu · redesign proposal</p>
+   <h1>Ranked by <span class="lit">value</span>, not by the <span class="strike">label</span>.</h1>
+   <p class="dek">Every store in the state, one search. We score on <b>real terpene content</b>, <b>brand consistency</b>, and <b>price per gram</b> — and we <b>discount THC numbers that look inflated</b>, because the label often is. No health claims; just an honest read on what a gram is worth.</p>
+  </div>
+  <div class="toolbtns">
+   <button class="icon" id="theme" title="Toggle light / dark" aria-label="Toggle theme">◐</button>
+  </div>
+ </header>
+
+ <div class="key" role="note">
+  <span><span class="dot" style="background:linear-gradient(90deg,var(--pine-2),var(--gold-2))"></span><b>Value meter</b> — terpenes &amp; brand-consistency per dollar</span>
+  <span><span class="dot" style="background:var(--gold)"></span><b>Smart pick</b> — top value in view</span>
+  <span><span class="dot" style="background:var(--clay)"></span><b>Struck THC</b> — bunched at a marketing number, or physically impossible &gt;35%</span>
+ </div>
+
+ <div class="bar">
+  <div class="seg" role="group" aria-label="Rank by">
+   <button data-rank="value" aria-pressed="true">Smart value</button>
+   <button data-rank="ppg">Cheapest</button>
+   <button data-rank="thc">THC</button>
+   <button data-rank="tt">Terpene-rich</button>
+  </div>
+  <label class="slider" id="biasWrap">cheaper
+   <input type="range" min="0" max="100" value="60" id="bias" title="balance price vs. quality">
+   quality</label>
+  <span class="grow"><input class="search" id="q" placeholder="search product or brand…"></span>
+  <select class="f" id="strain"><option value="">all strains</option></select>
+  <div class="cur" role="group" aria-label="Currency (demo)">
+   <button data-cur="USD" aria-pressed="true" title="US dollars">US$</button>
+   <button data-cur="CAD" title="Canadian dollars — shows how a Canadian shard reads">C$</button>
+  </div>
+ </div>
+
+ <p class="count"><b id="n">0</b> products · <span id="curnote">cheapest store shown</span></p>
+
+ <div class="ledger">
+  <div class="scroll">
+   <table>
+    <thead><tr>
+     <th class="vcell" data-k="_v">Value <span class="ar" id="ar__v">▼</span></th>
+     <th data-k="n">Product</th>
+     <th class="r" data-k="thc">THC</th>
+     <th class="r hideSm" data-k="cbd">CBD</th>
+     <th class="r" data-k="ppg">$/g</th>
+     <th class="hideSm" data-k="sz">Size</th>
+     <th class="hideSm" data-k="tt">Terpenes</th>
+     <th data-k="store">Store</th>
+    </tr></thead>
+    <tbody id="rows"></tbody>
+   </table>
+  </div>
+ </div>
+
+ <footer>
+  Dispensary intelligence pipeline · a design proposal rendered on <b>14 real Pennsylvania flower rows</b> · informational, not medical advice.<br>
+  This is a prototype for the <a href="../search/">live value search</a> — same data, a stronger read on the one thing that matters: what you actually get per dollar.
+ </footer>
+</div>
+
+<script>
+const DATA = [{"n":"Phunky Town","b":"Simply Herb","pt":"Bud","thc":31.5,"cbd":0.1,"ppg":4.14,"sz":"14g","tp":{"Guaiol":0.09,"Pinene":0.17,"Myrcene":0.62,"Ocimene":0.12,"Humulene":0.1,"Limonene":0.57,"Linalool":0.23,"Bisabolol":0.0,"Terpinolene":0.0,"Caryophyllene":0.24},"store":"Ascend Dispensary","city":"Monaca"},{"n":"L'Orange Flower","b":"Good Green","pt":"Bud","thc":29.6,"cbd":null,"ppg":7.2,"sz":"3.5g","tp":{"Myrcene":0.11,"Ocimene":0.008,"Humulene":0.014,"Linalool":0.321,"Bisabolol":0.033,"Terpinolene":0.018,"Caryophyllene":0.367},"store":"Sunnyside","city":"Pittsburgh"},{"n":"G Gurtz","b":"RYTHM","pt":"Bud","thc":35.7,"cbd":null,"ppg":5.57,"sz":"7g","tp":{"Pinene":0.22,"Myrcene":0.16,"Ocimene":0.01,"Humulene":0.13,"Limonene":0.64,"Linalool":0.49,"Bisabolol":0.06,"Terpinolene":0.01,"Caryophyllene":0.47},"store":"RISE","city":"New Castle"},{"n":"Dante's Slush","b":"Old Pal","pt":"Bud","thc":29.1,"cbd":null,"ppg":4.57,"sz":"7g","tp":{"Pinene":0.12,"Myrcene":0.08,"Humulene":0.17,"Limonene":0.47,"Linalool":0.34,"Bisabolol":0.08,"Caryophyllene":0.49},"store":"Terra Pharm","city":"White Oak"},{"n":"Blue Beach Haze Flower","b":"Modern Flower","pt":"Bud","thc":35.1,"cbd":null,"ppg":8.36,"sz":"14g","tp":{"Pinene":0.028,"Myrcene":1.041,"Ocimene":0.146,"Humulene":0.145,"Limonene":0.05,"Linalool":0.207,"Bisabolol":0.143,"Caryophyllene":0.394},"store":"Verilife","city":"Williamsport"},{"n":"Cranberry Z Mixed Buds","b":"RYTHM","pt":"Bud","thc":30.5,"cbd":0.1,"ppg":4.99,"sz":"28g","tp":{"Pinene":0.43,"Myrcene":0.07,"Humulene":0.06,"Limonene":0.99,"Linalool":0.26,"Bisabolol":0.15,"Terpinolene":0.01,"Caryophyllene":0.25},"store":"Trulieve","city":"Harrisburg"},{"n":"Mad Rabbid #5","b":"Flower Foundry","pt":"Bud","thc":32.2,"cbd":null,"ppg":10.0,"sz":"1g / 3.5g / 7g","tp":{"Pinene":0.11,"Myrcene":0.02,"Humulene":0.12,"Limonene":0.5,"Linalool":0.14,"Bisabolol":0.03,"Caryophyllene":0.51},"store":"Beyond Hello","city":"Linwood"},{"n":"Lemon Maraschino Reserve Flower","b":"Strane","pt":"Bud","thc":30.0,"cbd":0.0,"ppg":6.43,"sz":"7g","tp":{"Pinene":0.12,"Myrcene":0.83,"Humulene":0.22,"Limonene":0.57,"Bisabolol":0.0,"Terpinolene":0.0,"Caryophyllene":0.63},"store":"Trulieve","city":"Philadelphia"},{"n":"Gasoline Tropsicle Flower (Prime Wellness)","b":"Prime Wellness","pt":"Bud","thc":30.8,"cbd":null,"ppg":9.14,"sz":"3.5g","tp":{"Pinene":0.45,"Myrcene":0.17,"Ocimene":0.37,"Humulene":0.07,"Limonene":1.05,"Linalool":0.27,"Bisabolol":0.06,"Terpinolene":0.01,"Caryophyllene":0.29},"store":"Fluent Care","city":"Hanover"},{"n":"Starfruit Skunk","b":"Organic Remedies","pt":"Bud","thc":29.8,"cbd":0.0,"ppg":5.79,"sz":"3.5g / 28g","tp":{"Myrcene":1.15,"Humulene":0.1,"Limonene":0.23,"Caryophyllene":0.3},"store":"Organic Remedies","city":"Pittsburgh"},{"n":"Dark Rainbow Flower","b":"Modern Flower","pt":"Bud","thc":29.8,"cbd":0.0,"ppg":5.11,"sz":"14g","tp":{"Pinene":0.14,"Myrcene":0.18,"Humulene":0.18,"Limonene":0.62,"Linalool":0.13,"Bisabolol":0.03,"Terpinolene":0.0,"Caryophyllene":0.56},"store":"Trulieve","city":"Cranberry Twp"},{"n":"Shady Boof","b":"Eden's Trees","pt":"Bud","thc":35.6,"cbd":null,"ppg":2.14,"sz":"28g","tp":{"Pinene":0.4,"Myrcene":0.26,"Limonene":0.89,"Linalool":0.18,"Bisabolol":0.03,"Caryophyllene":0.05},"store":"Organic Remedies","city":"East York"},{"n":"Flower (Ah Pul T)","b":"Grassroots","pt":"Bud","thc":30.5,"cbd":0.0,"ppg":7.43,"sz":"3.5g","tp":{"Pinene":0.12,"Myrcene":0.37,"Humulene":0.09,"Limonene":0.55,"Linalool":0.29,"Bisabolol":0.0,"Terpinolene":0.0,"Caryophyllene":0.24},"store":"Trulieve","city":"Reading"},{"n":"Skunk Ape Premium Flower","b":"Old Pal","pt":"Bud","thc":26.1,"cbd":0.0,"ppg":5.79,"sz":"14g","tp":{"Guaiol":0.077,"Pinene":0.106,"Myrcene":0.212,"Humulene":0.069,"Limonene":0.457,"Linalool":0.286,"Bisabolol":0.141,"Caryophyllene":0.268},"store":"Sunnyside","city":"Washington"}];
+const TOP_TERPS = ["Myrcene","Limonene","Caryophyllene","Pinene","Linalool","Terpinolene"];
+const state = {rank:"value", bias:60, q:"", strain:"", cur:"USD", sortK:"_v", sortDir:-1};
+
+// ── scoring: a faithful-in-spirit port of the value index ──
+function terpTotal(p){ let s=0; for(const k in (p.tp||{})) s+=p.tp[k]; return s; }
+function gamed(p){ // inflated-label logic: >35 impossible; bunched just above 20/25/30
+  if(p.thc==null) return "";
+  if(p.thc>35) return "imp";
+  return [20,25,30].some(t=>p.thc>t && p.thc<=t+2) ? "hot" : "";
+}
+function trust(p){ const g=gamed(p); return g==="imp"?.55 : g?.8 : 1; }
+function value(p){
+  const tt=p._tt, ppg=p.ppg; if(!tt||ppg==null||ppg<=0) return 0;
+  const wq=state.bias/100;                          // 0 price-first … 1 quality-first
+  const quality = Math.min(tt/2.5,1)*0.7 + (p._cons||0)*0.3;
+  return (quality*trust(p)) * (0.4+1.2*wq) / Math.pow(ppg, 1.4-0.8*wq);
+}
+
+// stub brand-consistency (would come from params.brands) — deterministic per brand
+function consistency(b){ let h=0; for(const c of (b||"")) h=(h*31+c.charCodeAt(0))>>>0; return .45+ (h%55)/100; }
+
+DATA.forEach((p,i)=>{ p._i=i; p._tt=terpTotal(p); p._cons=consistency(p.b); });
+
+function fmtPrice(ppg){
+  if(ppg==null) return "";
+  const rate = state.cur==="CAD" ? 1.37 : 1;        // demo FX so the C$ view reads realistically
+  const sym = state.cur==="CAD" ? "C$" : "$";
+  return `<span class="cur-sym">${sym}</span>${(ppg*rate).toFixed(2)}`;
+}
+function terpBar(p){
+  const parts = TOP_TERPS.filter(t=>p.tp&&p.tp[t]>0.05)
+    .sort((a,b)=>p.tp[b]-p.tp[a]).slice(0,3)
+    .map(t=>`<span class="t">${t.slice(0,3)}</span> ${p.tp[t].toFixed(2)}`);
+  return parts.length? parts.join(" · ") : "<span style='color:var(--faint)'>—</span>";
+}
+
+function compute(){
+  const q=state.q.toLowerCase().trim();
+  let rows = DATA.filter(p=>{
+    if(state.strain && p.pt!==state.strain) return false;
+    if(q && !((p.n&&p.n.toLowerCase().includes(q))||(p.b&&p.b.toLowerCase().includes(q)))) return false;
+    return true;
+  });
+  rows.forEach(p=>{ p._v=value(p); });
+  const k=state.sortK, dir=state.sortDir;
+  rows.sort((a,b)=>{
+    let va = k==="store"?a.store : k==="_v"?a._v : k==="tt"?a._tt : a[k];
+    let vb = k==="store"?b.store : k==="_v"?b._v : k==="tt"?b._tt : b[k];
+    if(va==null) return 1; if(vb==null) return -1;
+    return (typeof va==="number"? va-vb : (""+va).localeCompare(""+vb))*dir;
+  });
+  const maxV = Math.max(1e-9, ...rows.map(p=>p._v||0));
+  rows.forEach((p,i)=>{ p._vpct=(p._v||0)/maxV; p._pick = state.sortK==="_v" && p._v>0 && (i<3 || p._vpct>0.9); });
+  return rows;
+}
+
+function render(){
+  const rows = compute();
+  document.getElementById("n").textContent = rows.length;
+  document.getElementById("curnote").textContent = state.cur==="CAD" ? "prices in C$ (demo)" : "cheapest store shown";
+  const tb = document.getElementById("rows");
+  tb.innerHTML = rows.map(p=>{
+    const g=gamed(p);
+    const thcCls = g? "thc flagged":"thc";
+    const flag = g==="imp"? `<span class="flag imp">impossible</span>` : g? `<span class="flag">inflated?</span>` : "";
+    const pick = p._pick? `<span class="pick">pick</span>`:"";
+    return `<tr>
+     <td class="vcell">
+      <div class="vhead"><span class="vscore">${(p._v*100).toFixed(0)}</span>${pick}</div>
+      <div class="meter"><i data-w="${Math.round(p._vpct*100)}"></i></div>
+     </td>
+     <td class="prod"><div class="nm">${p.n||""}</div><div class="meta">${p.b||""} · <span class="type">${p.pt||""}</span></div></td>
+     <td class="r"><span class="${thcCls}">${p.thc!=null?p.thc.toFixed(1):""}</span>${flag?"<br>"+flag:""}</td>
+     <td class="r hideSm">${p.cbd!=null?p.cbd.toFixed(1):"—"}</td>
+     <td class="r"><span class="price">${fmtPrice(p.ppg)}</span></td>
+     <td class="hideSm r">${p.sz||""}</td>
+     <td class="hideSm terps">${terpBar(p)}</td>
+     <td class="store"><b>${p.store||""}</b>${p.city?", "+p.city:""}</td>
+    </tr>`;
+  }).join("");
+  requestAnimationFrame(()=>tb.querySelectorAll(".meter > i").forEach(i=>i.style.width=i.dataset.w+"%"));
+  document.querySelectorAll("thead th .ar").forEach(a=>a.remove());
+  const th=document.querySelector(`thead th[data-k="${state.sortK}"]`);
+  if(th){ const s=document.createElement("span"); s.className="ar"; s.textContent = state.sortDir>0?" ▲":" ▼"; th.appendChild(s); }
+}
+
+// ── wiring ──
+document.querySelectorAll(".seg [data-rank]").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll(".seg [data-rank]").forEach(x=>x.setAttribute("aria-pressed", x===b));
+  state.rank=b.dataset.rank;
+  state.sortK = state.rank==="value"?"_v" : state.rank==="tt"?"_tt" : state.rank;
+  state.sortDir = state.rank==="ppg"?1:-1;
+  document.getElementById("biasWrap").style.display = state.rank==="value"?"":"none";
+  render();
+}));
+document.querySelectorAll(".cur [data-cur]").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll(".cur [data-cur]").forEach(x=>x.setAttribute("aria-pressed", x===b));
+  state.cur=b.dataset.cur; render();
+}));
+document.querySelectorAll("thead th").forEach(th=>th.addEventListener("click",()=>{
+  const k=th.dataset.k; state.sortDir = state.sortK===k? -state.sortDir : (k==="ppg"?1:-1); state.sortK=k;
+  document.querySelectorAll(".seg [data-rank]").forEach(x=>x.setAttribute("aria-pressed", x.dataset.rank==="value" && k==="_v"));
+  render();
+}));
+document.getElementById("q").addEventListener("input",e=>{state.q=e.target.value;render();});
+document.getElementById("bias").addEventListener("input",e=>{state.bias=+e.target.value;render();});
+document.getElementById("strain").addEventListener("change",e=>{state.strain=e.target.value;render();});
+// theme toggle (persists)
+const root=document.documentElement, tk="atlas-theme";
+try{ const t=localStorage.getItem(tk); if(t) root.setAttribute("data-theme",t); }catch(e){}
+document.getElementById("theme").addEventListener("click",()=>{
+  const cur = root.getAttribute("data-theme") || (matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
+  const next = cur==="dark"?"light":"dark"; root.setAttribute("data-theme",next);
+  try{ localStorage.setItem(tk,next); }catch(e){}
+});
+// populate strain filter
+[...new Set(DATA.map(p=>p.pt).filter(Boolean))].sort().forEach(s=>{
+  const o=document.createElement("option"); o.value=s; o.textContent=s; document.getElementById("strain").appendChild(o);
+});
+render();
+</script>
+</body>
+</html>
