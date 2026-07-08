@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='13' y='10.2' width='22' height='4.4' rx='2.2' fill='%23667'/%3E%3Crect x='13' y='21.8' width='22' height='4.4' rx='2.2' fill='%2312b3a0'/%3E%3Crect x='13' y='33.4' width='22' height='4.4' rx='2.2' fill='%23667'/%3E%3Crect x='11.5' y='5.5' width='5' height='37' rx='2.5' fill='%23667'/%3E%3Crect x='31.5' y='5.5' width='5' height='37' rx='2.5' fill='%23667'/%3E%3C/svg%3E">
+<title>rung — logo concepts</title>
+<style>
+  :root {
+    --paper:#eef3f2; --panel:#ffffff; --panel-2:#f6faf9;
+    --ink:#0e2a29; --muted:#5c7674; --line:#d3e0de;
+    --teal:#0f766e; --signal:#12b3a0; --signal-soft:#7fe6da;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper:#081312; --panel:#0f1e1c; --panel-2:#0b1917;
+      --ink:#dfeceb; --muted:#7fa09d; --line:#1d3230;
+      --teal:#2dd4bf; --signal:#3fe0cc; --signal-soft:#0f766e;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:#081312; --panel:#0f1e1c; --panel-2:#0b1917;
+    --ink:#dfeceb; --muted:#7fa09d; --line:#1d3230;
+    --teal:#2dd4bf; --signal:#3fe0cc; --signal-soft:#0f766e;
+  }
+  :root[data-theme="light"] {
+    --paper:#eef3f2; --panel:#ffffff; --panel-2:#f6faf9;
+    --ink:#0e2a29; --muted:#5c7674; --line:#d3e0de;
+    --teal:#0f766e; --signal:#12b3a0; --signal-soft:#7fe6da;
+  }
+
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--sans); line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width:1000px; margin:0 auto; padding:56px 24px 80px; }
+
+  .eyebrow {
+    font-family:var(--mono); font-size:12px; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--teal); margin:0 0 14px;
+  }
+  h1 { font-size:clamp(30px,5vw,46px); line-height:1.05; margin:0 0 12px; text-wrap:balance; letter-spacing:-.02em; }
+  .lede { max-width:60ch; color:var(--muted); font-size:17px; margin:0 0 8px; }
+  .lede code { font-family:var(--mono); font-size:.9em; color:var(--ink); background:var(--panel-2);
+    padding:.08em .35em; border-radius:5px; border:1px solid var(--line); }
+
+  /* hero */
+  .hero {
+    margin:40px 0 8px; display:flex; align-items:center; gap:34px; flex-wrap:wrap;
+    padding:34px; background:var(--panel); border:1px solid var(--line); border-radius:18px;
+  }
+  .hero .lockup { display:flex; align-items:center; gap:20px; }
+  .wordmark {
+    font-family:var(--mono); font-weight:600; font-size:58px; letter-spacing:-.03em; color:var(--ink);
+  }
+  .hero .tag { font-family:var(--mono); font-size:13px; color:var(--muted); letter-spacing:.01em; }
+
+  .concepts { display:grid; grid-template-columns:1fr; gap:22px; margin-top:36px; }
+  .plate {
+    background:var(--panel); border:1px solid var(--line); border-radius:16px; overflow:hidden;
+    display:grid; grid-template-columns:230px 1fr; }
+  @media (max-width:680px){ .plate{ grid-template-columns:1fr; } }
+
+  .stage {
+    display:flex; align-items:center; justify-content:center;
+    background:var(--panel-2); border-right:1px solid var(--line); padding:30px;
+    background-image:radial-gradient(var(--line) 1px, transparent 1px); background-size:14px 14px;
+  }
+  @media (max-width:680px){ .stage{ border-right:none; border-bottom:1px solid var(--line);} }
+  .meta { padding:24px 26px; }
+  .meta h3 { margin:0 0 4px; font-size:19px; letter-spacing:-.01em; }
+  .meta .kind { font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--teal); margin:0 0 12px; }
+  .meta p { margin:0 0 18px; color:var(--muted); font-size:14.5px; max-width:52ch; }
+
+  .sizes { display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+  .chip { display:flex; align-items:center; gap:9px; }
+  .chip .box { background:var(--panel-2); border:1px solid var(--line); border-radius:7px;
+    display:flex; align-items:center; justify-content:center; }
+  .chip span { font-family:var(--mono); font-size:11px; color:var(--muted); }
+  .lockmini { display:flex; align-items:center; gap:11px; }
+  .lockmini .wm { font-family:var(--mono); font-weight:600; font-size:26px; letter-spacing:-.03em; }
+
+  /* shared mark styles */
+  .rail { fill:var(--ink); }
+  .rung { fill:var(--ink); opacity:.34; }
+  .rung.lit { fill:var(--signal); opacity:1; }
+  .tile-rung { fill:#fff; opacity:.30; }
+  .tile-rung.lit { fill:#fff; opacity:1; }
+
+  .note { margin-top:40px; padding:26px 28px; border:1px solid var(--line); border-radius:14px;
+    background:var(--panel-2); }
+  .note h2 { margin:0 0 12px; font-size:16px; font-family:var(--mono); letter-spacing:.02em; }
+  .note ul { margin:0; padding-left:20px; color:var(--muted); font-size:14.5px; }
+  .note li { margin:6px 0; }
+  .note code { font-family:var(--mono); font-size:.88em; color:var(--ink); }
+
+  @media (prefers-reduced-motion:no-preference){
+    .hero-rung { animation:cycle 4.8s ease-in-out infinite; }
+    .r0{animation-delay:0s}.r1{animation-delay:.5s}.r2{animation-delay:1s}
+    @keyframes cycle {
+      0%,100%{ fill:var(--ink); opacity:.34; }
+      14%,26%{ fill:var(--signal); opacity:1; }
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Identity concepts</p>
+  <h1>A mark for <span style="font-family:var(--mono);letter-spacing:-.03em;">rung</span></h1>
+  <p class="lede">One idea runs through the name, the tagline, and the engine itself: a target is
+    reachable by many <em>rungs</em> at different cost, and you <code>run the cheapest rung that works</code>.
+    Every direction below is a ladder with one rung lit — the winner. All are SVG: ~1&nbsp;KB, crisp at any
+    size, and theme-aware.</p>
+
+  <div class="hero">
+    <div class="lockup">
+      <!-- animated hero: the lit rung climbs, then settles -->
+      <svg width="76" height="76" viewBox="0 0 48 48" role="img" aria-label="rung ladder mark">
+        <rect class="hero-rung r2" x="13" y="10.2" width="22" height="4.4" rx="2.2"/>
+        <rect class="hero-rung r1" x="13" y="21.8" width="22" height="4.4" rx="2.2"/>
+        <rect class="hero-rung r0" x="13" y="33.4" width="22" height="4.4" rx="2.2"/>
+        <rect class="rail" x="11.5" y="5.5" width="5" height="37" rx="2.5"/>
+        <rect class="rail" x="31.5" y="5.5" width="5" height="37" rx="2.5"/>
+      </svg>
+      <div>
+        <div class="wordmark">rung</div>
+        <div class="tag">run the cheapest rung that works</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="concepts">
+
+    <!-- Concept 1 -->
+    <div class="plate">
+      <div class="stage">
+        <svg width="120" height="120" viewBox="0 0 48 48" role="img" aria-label="Ladder mark">
+          <rect class="rung"     x="13" y="10.2" width="22" height="4.4" rx="2.2"/>
+          <rect class="rung lit" x="13" y="21.8" width="22" height="4.4" rx="2.2"/>
+          <rect class="rung"     x="13" y="33.4" width="22" height="4.4" rx="2.2"/>
+          <rect class="rail" x="11.5" y="5.5" width="5" height="37" rx="2.5"/>
+          <rect class="rail" x="31.5" y="5.5" width="5" height="37" rx="2.5"/>
+        </svg>
+      </div>
+      <div class="meta">
+        <p class="kind">01 · Ladder</p>
+        <h3>The literal ladder</h3>
+        <p>Two rails, three rungs, the middle one lit in signal-teal. The most direct reading of the
+          name — unmistakable, and it holds together down to 16&nbsp;px. The safe, confident default.</p>
+        <div class="sizes">
+          <div class="chip"><div class="box" style="width:32px;height:32px">
+            <svg width="24" height="24" viewBox="0 0 48 48">
+              <rect class="rung" x="13" y="10.2" width="22" height="4.4" rx="2.2"/>
+              <rect class="rung lit" x="13" y="21.8" width="22" height="4.4" rx="2.2"/>
+              <rect class="rung" x="13" y="33.4" width="22" height="4.4" rx="2.2"/>
+              <rect class="rail" x="11.5" y="5.5" width="5" height="37" rx="2.5"/>
+              <rect class="rail" x="31.5" y="5.5" width="5" height="37" rx="2.5"/>
+            </svg></div><span>32</span></div>
+          <div class="chip"><div class="box" style="width:16px;height:16px">
+            <svg width="14" height="14" viewBox="0 0 48 48">
+              <rect class="rung" x="13" y="10.2" width="22" height="4.4" rx="2.2"/>
+              <rect class="rung lit" x="13" y="21.8" width="22" height="4.4" rx="2.2"/>
+              <rect class="rung" x="13" y="33.4" width="22" height="4.4" rx="2.2"/>
+              <rect class="rail" x="11.5" y="5.5" width="5" height="37" rx="2.5"/>
+              <rect class="rail" x="31.5" y="5.5" width="5" height="37" rx="2.5"/>
+            </svg></div><span>16</span></div>
+          <div class="lockmini">
+            <svg width="30" height="30" viewBox="0 0 48 48">
+              <rect class="rung" x="13" y="10.2" width="22" height="4.4" rx="2.2"/>
+              <rect class="rung lit" x="13" y="21.8" width="22" height="4.4" rx="2.2"/>
+              <rect class="rung" x="13" y="33.4" width="22" height="4.4" rx="2.2"/>
+              <rect class="rail" x="11.5" y="5.5" width="5" height="37" rx="2.5"/>
+              <rect class="rail" x="31.5" y="5.5" width="5" height="37" rx="2.5"/>
+            </svg>
+            <span class="wm">rung</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concept 2 -->
+    <div class="plate">
+      <div class="stage">
+        <svg width="120" height="120" viewBox="0 0 48 48" role="img" aria-label="Ascending rungs mark">
+          <rect class="rung"     x="7"  y="33.4" width="20" height="4.6" rx="2.3"/>
+          <rect class="rung lit" x="12" y="24.4" width="20" height="4.6" rx="2.3"/>
+          <rect class="rung"     x="17" y="15.4" width="20" height="4.6" rx="2.3"/>
+          <rect class="rung"     x="22" y="6.4"  width="20" height="4.6" rx="2.3"/>
+        </svg>
+      </div>
+      <div class="meta">
+        <p class="kind">02 · Ascent</p>
+        <h3>Ascending rungs</h3>
+        <p>Drop the rails; keep the rungs as a rightward climb — part ladder, part bar-chart, part
+          signal-strength. Leans into the <em>cost-ranked</em> idea (each rung a tier) and feels more
+          like data/measurement. The most distinctive, least literal.</p>
+        <div class="sizes">
+          <div class="chip"><div class="box" style="width:32px;height:32px">
+            <svg width="24" height="24" viewBox="0 0 48 48">
+              <rect class="rung" x="7" y="33.4" width="20" height="4.6" rx="2.3"/>
+              <rect class="rung lit" x="12" y="24.4" width="20" height="4.6" rx="2.3"/>
+              <rect class="rung" x="17" y="15.4" width="20" height="4.6" rx="2.3"/>
+              <rect class="rung" x="22" y="6.4" width="20" height="4.6" rx="2.3"/>
+            </svg></div><span>32</span></div>
+          <div class="chip"><div class="box" style="width:16px;height:16px">
+            <svg width="14" height="14" viewBox="0 0 48 48">
+              <rect class="rung" x="7" y="33.4" width="20" height="4.6" rx="2.3"/>
+              <rect class="rung lit" x="12" y="24.4" width="20" height="4.6" rx="2.3"/>
+              <rect class="rung" x="17" y="15.4" width="20" height="4.6" rx="2.3"/>
+              <rect class="rung" x="22" y="6.4" width="20" height="4.6" rx="2.3"/>
+            </svg></div><span>16</span></div>
+          <div class="lockmini">
+            <svg width="30" height="30" viewBox="0 0 48 48">
+              <rect class="rung" x="7" y="33.4" width="20" height="4.6" rx="2.3"/>
+              <rect class="rung lit" x="12" y="24.4" width="20" height="4.6" rx="2.3"/>
+              <rect class="rung" x="17" y="15.4" width="20" height="4.6" rx="2.3"/>
+              <rect class="rung" x="22" y="6.4" width="20" height="4.6" rx="2.3"/>
+            </svg>
+            <span class="wm">rung</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concept 3 -->
+    <div class="plate">
+      <div class="stage">
+        <svg width="120" height="120" viewBox="0 0 48 48" role="img" aria-label="App-tile mark">
+          <defs>
+            <linearGradient id="tileg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="var(--teal)"/>
+              <stop offset="1" stop-color="var(--signal-soft)"/>
+            </linearGradient>
+          </defs>
+          <rect x="3" y="3" width="42" height="42" rx="11" fill="url(#tileg)"/>
+          <rect class="tile-rung"     x="15" y="12.5" width="18" height="3.8" rx="1.9"/>
+          <rect class="tile-rung lit" x="15" y="22.1" width="18" height="3.8" rx="1.9"/>
+          <rect class="tile-rung"     x="15" y="31.7" width="18" height="3.8" rx="1.9"/>
+          <rect x="18.5" y="7.5" width="3.4" height="33" rx="1.7" fill="#fff" opacity=".9"/>
+          <rect x="26.1" y="7.5" width="3.4" height="33" rx="1.7" fill="#fff" opacity=".9"/>
+        </svg>
+      </div>
+      <div class="meta">
+        <p class="kind">03 · Tile</p>
+        <h3>App-tile monogram</h3>
+        <p>The ladder in negative space on a teal tile — the strongest favicon / social-avatar / GitHub
+          org form, where a filled shape reads better than thin strokes. Pairs with concept 01 or 02 as
+          the "container" variant of the same mark.</p>
+        <div class="sizes">
+          <div class="chip"><div class="box" style="width:32px;height:32px;border:none;background:transparent">
+            <svg width="32" height="32" viewBox="0 0 48 48">
+              <rect x="3" y="3" width="42" height="42" rx="11" fill="url(#tileg)"/>
+              <rect class="tile-rung" x="15" y="12.5" width="18" height="3.8" rx="1.9"/>
+              <rect class="tile-rung lit" x="15" y="22.1" width="18" height="3.8" rx="1.9"/>
+              <rect class="tile-rung" x="15" y="31.7" width="18" height="3.8" rx="1.9"/>
+              <rect x="18.5" y="7.5" width="3.4" height="33" rx="1.7" fill="#fff" opacity=".9"/>
+              <rect x="26.1" y="7.5" width="3.4" height="33" rx="1.7" fill="#fff" opacity=".9"/>
+            </svg></div><span>32</span></div>
+          <div class="chip"><div class="box" style="width:16px;height:16px;border:none;background:transparent">
+            <svg width="16" height="16" viewBox="0 0 48 48">
+              <rect x="3" y="3" width="42" height="42" rx="11" fill="url(#tileg)"/>
+              <rect class="tile-rung" x="15" y="12.5" width="18" height="3.8" rx="1.9"/>
+              <rect class="tile-rung lit" x="15" y="22.1" width="18" height="3.8" rx="1.9"/>
+              <rect class="tile-rung" x="15" y="31.7" width="18" height="3.8" rx="1.9"/>
+              <rect x="18.5" y="7.5" width="3.4" height="33" rx="1.7" fill="#fff" opacity=".9"/>
+              <rect x="26.1" y="7.5" width="3.4" height="33" rx="1.7" fill="#fff" opacity=".9"/>
+            </svg></div><span>16</span></div>
+          <div class="lockmini">
+            <svg width="30" height="30" viewBox="0 0 48 48">
+              <rect x="3" y="3" width="42" height="42" rx="11" fill="url(#tileg)"/>
+              <rect class="tile-rung" x="15" y="12.5" width="18" height="3.8" rx="1.9"/>
+              <rect class="tile-rung lit" x="15" y="22.1" width="18" height="3.8" rx="1.9"/>
+              <rect class="tile-rung" x="15" y="31.7" width="18" height="3.8" rx="1.9"/>
+              <rect x="18.5" y="7.5" width="3.4" height="33" rx="1.7" fill="#fff" opacity=".9"/>
+              <rect x="26.1" y="7.5" width="3.4" height="33" rx="1.7" fill="#fff" opacity=".9"/>
+            </svg>
+            <span class="wm">rung</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="note">
+    <h2>// on getting a logo for rung</h2>
+    <ul>
+      <li>No logo-generator <em>skill or plugin</em> is wired into this environment, and I can't render
+        raster art — but SVG is the better format for a dev tool anyway (vector, ~1&nbsp;KB, theme-able).</li>
+      <li>These are hand-authored SVG. The wordmark is set in a monospace stack to echo that <code>rung</code>
+        is a CLI command; a shipped identity would draw or license a specific face.</li>
+      <li>Any of these drops into the slots already left in <code>mkdocs.yml</code> (<code>theme.logo</code> /
+        <code>theme.favicon</code>), the README, and a <code>favicon.svg</code>.</li>
+      <li>Tell me a direction (or a color / vibe shift) and I'll refine the winner into finished
+        <code>logo.svg</code> + <code>favicon.svg</code> files and wire them into the docs site.</li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>
