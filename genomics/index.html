@@ -679,7 +679,7 @@
           <div class="stat-note">of 29 genome assemblies; sequence only, no gene models published</div>
         </div>
         <div class="gap-tile">
-          <div class="stat-value">154</div>
+          <div class="stat-value">146</div>
           <div class="stat-label">BioProjects with no traceable paper</div>
           <div class="stat-note">no local citation, no elink, no PMC full-text hit -- a lower bound on unpublished data, not a claim that no paper exists</div>
         </div>
@@ -1723,9 +1723,9 @@
 
     <details class="section">
       <summary><h2>Publication coverage</h2></summary>
-      <p class="section-note">Which NCBI BioProjects have a known paper, found local-first (CannabisGDB citations, GigaDB BioProject cross-refs), then NCBI's elink (dbfrom=bioproject → db=pubmed, computed links), then a <b>PMC full-text search</b> for the accession string itself -- one row per paper (a BioProject can have more than one), newest first; undated papers (GigaDB citations carry no year) sort last. The PMC step matters: elink's computed links have real, confirmed gaps -- e.g. Cannbio-2's BioProject (PRJNA667278) is explicitly named in its own paper's Data Availability text, yet elink finds nothing in *either* direction (bioproject→pubmed or pubmed→bioproject). PubMed itself only indexes title/abstract (a plain search for the accession finds nothing there), but PMC indexes full text -- searching it directly for each BioProject accession recovered <b>72 additional BioProjects</b> that neither local signals nor elink had caught, taking coverage from 21% to 46%. Still a <b>lower bound</b>, not a true rate -- a BioProject with no hit here may still have a paper that isn't open-access in PMC, or doesn't use PMC's indexed accession format. Deliberately does NOT use SRA runinfo's own <code>Study_Pubmed_id</code> column -- verified it's corrupted (its two values resolve to unrelated 1975 biochemistry papers). Where a BioProject has more than one paper, <span class="badge badge-good" style="margin-right:2px;">deposit</span> flags the one most likely to describe the original deposit (closest to when the data first appeared) vs. <span class="badge badge-muted" style="margin-right:2px;">reuse</span> for later papers that just used already-public data -- a heuristic, not a fact. "First appeared" deliberately isn't just BioProject <code>registration_date</code>: that field can reflect a later re-curation rather than the true original submission (PRJNA73819's reads 2018, seven years after van Bakel et al.'s actual 2011 genome project), so this takes whichever is earlier, that date or the earliest linked SRA run's release date.</p>
+      <p class="section-note">Which NCBI BioProjects have a known paper, found local-first (CannabisGDB citations, GigaDB BioProject cross-refs), then NCBI's elink (dbfrom=bioproject → db=pubmed, computed links), then a <b>PMC full-text search</b> for the accession string itself -- one row per paper (a BioProject can have more than one), newest first; undated papers (GigaDB citations carry no year) sort last. The PMC step matters: elink's computed links have real, confirmed gaps -- e.g. Cannbio-2's BioProject (PRJNA667278) is explicitly named in its own paper's Data Availability text, yet elink finds nothing in *either* direction (bioproject→pubmed or pubmed→bioproject). PubMed itself only indexes title/abstract (a plain search for the accession finds nothing there), but PMC indexes full text -- searching it directly for each BioProject accession recovered <b>72 additional BioProjects</b> that neither local signals nor elink had caught, taking coverage from 24% to 49%. Still a <b>lower bound</b>, not a true rate -- a BioProject with no hit here may still have a paper that isn't open-access in PMC, or doesn't use PMC's indexed accession format. Deliberately does NOT use SRA runinfo's own <code>Study_Pubmed_id</code> column -- verified it's corrupted (its two values resolve to unrelated 1975 biochemistry papers). Where a BioProject has more than one paper, <span class="badge badge-good" style="margin-right:2px;">deposit</span> flags the one most likely to describe the original deposit (closest to when the data first appeared) vs. <span class="badge badge-muted" style="margin-right:2px;">reuse</span> for later papers that just used already-public data -- a heuristic, not a fact. "First appeared" deliberately isn't just BioProject <code>registration_date</code>: that field can reflect a later re-curation rather than the true original submission (PRJNA73819's reads 2018, seven years after van Bakel et al.'s actual 2011 genome project), so this takes whichever is earlier, that date or the earliest linked SRA run's release date.</p>
       <div class="callout">
-        <b>131/285</b> BioProjects (46%) have at least one known paper -- but that covers <b>69%</b> of all SRA runs, since the BioProjects found this way tend to be the larger, more actively-reused ones. The rest (154) are data-only as far as we can tell -- not necessarily unpublished, just not traceably linked -- but every one of them still has a recorded owner in the table above, so provenance isn't lost even without a citation.
+        <b>139/285</b> BioProjects (49%) have at least one known paper -- but that covers <b>71%</b> of all SRA runs, since the BioProjects found this way tend to be the larger, more actively-reused ones. The rest (146) are data-only as far as we can tell -- not necessarily unpublished, just not traceably linked -- but every one of them still has a recorded owner in the table above, so provenance isn't lost even without a citation.
       </div>
       <div class="filter-bar"><input class="js-filter" type="search" data-target="tbl-publications" placeholder="Filter papers: title, accession, source…" aria-label="Filter papers"><span class="filter-count" id="tbl-publications-count"></span></div>
         <div class="table-scroll" style="margin-top:16px;">
@@ -1826,6 +1826,13 @@
         <tr>
           <td class="num">2026</td>
           <td><span class="badge badge-good">deposit</span></td>
+          <td>Transcriptomic analysis of fatty acid and cannabinoid synthases in an S1 cannabis progeny segregating for propyl cannabinoid biosynthesis</td>
+          <td class="source-name">PRJNA1283162</td>
+          <td class="cell-note" style="margin:0;max-width:none;">local:title_match</td>
+        </tr>
+        <tr>
+          <td class="num">2026</td>
+          <td><span class="badge badge-good">deposit</span></td>
           <td>Transcriptome assemblies for two drug-type cannabis chemotypes by long-read RNA sequencing.</td>
           <td class="source-name">PRJEB90527</td>
           <td class="cell-note" style="margin:0;max-width:none;">pmc_fulltext</td>
@@ -1854,9 +1861,23 @@
         <tr>
           <td class="num">2026</td>
           <td><span class="badge badge-good">deposit</span></td>
+          <td>Transcriptomic insights into unisexual flower development in Cannabis sativa: conserved MADS-box networks and divergent developmental programs</td>
+          <td class="source-name">PRJNA1258950</td>
+          <td class="cell-note" style="margin:0;max-width:none;">local:title_match</td>
+        </tr>
+        <tr>
+          <td class="num">2026</td>
+          <td><span class="badge badge-good">deposit</span></td>
           <td>Dual RNA sequencing reveals the transcriptomic and cellular response of Cannabis sativa to infection by the fungal pathogen Sclerotinia sclerotiorum.</td>
           <td class="source-name">PRJNA1199007</td>
           <td class="cell-note" style="margin:0;max-width:none;">elink</td>
+        </tr>
+        <tr>
+          <td class="num">2026</td>
+          <td><span class="badge badge-good">deposit</span></td>
+          <td>Manipulating the Gibberellin Pathway Alters Harvest Index and Cannabinoid Content in Cannabis sativa L</td>
+          <td class="source-name">PRJNA1195153</td>
+          <td class="cell-note" style="margin:0;max-width:none;">local:title_match</td>
         </tr>
         <tr>
           <td class="num">2026</td>
@@ -2032,6 +2053,13 @@
           <td>Defining the cultured and uncultured bacterial fractions in Cannabis seeds.</td>
           <td class="source-name">PRJEB83654</td>
           <td class="cell-note" style="margin:0;max-width:none;">pmc_fulltext</td>
+        </tr>
+        <tr>
+          <td class="num">2025</td>
+          <td><span class="badge badge-good">deposit</span></td>
+          <td>Transcriptomic analysis of CDL-gated photoperiodic flowering mechanisms in cannabis and their responsiveness to R: FR ratios in controlled environment agriculture</td>
+          <td class="source-name">PRJNA1201650</td>
+          <td class="cell-note" style="margin:0;max-width:none;">local:title_match</td>
         </tr>
         <tr>
           <td class="num">2025</td>
@@ -2470,6 +2498,13 @@
         <tr>
           <td class="num">2024</td>
           <td><span class="badge badge-good">deposit</span></td>
+          <td>The development of a next-generation sequencing panel targeting cannabinoid synthase genes to distinguish between marijuana and hemp</td>
+          <td class="source-name">PRJNA1028126</td>
+          <td class="cell-note" style="margin:0;max-width:none;">local:title_match</td>
+        </tr>
+        <tr>
+          <td class="num">2024</td>
+          <td><span class="badge badge-good">deposit</span></td>
           <td>Chromosome-level Haploid Assembly of Cannabis sativa L. cv. Pink Pepper.</td>
           <td class="source-name">PRJNA890313</td>
           <td class="cell-note" style="margin:0;max-width:none;">sra_child_accession</td>
@@ -2741,6 +2776,13 @@
           <td class="cell-note" style="margin:0;max-width:none;">elink;local:cannabisgdb;local:gigadb;pmc_fulltext</td>
         </tr>
         <tr>
+          <td class="num">2023</td>
+          <td><span class="badge badge-good">deposit</span></td>
+          <td>Estimating the bias related to DNA recovery from hemp stems for retting microbial community investigation</td>
+          <td class="source-name">PRJNA911961</td>
+          <td class="cell-note" style="margin:0;max-width:none;">local:title_match</td>
+        </tr>
+        <tr>
           <td class="num">2022</td>
           <td><span class="badge badge-good">deposit</span></td>
           <td>Genetic Variants Associated with Long-Terminal Repeats Can Diagnostically Classify Cannabis Varieties.</td>
@@ -2753,6 +2795,13 @@
           <td>Genome-wide polymorphism and genic selection in feral and domesticated lineages of Cannabis sativa.</td>
           <td class="source-name">PRJNA866500</td>
           <td class="cell-note" style="margin:0;max-width:none;">pmc_fulltext</td>
+        </tr>
+        <tr>
+          <td class="num">2022</td>
+          <td><span class="badge badge-good">deposit</span></td>
+          <td>Chemical and genetic variation in feral Cannabis sativa populations across the Nebraska climate gradient</td>
+          <td class="source-name">PRJNA762106</td>
+          <td class="cell-note" style="margin:0;max-width:none;">local:title_match</td>
         </tr>
         <tr>
           <td class="num">2022</td>
@@ -3148,6 +3197,13 @@
         </tr>
         <tr>
           <td class="num">2019</td>
+          <td><span class="badge badge-good">deposit</span></td>
+          <td>Impact of jasmonic acid on lignification in the hemp hypocotyl</td>
+          <td class="source-name">PRJNA436945</td>
+          <td class="cell-note" style="margin:0;max-width:none;">local:title_match</td>
+        </tr>
+        <tr>
+          <td class="num">2019</td>
           <td><span class="badge badge-muted">reuse</span></td>
           <td>De novo transcriptome assembly of textile hemp from datasets on hypocotyls and adult plants.</td>
           <td class="source-name">PRJNA435671</td>
@@ -3488,12 +3544,6 @@
           <td class="num"><b>2</b></td>
         </tr>
         <tr>
-          <td class="source-name">Southern Cross University</td>
-          <td class="num">2</td>
-          <td class="num">—</td>
-          <td class="num"><b>2</b></td>
-        </tr>
-        <tr>
           <td class="source-name">Laval University</td>
           <td class="num">2</td>
           <td class="num">—</td>
@@ -3518,22 +3568,28 @@
           <td class="num"><b>2</b></td>
         </tr>
         <tr>
-          <td class="source-name">IMT Mines Ales</td>
-          <td class="num">2</td>
-          <td class="num">—</td>
-          <td class="num"><b>2</b></td>
-        </tr>
-        <tr>
           <td class="source-name">Center for Edaphology and Applied Biology of the Segura River (CSIC)</td>
           <td class="num">1</td>
           <td class="num">—</td>
           <td class="num"><b>1</b></td>
         </tr>
         <tr>
-          <td class="source-name">Other (59 owners)</td>
-          <td class="num">58</td>
+          <td class="source-name">Institute of Bast Fiber Crops, Chinese Academy of Agricultural Sciences</td>
           <td class="num">1</td>
-          <td class="num"><b>59</b></td>
+          <td class="num">—</td>
+          <td class="num"><b>1</b></td>
+        </tr>
+        <tr>
+          <td class="source-name">Northeast Agricultural University</td>
+          <td class="num">1</td>
+          <td class="num">—</td>
+          <td class="num"><b>1</b></td>
+        </tr>
+        <tr>
+          <td class="source-name">Other (53 owners)</td>
+          <td class="num">52</td>
+          <td class="num">1</td>
+          <td class="num"><b>53</b></td>
         </tr></tbody>
         </table>
       </div>
@@ -3811,7 +3867,7 @@
         <tr>
           <td class="source-name">PRJNA762106 </td>
           <td>University of Nebraska - Lincoln</td>
-          <td><span class="badge badge-muted">—</span></td>
+          <td><span class="badge badge-good">yes</span></td>
           <td class="num">—</td>
           <td class="num">28</td>
           <td class="num">1.9B</td>
@@ -4567,7 +4623,7 @@
         <tr>
           <td class="source-name">PRJNA1195153 </td>
           <td>Southern Cross University</td>
-          <td><span class="badge badge-muted">—</span></td>
+          <td><span class="badge badge-good">yes</span></td>
           <td class="num">—</td>
           <td class="num">24</td>
           <td class="num">708.4M</td>
@@ -4723,7 +4779,7 @@
         <tr>
           <td class="source-name">PRJNA1201650 </td>
           <td>University of Connecticut</td>
-          <td><span class="badge badge-muted">—</span></td>
+          <td><span class="badge badge-good">yes</span></td>
           <td class="num">—</td>
           <td class="num">8</td>
           <td class="num">283.9M</td>
@@ -4855,7 +4911,7 @@
         <tr>
           <td class="source-name">PRJNA1283162 </td>
           <td>CRI, DPI, University of Illinois Systems</td>
-          <td><span class="badge badge-muted">—</span></td>
+          <td><span class="badge badge-good">yes</span></td>
           <td class="num">—</td>
           <td class="num">6</td>
           <td class="num">216.9M</td>
@@ -4927,7 +4983,7 @@
         <tr>
           <td class="source-name">PRJNA1258950 </td>
           <td>Hebrew University of Jerusalem</td>
-          <td><span class="badge badge-muted">—</span></td>
+          <td><span class="badge badge-good">yes</span></td>
           <td class="num">—</td>
           <td class="num">10</td>
           <td class="num">189.4M</td>
@@ -4999,7 +5055,7 @@
         <tr>
           <td class="source-name">PRJNA1028126 </td>
           <td>Sam Houston State University</td>
-          <td><span class="badge badge-muted">—</span></td>
+          <td><span class="badge badge-good">yes</span></td>
           <td class="num">—</td>
           <td class="num">156</td>
           <td class="num">69.4M</td>
@@ -5143,7 +5199,7 @@
         <tr>
           <td class="source-name">PRJNA436945 </td>
           <td>Luxembourg Institute of Science and Technology</td>
-          <td><span class="badge badge-muted">—</span></td>
+          <td><span class="badge badge-good">yes</span></td>
           <td class="num">—</td>
           <td class="num">72</td>
           <td class="num">152.4M</td>
@@ -7075,7 +7131,7 @@
         <tr>
           <td class="source-name">PRJNA911961 </td>
           <td>IMT Mines Ales</td>
-          <td><span class="badge badge-muted">—</span></td>
+          <td><span class="badge badge-good">yes</span></td>
           <td class="num">—</td>
           <td class="num">—</td>
           <td class="num">—</td>
