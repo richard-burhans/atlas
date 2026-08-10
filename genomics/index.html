@@ -679,7 +679,7 @@
           <div class="stat-note">of 29 genome assemblies; sequence only, no gene models published</div>
         </div>
         <div class="gap-tile">
-          <div class="stat-value">161</div>
+          <div class="stat-value">152</div>
           <div class="stat-label">BioProjects with no traceable paper</div>
           <div class="stat-note">no local citation, no elink, no PMC full-text hit -- a lower bound on unpublished data, not a claim that no paper exists</div>
         </div>
@@ -1534,9 +1534,9 @@
 
     <details class="section">
       <summary><h2>Publication coverage</h2></summary>
-      <p class="section-note">Which NCBI BioProjects have a known paper, found local-first (CannabisGDB citations, GigaDB BioProject cross-refs), then NCBI's elink (dbfrom=bioproject → db=pubmed, computed links), then a <b>PMC full-text search</b> for the accession string itself -- one row per paper (a BioProject can have more than one), newest first; undated papers (GigaDB citations carry no year) sort last. The PMC step matters: elink's computed links have real, confirmed gaps -- e.g. Cannbio-2's BioProject (PRJNA667278) is explicitly named in its own paper's Data Availability text, yet elink finds nothing in *either* direction (bioproject→pubmed or pubmed→bioproject). PubMed itself only indexes title/abstract (a plain search for the accession finds nothing there), but PMC indexes full text -- searching it directly for each BioProject accession recovered <b>71 additional BioProjects</b> that neither local signals nor elink had caught, taking coverage from 18% to 43%. Still a <b>lower bound</b>, not a true rate -- a BioProject with no hit here may still have a paper that isn't open-access in PMC, or doesn't use PMC's indexed accession format. Deliberately does NOT use SRA runinfo's own <code>Study_Pubmed_id</code> column -- verified it's corrupted (its two values resolve to unrelated 1975 biochemistry papers). Where a BioProject has more than one paper, <span class="badge badge-good" style="margin-right:2px;">deposit</span> flags the one most likely to describe the original deposit (closest to when the data first appeared) vs. <span class="badge badge-muted" style="margin-right:2px;">reuse</span> for later papers that just used already-public data -- a heuristic, not a fact. "First appeared" deliberately isn't just BioProject <code>registration_date</code>: that field can reflect a later re-curation rather than the true original submission (PRJNA73819's reads 2018, seven years after van Bakel et al.'s actual 2011 genome project), so this takes whichever is earlier, that date or the earliest linked SRA run's release date.</p>
+      <p class="section-note">Which NCBI BioProjects have a known paper, found local-first (CannabisGDB citations, GigaDB BioProject cross-refs), then NCBI's elink (dbfrom=bioproject → db=pubmed, computed links), then a <b>PMC full-text search</b> for the accession string itself -- one row per paper (a BioProject can have more than one), newest first; undated papers (GigaDB citations carry no year) sort last. The PMC step matters: elink's computed links have real, confirmed gaps -- e.g. Cannbio-2's BioProject (PRJNA667278) is explicitly named in its own paper's Data Availability text, yet elink finds nothing in *either* direction (bioproject→pubmed or pubmed→bioproject). PubMed itself only indexes title/abstract (a plain search for the accession finds nothing there), but PMC indexes full text -- searching it directly for each BioProject accession recovered <b>71 additional BioProjects</b> that neither local signals nor elink had caught, taking coverage from 21% to 46%. Still a <b>lower bound</b>, not a true rate -- a BioProject with no hit here may still have a paper that isn't open-access in PMC, or doesn't use PMC's indexed accession format. Deliberately does NOT use SRA runinfo's own <code>Study_Pubmed_id</code> column -- verified it's corrupted (its two values resolve to unrelated 1975 biochemistry papers). Where a BioProject has more than one paper, <span class="badge badge-good" style="margin-right:2px;">deposit</span> flags the one most likely to describe the original deposit (closest to when the data first appeared) vs. <span class="badge badge-muted" style="margin-right:2px;">reuse</span> for later papers that just used already-public data -- a heuristic, not a fact. "First appeared" deliberately isn't just BioProject <code>registration_date</code>: that field can reflect a later re-curation rather than the true original submission (PRJNA73819's reads 2018, seven years after van Bakel et al.'s actual 2011 genome project), so this takes whichever is earlier, that date or the earliest linked SRA run's release date.</p>
       <div class="callout">
-        <b>121/282</b> BioProjects (43%) have at least one known paper -- but that covers <b>69%</b> of all SRA runs, since the BioProjects found this way tend to be the larger, more actively-reused ones. The rest (161) are data-only as far as we can tell -- not necessarily unpublished, just not traceably linked -- but every one of them still has a recorded owner in the table above, so provenance isn't lost even without a citation.
+        <b>130/282</b> BioProjects (46%) have at least one known paper -- but that covers <b>69%</b> of all SRA runs, since the BioProjects found this way tend to be the larger, more actively-reused ones. The rest (152) are data-only as far as we can tell -- not necessarily unpublished, just not traceably linked -- but every one of them still has a recorded owner in the table above, so provenance isn't lost even without a citation.
       </div>
       <div class="filter-bar"><input class="js-filter" type="search" data-target="tbl-publications" placeholder="Filter papers: title, accession, source…" aria-label="Filter papers"><span class="filter-count" id="tbl-publications-count"></span></div>
         <div class="table-scroll" style="margin-top:16px;">
@@ -1549,6 +1549,62 @@
           <td>An X-linked sex determination mechanism in cannabis and hop.</td>
           <td class="source-name">PRJNA1437418</td>
           <td class="cell-note" style="margin:0;max-width:none;">pmc_fulltext</td>
+        </tr>
+        <tr>
+          <td class="num">2026</td>
+          <td><span class="badge badge-good">deposit</span></td>
+          <td>An X-linked sex determination mechanism in cannabis and hop</td>
+          <td class="source-name">PRJNA1425619</td>
+          <td class="cell-note" style="margin:0;max-width:none;">local:paper_suppl</td>
+        </tr>
+        <tr>
+          <td class="num">2026</td>
+          <td><span class="badge badge-good">deposit</span></td>
+          <td>An X-linked sex determination mechanism in cannabis and hop</td>
+          <td class="source-name">PRJNA1425618</td>
+          <td class="cell-note" style="margin:0;max-width:none;">local:paper_suppl</td>
+        </tr>
+        <tr>
+          <td class="num">2026</td>
+          <td><span class="badge badge-good">deposit</span></td>
+          <td>An X-linked sex determination mechanism in cannabis and hop</td>
+          <td class="source-name">PRJNA1425617</td>
+          <td class="cell-note" style="margin:0;max-width:none;">local:paper_suppl</td>
+        </tr>
+        <tr>
+          <td class="num">2026</td>
+          <td><span class="badge badge-good">deposit</span></td>
+          <td>An X-linked sex determination mechanism in cannabis and hop</td>
+          <td class="source-name">PRJNA1425616</td>
+          <td class="cell-note" style="margin:0;max-width:none;">local:paper_suppl</td>
+        </tr>
+        <tr>
+          <td class="num">2026</td>
+          <td><span class="badge badge-good">deposit</span></td>
+          <td>An X-linked sex determination mechanism in cannabis and hop</td>
+          <td class="source-name">PRJNA1425614</td>
+          <td class="cell-note" style="margin:0;max-width:none;">local:paper_suppl</td>
+        </tr>
+        <tr>
+          <td class="num">2026</td>
+          <td><span class="badge badge-good">deposit</span></td>
+          <td>An X-linked sex determination mechanism in cannabis and hop</td>
+          <td class="source-name">PRJNA1425613</td>
+          <td class="cell-note" style="margin:0;max-width:none;">local:paper_suppl</td>
+        </tr>
+        <tr>
+          <td class="num">2026</td>
+          <td><span class="badge badge-good">deposit</span></td>
+          <td>An X-linked sex determination mechanism in cannabis and hop</td>
+          <td class="source-name">PRJNA1425611</td>
+          <td class="cell-note" style="margin:0;max-width:none;">local:paper_suppl</td>
+        </tr>
+        <tr>
+          <td class="num">2026</td>
+          <td><span class="badge badge-good">deposit</span></td>
+          <td>An X-linked sex determination mechanism in cannabis and hop</td>
+          <td class="source-name">PRJNA1425610</td>
+          <td class="cell-note" style="margin:0;max-width:none;">local:paper_suppl</td>
         </tr>
         <tr>
           <td class="num">2026</td>
@@ -1703,6 +1759,13 @@
           <td>Transcriptomic dissection of floral identity and trichome-derived metabolite pathways in Cannabis sativa L.</td>
           <td class="source-name">PRJNA756306</td>
           <td class="cell-note" style="margin:0;max-width:none;">sra_child_accession</td>
+        </tr>
+        <tr>
+          <td class="num">2026</td>
+          <td><span class="badge badge-good">deposit</span></td>
+          <td>An X-linked sex determination mechanism in cannabis and hop</td>
+          <td class="source-name">PRJNA661342</td>
+          <td class="cell-note" style="margin:0;max-width:none;">local:paper_suppl</td>
         </tr>
         <tr>
           <td class="num">2026</td>
@@ -3076,14 +3139,6 @@
         </div>
 
         <div class="bar-row">
-          <div class="bar-label">HudsonAlpha Institute for Biotechnology</div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width:40.0%"></div>
-          </div>
-          <div class="bar-value">8</div>
-        </div>
-
-        <div class="bar-row">
           <div class="bar-label">Institute of Medicinal Plant Development, Chinese Academy of Medical Sciences, Peking Union Medical</div>
           <div class="bar-track">
             <div class="bar-fill" style="width:25.0%"></div>
@@ -3138,6 +3193,14 @@
           </div>
           <div class="bar-value">2</div>
         </div>
+
+        <div class="bar-row">
+          <div class="bar-label">Yunnan University</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:10.0%"></div>
+          </div>
+          <div class="bar-value">2</div>
+        </div>
       </div>
       <div class="table-scroll" style="margin-top:16px;">
         <table>
@@ -3166,12 +3229,6 @@
           <td class="num">9</td>
           <td class="num">—</td>
           <td class="num"><b>9</b></td>
-        </tr>
-        <tr>
-          <td class="source-name">HudsonAlpha Institute for Biotechnology</td>
-          <td class="num">8</td>
-          <td class="num">—</td>
-          <td class="num"><b>8</b></td>
         </tr>
         <tr>
           <td class="source-name">Institute of Medicinal Plant Development, Chinese Academy of Medical Sciences, Peking Union Medical</td>
@@ -3264,10 +3321,16 @@
           <td class="num"><b>1</b></td>
         </tr>
         <tr>
-          <td class="source-name">Other (60 owners)</td>
-          <td class="num">59</td>
+          <td class="source-name">Institute of Bast Fiber Crops, Chinese Academy of Agricultural Sciences</td>
           <td class="num">1</td>
-          <td class="num"><b>60</b></td>
+          <td class="num">—</td>
+          <td class="num"><b>1</b></td>
+        </tr>
+        <tr>
+          <td class="source-name">Other (58 owners)</td>
+          <td class="num">57</td>
+          <td class="num">1</td>
+          <td class="num"><b>58</b></td>
         </tr></tbody>
         </table>
       </div>
@@ -4685,7 +4748,7 @@
         <tr>
           <td class="source-name">PRJNA661342 </td>
           <td>China Academy of Chinese Medical Sciences</td>
-          <td><span class="badge badge-muted">—</span></td>
+          <td><span class="badge badge-good">yes</span></td>
           <td class="num">—</td>
           <td class="num">9</td>
           <td class="num">116.6M</td>
@@ -5681,7 +5744,7 @@
         <tr>
           <td class="source-name">PRJNA1425619 </td>
           <td>HudsonAlpha Institute for Biotechnology</td>
-          <td><span class="badge badge-muted">—</span></td>
+          <td><span class="badge badge-good">yes</span></td>
           <td class="num">—</td>
           <td class="num">—</td>
           <td class="num">—</td>
@@ -5693,7 +5756,7 @@
         <tr>
           <td class="source-name">PRJNA1425618 </td>
           <td>HudsonAlpha Institute for Biotechnology</td>
-          <td><span class="badge badge-muted">—</span></td>
+          <td><span class="badge badge-good">yes</span></td>
           <td class="num">—</td>
           <td class="num">—</td>
           <td class="num">—</td>
@@ -5705,7 +5768,7 @@
         <tr>
           <td class="source-name">PRJNA1425617 </td>
           <td>HudsonAlpha Institute for Biotechnology</td>
-          <td><span class="badge badge-muted">—</span></td>
+          <td><span class="badge badge-good">yes</span></td>
           <td class="num">—</td>
           <td class="num">—</td>
           <td class="num">—</td>
@@ -5717,7 +5780,7 @@
         <tr>
           <td class="source-name">PRJNA1425616 </td>
           <td>HudsonAlpha Institute for Biotechnology</td>
-          <td><span class="badge badge-muted">—</span></td>
+          <td><span class="badge badge-good">yes</span></td>
           <td class="num">—</td>
           <td class="num">—</td>
           <td class="num">—</td>
@@ -5729,7 +5792,7 @@
         <tr>
           <td class="source-name">PRJNA1425614 </td>
           <td>HudsonAlpha Institute for Biotechnology</td>
-          <td><span class="badge badge-muted">—</span></td>
+          <td><span class="badge badge-good">yes</span></td>
           <td class="num">—</td>
           <td class="num">—</td>
           <td class="num">—</td>
@@ -5741,7 +5804,7 @@
         <tr>
           <td class="source-name">PRJNA1425613 </td>
           <td>HudsonAlpha Institute for Biotechnology</td>
-          <td><span class="badge badge-muted">—</span></td>
+          <td><span class="badge badge-good">yes</span></td>
           <td class="num">—</td>
           <td class="num">—</td>
           <td class="num">—</td>
@@ -5753,7 +5816,7 @@
         <tr>
           <td class="source-name">PRJNA1425611 </td>
           <td>HudsonAlpha Institute for Biotechnology</td>
-          <td><span class="badge badge-muted">—</span></td>
+          <td><span class="badge badge-good">yes</span></td>
           <td class="num">—</td>
           <td class="num">—</td>
           <td class="num">—</td>
@@ -5765,7 +5828,7 @@
         <tr>
           <td class="source-name">PRJNA1425610 </td>
           <td>HudsonAlpha Institute for Biotechnology</td>
-          <td><span class="badge badge-muted">—</span></td>
+          <td><span class="badge badge-good">yes</span></td>
           <td class="num">—</td>
           <td class="num">—</td>
           <td class="num">—</td>
