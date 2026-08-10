@@ -173,7 +173,7 @@
       <div class="stat-tile"><div class="stat-label">Distinct assemblies</div><div class="stat-value">30</div><div class="stat-note">14 of the mentions above are the same underlying genome re-hosted elsewhere</div></div>
       <div class="stat-tile"><div class="stat-label">T2T assemblies</div><div class="stat-value">2</div><div class="stat-note">gapless, chromosome-scale</div></div>
       <div class="stat-tile"><div class="stat-label">SRA sequencing runs</div><div class="stat-value">12.5K</div><div class="stat-note">~44.1 Tb total</div></div>
-      <div class="stat-tile"><div class="stat-label">BioProjects</div><div class="stat-value">273</div><div class="stat-note">NCBI only</div></div>
+      <div class="stat-tile"><div class="stat-label">BioProjects</div><div class="stat-value">277</div><div class="stat-note">NCBI only</div></div>
     </div>
 
     <div class="callout">
@@ -245,7 +245,7 @@
         <tr>
           <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/?taxon=3483" target="_blank" rel="noopener">NCBI (GenBank/RefSeq/SRA/BioProject)</a><div class="cell-note">fetch_assemblies.py, fetch_bioprojects.py, fetch_sra_runinfo.py, fetch_ncbi_tsa.py, fetch_ncbi_geo.py</div></td>
           <td><span class="badge badge-good">Scripted</span></td>
-          <td class="num"><div class="cell-value">29</div><div class="cell-note">21 chromosome-level/complete, 2 T2T</div></td><td class="num"><div class="cell-value">12.5K</div><div class="cell-note">~44.1 Tb total, 1,573 RNA-Seq runs</div></td><td class="num muted">—</td><td class="num"><div class="cell-value">24</div><div class="cell-note">9 TSA transcriptome assemblies + 15 GEO series (processed expression/epigenomic data products) -- distinct from raw reads and genome assemblies above; see the dedicated section below</div></td><td class="num"><div class="cell-value">273</div><div class="cell-note">BioProjects</div></td>
+          <td class="num"><div class="cell-value">29</div><div class="cell-note">21 chromosome-level/complete, 2 T2T</div></td><td class="num"><div class="cell-value">12.5K</div><div class="cell-note">~44.1 Tb total, 1,573 RNA-Seq runs</div></td><td class="num muted">—</td><td class="num"><div class="cell-value">24</div><div class="cell-note">9 TSA transcriptome assemblies + 15 GEO series (processed expression/epigenomic data products) -- distinct from raw reads and genome assemblies above; see the dedicated section below</div></td><td class="num"><div class="cell-value">277</div><div class="cell-note">BioProjects</div></td>
         </tr>
         <tr>
           <td class="source-name"><a href="https://plants.ensembl.org/Cannabis_sativa_female/" target="_blank" rel="noopener">Ensembl Plants</a><div class="cell-note">fetch_ensembl_plants.py</div></td>
@@ -365,7 +365,7 @@
           <td class="num">918</td>
           <td class="num">0.3 Tb</td>
           <td class="num">3</td>
-          <td class="num">10</td>
+          <td class="num">11</td>
           <td class="num">1,111</td>
         </tr>
         <tr>
@@ -419,7 +419,7 @@
           <td class="num">283</td>
           <td class="num">2.5 Tb</td>
           <td class="num">1</td>
-          <td class="num">25</td>
+          <td class="num">26</td>
           <td class="num">4,645</td>
         </tr>
         <tr>
@@ -437,7 +437,7 @@
           <td class="num">1,924</td>
           <td class="num">3.2 Tb</td>
           <td class="num">—</td>
-          <td class="num">57</td>
+          <td class="num">58</td>
           <td class="num">7,048</td>
         </tr>
         <tr>
@@ -455,7 +455,7 @@
           <td class="num">1,847</td>
           <td class="num">6.9 Tb</td>
           <td class="num">2</td>
-          <td class="num">14</td>
+          <td class="num">15</td>
           <td class="num">12.5K</td>
         </tr></tbody>
         </table>
@@ -669,7 +669,7 @@
       <div class="gap-grid">
         
         <div class="gap-tile">
-          <div class="stat-value">79</div>
+          <div class="stat-value">82</div>
           <div class="stat-label">BioProjects with no data attached</div>
           <div class="stat-note">registered at NCBI but carrying zero SRA runs and zero assemblies -- metadata records whose data lives elsewhere, or was never deposited</div>
         </div>
@@ -679,7 +679,7 @@
           <div class="stat-note">of 29 genome assemblies; sequence only, no gene models published</div>
         </div>
         <div class="gap-tile">
-          <div class="stat-value">152</div>
+          <div class="stat-value">154</div>
           <div class="stat-label">BioProjects with no traceable paper</div>
           <div class="stat-note">no local citation, no elink, no PMC full-text hit -- a lower bound on unpublished data, not a claim that no paper exists</div>
         </div>
@@ -716,12 +716,6 @@
           <td><code>assemblies.csv</code></td>
         </tr>
         <tr>
-          <td class="source-name">NCBI BioProjects<div class="cell-note">fetch_bioprojects.py</div></td>
-          <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-08</td>
-          <td><code>bioprojects.csv</code></td>
-        </tr>
-        <tr>
           <td class="source-name">NCBI SRA runs<div class="cell-note">fetch_sra_runinfo.py</div></td>
           <td><span class="badge badge-good">ok</span></td>
           <td class="num">2026-08-08</td>
@@ -738,6 +732,12 @@
           <td><span class="badge badge-good">ok</span></td>
           <td class="num">2026-08-08</td>
           <td><code>kannapedia_strains.csv</code></td>
+        </tr>
+        <tr>
+          <td class="source-name">NCBI BioProjects<div class="cell-note">fetch_bioprojects.py</div></td>
+          <td><span class="badge badge-good">ok</span></td>
+          <td class="num">2026-08-10</td>
+          <td><code>bioprojects.csv</code></td>
         </tr>
         <tr>
           <td class="source-name">NCBI GEO<div class="cell-note">fetch_ncbi_geo.py</div></td>
@@ -1256,7 +1256,7 @@
 
     <details class="section">
       <summary><h2>NCBI data by owner</h2></summary>
-      <p class="section-note">Every BioProject's <code>submitter_organization</code> ("owner"), and how much of NCBI's Cannabis sativa data traces to them: BioProjects, SRA runs, sequenced bases, and assemblies. The BioProjects column includes 9 accessions beyond the core 273 (see the headline KPI above) that our organism-scoped BioProject search missed but that SRA runs still reference -- genus-level "Cannabis" tags, hemp "retting metagenome" projects, and raw-reads sub-projects that inherit their organism tag from an untraversed parent -- resolved by <code>fetch_missing_bioprojects.py</code>. <b>(unknown)</b> is the true last resort: it falls back to the SRA run's own <code>CenterName</code> where possible, and only reads "(unknown)" for the handful of runs where even that's blank.</p>
+      <p class="section-note">Every BioProject's <code>submitter_organization</code> ("owner"), and how much of NCBI's Cannabis sativa data traces to them: BioProjects, SRA runs, sequenced bases, and assemblies. The BioProjects column includes 8 accessions beyond the core 277 (see the headline KPI above) that our organism-scoped BioProject search missed but that SRA runs still reference -- genus-level "Cannabis" tags, hemp "retting metagenome" projects, and raw-reads sub-projects that inherit their organism tag from an untraversed parent -- resolved by <code>fetch_missing_bioprojects.py</code>. <b>(unknown)</b> is the true last resort: it falls back to the SRA run's own <code>CenterName</code> where possible, and only reads "(unknown)" for the handful of runs where even that's blank.</p>
       <div class="bar-chart">
         
         <div class="bar-row">
@@ -1434,7 +1434,7 @@
         </tr>
         <tr>
           <td class="source-name">Pontificia Universidad Javeriana</td>
-          <td class="num">20</td>
+          <td class="num">21</td>
           <td class="num">23</td>
           <td class="num">1,315 Gb</td>
           <td class="num">3.0%</td>
@@ -1521,8 +1521,8 @@
           <td class="num">2</td>
         </tr>
         <tr>
-          <td class="source-name">Other (109 owners)</td>
-          <td class="num">177</td>
+          <td class="source-name">Other (110 owners)</td>
+          <td class="num">179</td>
           <td class="num">4,935</td>
           <td class="num">10,236 Gb</td>
           <td class="num">23.2%</td>
@@ -1534,9 +1534,9 @@
 
     <details class="section">
       <summary><h2>Publication coverage</h2></summary>
-      <p class="section-note">Which NCBI BioProjects have a known paper, found local-first (CannabisGDB citations, GigaDB BioProject cross-refs), then NCBI's elink (dbfrom=bioproject → db=pubmed, computed links), then a <b>PMC full-text search</b> for the accession string itself -- one row per paper (a BioProject can have more than one), newest first; undated papers (GigaDB citations carry no year) sort last. The PMC step matters: elink's computed links have real, confirmed gaps -- e.g. Cannbio-2's BioProject (PRJNA667278) is explicitly named in its own paper's Data Availability text, yet elink finds nothing in *either* direction (bioproject→pubmed or pubmed→bioproject). PubMed itself only indexes title/abstract (a plain search for the accession finds nothing there), but PMC indexes full text -- searching it directly for each BioProject accession recovered <b>71 additional BioProjects</b> that neither local signals nor elink had caught, taking coverage from 21% to 46%. Still a <b>lower bound</b>, not a true rate -- a BioProject with no hit here may still have a paper that isn't open-access in PMC, or doesn't use PMC's indexed accession format. Deliberately does NOT use SRA runinfo's own <code>Study_Pubmed_id</code> column -- verified it's corrupted (its two values resolve to unrelated 1975 biochemistry papers). Where a BioProject has more than one paper, <span class="badge badge-good" style="margin-right:2px;">deposit</span> flags the one most likely to describe the original deposit (closest to when the data first appeared) vs. <span class="badge badge-muted" style="margin-right:2px;">reuse</span> for later papers that just used already-public data -- a heuristic, not a fact. "First appeared" deliberately isn't just BioProject <code>registration_date</code>: that field can reflect a later re-curation rather than the true original submission (PRJNA73819's reads 2018, seven years after van Bakel et al.'s actual 2011 genome project), so this takes whichever is earlier, that date or the earliest linked SRA run's release date.</p>
+      <p class="section-note">Which NCBI BioProjects have a known paper, found local-first (CannabisGDB citations, GigaDB BioProject cross-refs), then NCBI's elink (dbfrom=bioproject → db=pubmed, computed links), then a <b>PMC full-text search</b> for the accession string itself -- one row per paper (a BioProject can have more than one), newest first; undated papers (GigaDB citations carry no year) sort last. The PMC step matters: elink's computed links have real, confirmed gaps -- e.g. Cannbio-2's BioProject (PRJNA667278) is explicitly named in its own paper's Data Availability text, yet elink finds nothing in *either* direction (bioproject→pubmed or pubmed→bioproject). PubMed itself only indexes title/abstract (a plain search for the accession finds nothing there), but PMC indexes full text -- searching it directly for each BioProject accession recovered <b>72 additional BioProjects</b> that neither local signals nor elink had caught, taking coverage from 21% to 46%. Still a <b>lower bound</b>, not a true rate -- a BioProject with no hit here may still have a paper that isn't open-access in PMC, or doesn't use PMC's indexed accession format. Deliberately does NOT use SRA runinfo's own <code>Study_Pubmed_id</code> column -- verified it's corrupted (its two values resolve to unrelated 1975 biochemistry papers). Where a BioProject has more than one paper, <span class="badge badge-good" style="margin-right:2px;">deposit</span> flags the one most likely to describe the original deposit (closest to when the data first appeared) vs. <span class="badge badge-muted" style="margin-right:2px;">reuse</span> for later papers that just used already-public data -- a heuristic, not a fact. "First appeared" deliberately isn't just BioProject <code>registration_date</code>: that field can reflect a later re-curation rather than the true original submission (PRJNA73819's reads 2018, seven years after van Bakel et al.'s actual 2011 genome project), so this takes whichever is earlier, that date or the earliest linked SRA run's release date.</p>
       <div class="callout">
-        <b>130/282</b> BioProjects (46%) have at least one known paper -- but that covers <b>69%</b> of all SRA runs, since the BioProjects found this way tend to be the larger, more actively-reused ones. The rest (152) are data-only as far as we can tell -- not necessarily unpublished, just not traceably linked -- but every one of them still has a recorded owner in the table above, so provenance isn't lost even without a citation.
+        <b>131/285</b> BioProjects (46%) have at least one known paper -- but that covers <b>69%</b> of all SRA runs, since the BioProjects found this way tend to be the larger, more actively-reused ones. The rest (154) are data-only as far as we can tell -- not necessarily unpublished, just not traceably linked -- but every one of them still has a recorded owner in the table above, so provenance isn't lost even without a citation.
       </div>
       <div class="filter-bar"><input class="js-filter" type="search" data-target="tbl-publications" placeholder="Filter papers: title, accession, source…" aria-label="Filter papers"><span class="filter-count" id="tbl-publications-count"></span></div>
         <div class="table-scroll" style="margin-top:16px;">
@@ -1801,6 +1801,13 @@
           <td>Transcriptomic dissection of floral identity and trichome-derived metabolite pathways in Cannabis sativa L.</td>
           <td class="source-name">PRJNA483805</td>
           <td class="cell-note" style="margin:0;max-width:none;">elink;local:cannabisgdb;local:gigadb;pmc_fulltext</td>
+        </tr>
+        <tr>
+          <td class="num">2026</td>
+          <td><span class="badge badge-good">deposit</span></td>
+          <td>A trio-binning approach for genome assembly reveals extensive structural variation between two Cannabis cultivars: Punto Rojo and Cherry Pie.</td>
+          <td class="source-name">PRJNA1090025</td>
+          <td class="cell-note" style="margin:0;max-width:none;">pmc_fulltext</td>
         </tr>
         <tr>
           <td class="num">2025</td>
@@ -3315,22 +3322,22 @@
           <td class="num"><b>2</b></td>
         </tr>
         <tr>
+          <td class="source-name">IMT Mines Ales</td>
+          <td class="num">2</td>
+          <td class="num">—</td>
+          <td class="num"><b>2</b></td>
+        </tr>
+        <tr>
           <td class="source-name">Center for Edaphology and Applied Biology of the Segura River (CSIC)</td>
           <td class="num">1</td>
           <td class="num">—</td>
           <td class="num"><b>1</b></td>
         </tr>
         <tr>
-          <td class="source-name">Institute of Bast Fiber Crops, Chinese Academy of Agricultural Sciences</td>
+          <td class="source-name">Other (59 owners)</td>
+          <td class="num">58</td>
           <td class="num">1</td>
-          <td class="num">—</td>
-          <td class="num"><b>1</b></td>
-        </tr>
-        <tr>
-          <td class="source-name">Other (58 owners)</td>
-          <td class="num">57</td>
-          <td class="num">1</td>
-          <td class="num"><b>58</b></td>
+          <td class="num"><b>59</b></td>
         </tr></tbody>
         </table>
       </div>
@@ -6836,6 +6843,42 @@
         <tr>
           <td class="source-name">PRJNA71689 </td>
           <td>Medicinal Genomics Corporation</td>
+          <td><span class="badge badge-muted">—</span></td>
+          <td class="num">—</td>
+          <td class="num">—</td>
+          <td class="num">—</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="cell-note" style="margin:0;max-width:220px;">—</td>
+          <td class="num">—</td>
+        </tr>
+        <tr>
+          <td class="source-name">PRJNA1090025 </td>
+          <td>Pontificia Universidad Javeriana</td>
+          <td><span class="badge badge-good">yes</span></td>
+          <td class="num">—</td>
+          <td class="num">—</td>
+          <td class="num">—</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="cell-note" style="margin:0;max-width:220px;">—</td>
+          <td class="num">—</td>
+        </tr>
+        <tr>
+          <td class="source-name">PRJNA351773 </td>
+          <td>ILVO (institute for agricultural and fisheries research)</td>
+          <td><span class="badge badge-muted">—</span></td>
+          <td class="num">—</td>
+          <td class="num">—</td>
+          <td class="num">—</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="cell-note" style="margin:0;max-width:220px;">—</td>
+          <td class="num">—</td>
+        </tr>
+        <tr>
+          <td class="source-name">PRJNA911961 </td>
+          <td>IMT Mines Ales</td>
           <td><span class="badge badge-muted">—</span></td>
           <td class="num">—</td>
           <td class="num">—</td>
