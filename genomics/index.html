@@ -278,7 +278,7 @@
           <td class="num muted">—</td><td class="num muted">—</td><td class="num"><div class="cell-value">1</div><div class="cell-note">VCF/SNP-titled records</div></td><td class="num"><div class="cell-value">222</div><div class="cell-note">222 records; title-keyword search, not curated. Includes a Nature 2025 cannabis pangenome (Lynch, Padgitt-Cobb, Garfinkel, Knaus, Hartwick et al., Salk Institute) with 193 genome assemblies (181 new) -- its raw reads are already in sra_runs.csv (BioProject PRJNA904266), but the assemblies themselves were never submitted to NCBI's Assembly database, only to figshare and the authors' own site (resources.michael.salk.edu, blocks scripted access). Also includes a T2T genome cross-referenced to a new NGDC BioProject (PRJCA049789, a 352 GB &quot;wild cannabis&quot; genome, itself invisible to any organism-scoped search since NGDC's own project record has a blank organism field) plus 2 more standalone T2T genome assemblies with no NCBI/NGDC cross-reference at all</div></td><td class="num muted">—</td>
         </tr>
         <tr>
-          <td class="source-name"><a href="https://kannapedia.net" target="_blank" rel="noopener">Kannapedia (Medicinal Genomics)</a><div class="cell-note">fetch_kannapedia.py (HTML scrape, no API -- index page is fully server-rendered, ~1,455 detail-page fetches)</div></td>
+          <td class="source-name"><a href="https://kannapedia.net" target="_blank" rel="noopener">Kannapedia (Medicinal Genomics)</a><div class="cell-note">fetch_kannapedia.py (HTML scrape, no API -- index page is fully server-rendered, 1,455 detail-page fetches)</div></td>
           <td><span class="badge badge-good">Scripted</span></td>
           <td class="num muted">—</td><td class="num muted">—</td><td class="num"><div class="cell-value">1,455</div><div class="cell-note">registered strain genotyping reports (StrainSEEK/CannSNP90/WGS-based) from 174 distinct registrants; 1046 with a called chemotype (Plant Type I/II/III/IV)</div></td><td class="num muted">—</td><td class="num"><div class="cell-value">116</div><div class="cell-note">strains keyed by a real NCBI SRA Run accession (public reference strains, not user submissions) that match a run in our sra_runs.csv -- direct BioProject/BioSample links, concentrated in 3 BioProjects</div></td>
         </tr>
@@ -289,7 +289,7 @@
         </tr>
         <tr>
           <td class="source-name"><a href="https://genomevolution.org/coge/" target="_blank" rel="noopener">CoGe (genomevolution.org)</a><div class="cell-note">fetch_coge.py</div></td>
-          <td><span class="badge badge-warning" title="Site returning HTTP 503 (scheduled maintenance) as of last run -- the 3 shown are from manual research, not yet API-confirmed. Re-run fetch_coge.py.">Pending</span></td>
+          <td><span class="badge badge-warning" title="Site returned HTTP 503 (scheduled maintenance) on the last run">Pending</span></td>
           <td class="num"><div class="cell-value">3</div><div class="cell-note">First Light cultivars FL18/FL48/FL49 -- from manual research, API unavailable at last run</div></td><td class="num muted">—</td><td class="num muted">—</td><td class="num muted">—</td><td class="num muted">—</td>
         </tr>
         <tr>
@@ -3177,7 +3177,7 @@
 
     <details class="section">
       <summary><h2>Sequencing data per BioProject / orphan BioSample</h2></summary>
-      <p class="section-note">What's actually attached to each NCBI BioProject (and each "orphan" BioSample with no NCBI BioProject) -- SRA runs, total reads, single/paired-end layout, average read length range across those runs, sequencing instrument(s), and total bases -- sorted by bases descending. <span class="badge badge-warning" style="margin:0 2px;">orphan sample</span> marks the 4 BioSamples with no NCBI BioProject. 3 of those 4 (SAMD01771641-3) turned out not to be truly homeless: their own BioSample records carry an <code>ngdc_project_id</code> attribute pointing at PRJCA044550, a China National Center for Bioinformation (NGDC) GSA project our NCBI-BioProject-only pipeline doesn't otherwise see -- shown here as their owner, and counted published (PMID 40943284, independently confirmed via PMC full-text search on the NGDC submission accession). The 4th, SAMN00630395, checked out as a genuine dead end: a 2011 pre-BioProject-mandate submission batch mixing unrelated organisms from the same center, none of which have a BioProject either. Read length is a min–max range because a single BioProject frequently mixes runs from different platforms or library preps; a single averaged number would hide that variability. Instrument lists the top 3 models seen for that accession by run count.</p>
+      <p class="section-note">What's actually attached to each NCBI BioProject (and each "orphan" BioSample with no NCBI BioProject) -- SRA runs, total reads, single/paired-end layout, average read length range across those runs, sequencing instrument(s), and total bases -- sorted by bases descending. <span class="badge badge-warning" style="margin:0 2px;">orphan sample</span> marks the 4 BioSamples with no NCBI BioProject. 3 of those 4 (SAMD01771643, SAMD01771642, SAMD01771641) turned out not to be truly homeless: their own BioSample records carry an <code>ngdc_project_id</code> attribute pointing at PRJCA044550, a China National Center for Bioinformation (NGDC) GSA project our NCBI-BioProject-only pipeline doesn't otherwise see -- shown here as their owner, and counted published (PMID 40943284, independently confirmed via PMC full-text search on the NGDC submission accession). The remaining 1 (SAMN00630395) checked out as a genuine dead end: a 2011 pre-BioProject-mandate submission batch mixing unrelated organisms from the same center, none of which have a BioProject either. Read length is a min–max range because a single BioProject frequently mixes runs from different platforms or library preps; a single averaged number would hide that variability. Instrument lists the top 3 models seen for that accession by run count.</p>
       <div class="callout">
         <b>152.8B</b> total reads across <b>12.5K</b> SRA runs and <b>44.1T</b> bases, spanning <b>35</b> distinct sequencing instruments. Layout mix: Paired: 10.5K runs, Single: 1,943 runs.
       </div>
@@ -6911,20 +6911,26 @@
     </details>
 
     <footer>
-      Generated by <code>scripts/build_dashboard.py</code> from <code>data/processed/*</code>. To refresh: re-run any <code>fetch_*.py</code> script, then <code>python3 scripts/build_dashboard.py</code>, then republish. To add a source, add an entry to <code>SOURCES</code> or <code>INVESTIGATED_NOT_SCRIPTED</code> in that script.
+      Generated by <code>scripts/build_dashboard.py</code> from <code>data/processed/*</code>. To refresh: re-run any <code>fetch_*.py</code> script, then <code>python3 scripts/build_dashboard.py</code>, then republish. To add a source, append to the <code>sources</code> list built in <code>main()</code>, or to the <code>investigated</code> list beside it for one that was checked but not scripted.
     </footer>
 <script>
 (function () {
   function cellValue(row, i) {
     var td = row.children[i];
-    if (!td) return "";
-    var raw = td.getAttribute("data-sort");
-    if (raw !== null) return raw;
-    return td.innerText.trim();
+    return td ? td.innerText.trim() : "";
   }
+  // Numeric cells are rendered through fmt_count(), which abbreviates anything
+  // >= 10,000 as "12.5K" / "4.2T". Parsing only the leading number would sort a
+  // 4.2 Tb value BELOW a 9,500 one, so the suffix has to carry its magnitude.
+  var SCALE = {K: 1e3, M: 1e6, B: 1e9, T: 1e12};
   function asNumber(s) {
-    var cleaned = String(s).replace(/[,%]/g, "").replace(/\u2014/g, "");
-    var m = cleaned.match(/-?\d+(\.\d+)?/);
+    var cleaned = String(s).replace(/[,%]/g, "").replace(/\u2014/g, "").trim();
+    // ISO dates must sort as text, not as their leading year: "2026-01-06" and
+    // "2026-11-02" both parse to 2026 and would compare equal.
+    if (/^\d{4}-\d{2}-\d{2}/.test(cleaned)) return null;
+    var m = cleaned.match(/^-?\d+(\.\d+)?\s*([KMBT])\b/);
+    if (m) return parseFloat(m[0]) * SCALE[m[2]];
+    m = cleaned.match(/-?\d+(\.\d+)?/);
     return m ? parseFloat(m[0]) : null;
   }
   document.querySelectorAll("table.js-table").forEach(function (table) {
