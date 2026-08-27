@@ -1027,18 +1027,6 @@
           <thead><tr><th>Source</th><th>State</th><th>Last output</th><th>Artifact</th></tr></thead>
           <tbody>
         <tr>
-          <td class="source-name">NCBI BioProjects<div class="cell-note">fetch_bioprojects.py</div></td>
-          <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-13</td>
-          <td><code>bioprojects.csv</code></td>
-        </tr>
-        <tr>
-          <td class="source-name">NCBI SRA runs<div class="cell-note">fetch_sra_runinfo.py</div></td>
-          <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-13</td>
-          <td><code>sra_runs.csv</code></td>
-        </tr>
-        <tr>
           <td class="source-name">NCBI GEO<div class="cell-note">fetch_ncbi_geo.py</div></td>
           <td><span class="badge badge-good">ok</span></td>
           <td class="num">2026-08-13</td>
@@ -1049,12 +1037,6 @@
           <td><span class="badge badge-good">ok</span></td>
           <td class="num">2026-08-13</td>
           <td><code>ncbi_tsa.csv</code></td>
-        </tr>
-        <tr>
-          <td class="source-name">Publications<div class="cell-note">fetch_publications.py</div></td>
-          <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-13</td>
-          <td><code>publications.csv</code></td>
         </tr>
         <tr>
           <td class="source-name">GigaDB<div class="cell-note">fetch_gigadb.py</div></td>
@@ -1125,8 +1107,26 @@
         <tr>
           <td class="source-name">NCBI assemblies<div class="cell-note">fetch_assemblies.py</div></td>
           <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-26</td>
+          <td class="num">2026-08-27</td>
           <td><code>assemblies.csv</code></td>
+        </tr>
+        <tr>
+          <td class="source-name">NCBI BioProjects<div class="cell-note">fetch_bioprojects.py</div></td>
+          <td><span class="badge badge-good">ok</span></td>
+          <td class="num">2026-08-27</td>
+          <td><code>bioprojects.csv</code></td>
+        </tr>
+        <tr>
+          <td class="source-name">NCBI SRA runs<div class="cell-note">fetch_sra_runinfo.py</div></td>
+          <td><span class="badge badge-good">ok</span></td>
+          <td class="num">2026-08-27</td>
+          <td><code>sra_runs.csv</code></td>
+        </tr>
+        <tr>
+          <td class="source-name">Publications<div class="cell-note">fetch_publications.py</div></td>
+          <td><span class="badge badge-good">ok</span></td>
+          <td class="num">2026-08-27</td>
+          <td><code>publications.csv</code></td>
         </tr></tbody>
         </table>
       </div>
@@ -1766,6 +1766,397 @@
     </details>
 
 
+    <details class="section" open>
+      <summary><h2>Holdings &mdash; what is actually on disk</h2></summary>
+      <p class="section-note">Every other table on this page counts what a repository <i>says</i> exists. This one counts what was downloaded, and separately what was checked against the publisher's own checksum. <b>Those are three different claims</b>, and treating them as one is how a project convinces itself it holds data it has never opened &mdash; which is not hypothetical here: a gap analysis written the same week concluded that no whole-genome alignments existed anywhere, and seven were sitting inside a dataset this project had already catalogued and never fetched. Provenance for every file (source, DOI, retrieval date, URL, sha256) is recorded by <code>scripts/annotation_provenance.py</code>, which refuses to hash a file that is still downloading.</p>
+      <div class="callout">
+        <b>89</b> files, <b>26.2 GB</b>, across <b>5</b> sources. <b>53</b> match the publisher's own checksum, so they are demonstrably the file the DOI resolves to.
+        <div class="cell-note" style="margin-top:8px;">The other 36 are <b>local-checksum only</b> &mdash; GigaDB, the Ensembl FTP and 4TU publish no checksum on the paths used, so all that can be proved is that the bytes have not changed since they were fetched. That is a weaker claim and it is kept in its own column rather than allowed to borrow the stronger one.</div>
+      </div>
+      <div class="table-scroll" style="margin-top:16px;">
+        <table class="js-table" id="tbl-holdings">
+          <thead><tr><th>Source</th><th>Dataset</th><th>Files</th><th>Size</th><th>Verification</th><th>Retrieved</th></tr></thead>
+          <tbody>
+        <tr>
+          <td class="source-name"><a href="https://doi.org/10.5281/zenodo.16456638" target="_blank" rel="noopener">Zenodo (Salk / Lighthouse)</a><div class="cell-note"><a href="https://doi.org/10.5281/zenodo.16456638" target="_blank" rel="noopener">10.5281/zenodo.16456638</a></div></td>
+          <td>Phased assemblies of 4 Cannabis genomes (Anders CBD, Hawthorne OG, Sri Lankan, Travis CBD)</td>
+          <td class="num">46</td>
+          <td class="num">20.5 GB</td>
+          <td><span class="badge badge-good">all publisher-verified</span></td>
+          <td>2026-08-27</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://doi.org/10.5524/100821" target="_blank" rel="noopener">GigaDB</a><div class="cell-note"><a href="https://doi.org/10.5524/100821" target="_blank" rel="noopener">10.5524/100821</a></div></td>
+          <td>Cannbio-2 (Cannabis sativa v1.0.a1)</td>
+          <td class="num">31</td>
+          <td class="num">3.5 GB</td>
+          <td><span class="badge badge-muted">0% publisher-verified</span></td>
+          <td>2026-08-27</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://plus.figshare.com/articles/dataset/Cannabis_Pangenome_Annotation_Data/25909024" target="_blank" rel="noopener">figshare+ (Salk cannabis pangenome)</a><div class="cell-note"><a href="https://doi.org/10.25452/figshare.plus.25909024" target="_blank" rel="noopener">10.25452/figshare.plus.25909024</a></div></td>
+          <td>Cannabis Pangenome Annotation Data</td>
+          <td class="num">7</td>
+          <td class="num">1.9 GB</td>
+          <td><span class="badge badge-good">all publisher-verified</span></td>
+          <td>2026-08-27</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://plants.ensembl.org/Cannabis_sativa_female/Info/Index" target="_blank" rel="noopener">Ensembl Plants</a></td>
+          <td>Cannabis sativa female, cs10, release 63</td>
+          <td class="num">4</td>
+          <td class="num">238.7 MB</td>
+          <td><span class="badge badge-muted">0% publisher-verified</span></td>
+          <td>2026-08-27</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://data.4tu.nl/articles/dataset/13121885" target="_blank" rel="noopener">4TU.ResearchData</a><div class="cell-note"><a href="https://doi.org/10.4121/13121885" target="_blank" rel="noopener">10.4121/13121885</a></div></td>
+          <td>Transcriptome annotations, C. sativa Finola and Purple Kush</td>
+          <td class="num">1</td>
+          <td class="num">4.8 MB</td>
+          <td><span class="badge badge-muted">0% publisher-verified</span></td>
+          <td>2026-08-27</td>
+        </tr></tbody>
+        </table>
+      </div>
+    </details>
+
+    <details class="section" open>
+      <summary><h2>Comparative artifacts &mdash; alignments, graphs, orthogroups</h2></summary>
+      <p class="section-note">Everything else this dashboard catalogues describes <i>one</i> genome: its level, its size, its annotation. A comparative resource is built out of statements about <b>pairs and sets</b> of genomes, and until this table existed the harvest had nowhere to put one. <b>The column that decides what this project can defend is <i>Whose</i>, not <i>Kind</i></b> &mdash; holding a pangenome graph and having computed one are different claims, and only the second makes this a resource rather than a mirror.</p>
+      <div class="callout">
+        <b>13</b> comparative artifacts across <b>7</b> kinds, <b>21.7 GB</b> on disk &mdash; and every one of them somebody else's.
+        <div class="cell-note" style="margin-top:8px;">The <b>7</b> whole-genome alignments span <b>4</b> named assemblies; 3 of them involve a genome whose identity is <b>unresolved</b>, because the filenames say only <code>JL</code> and four Jamaican Lion assemblies are in the harvest. They are recorded unresolved rather than assigned to a guess. These alignments are also the natural <b>validation targets</b> for our own: a pair somebody else has aligned is a known answer to score against.</div>
+      </div>
+      <div class="table-scroll" style="margin-top:16px;">
+        <table class="js-table" id="tbl-comparative">
+          <thead><tr><th>Artifact</th><th>Kind</th><th>Whose</th><th>Held</th><th>Files</th><th>Size</th><th>Genomes</th></tr></thead>
+          <tbody>
+        <tr>
+          <td class="source-name">Cb2 vs cs10<div class="cell-note">reference Cb2, query cs10</div></td>
+          <td>whole-genome alignment</td>
+          <td><span class="badge badge-warning">third-party</span></td>
+          <td><span class="badge badge-good">held</span></td>
+          <td class="num">1</td>
+          <td class="num">72.4 MB</td>
+          <td class="cell-note" style="margin:0;max-width:none;">GCA_016165845.1, GCF_900626175.2</td>
+        </tr>
+        <tr>
+          <td class="source-name">Finola vs JL<div class="cell-note">reference Finola, query JL; JL is ambiguous across four Jamaican Lion assemblies</div></td>
+          <td>whole-genome alignment</td>
+          <td><span class="badge badge-warning">third-party</span></td>
+          <td><span class="badge badge-good">held</span></td>
+          <td class="num">1</td>
+          <td class="num">121.4 MB</td>
+          <td class="cell-note" style="margin:0;max-width:none;">GCA_003417725.2</td>
+        </tr>
+        <tr>
+          <td class="source-name">cs10 vs JL<div class="cell-note">reference cs10, query JL; JL is ambiguous across four Jamaican Lion assemblies</div></td>
+          <td>whole-genome alignment</td>
+          <td><span class="badge badge-warning">third-party</span></td>
+          <td><span class="badge badge-good">held</span></td>
+          <td class="num">1</td>
+          <td class="num">121.1 MB</td>
+          <td class="cell-note" style="margin:0;max-width:none;">GCF_900626175.2</td>
+        </tr>
+        <tr>
+          <td class="source-name">PK vs Finola<div class="cell-note">reference PK, query Finola</div></td>
+          <td>whole-genome alignment</td>
+          <td><span class="badge badge-warning">third-party</span></td>
+          <td><span class="badge badge-good">held</span></td>
+          <td class="num">1</td>
+          <td class="num">109.0 MB</td>
+          <td class="cell-note" style="margin:0;max-width:none;">GCA_000230575.5, GCA_003417725.2</td>
+        </tr>
+        <tr>
+          <td class="source-name">Cb2 vs JL<div class="cell-note">reference Cb2, query JL; JL is ambiguous across four Jamaican Lion assemblies</div></td>
+          <td>whole-genome alignment</td>
+          <td><span class="badge badge-warning">third-party</span></td>
+          <td><span class="badge badge-good">held</span></td>
+          <td class="num">1</td>
+          <td class="num">115.0 MB</td>
+          <td class="cell-note" style="margin:0;max-width:none;">GCA_016165845.1</td>
+        </tr>
+        <tr>
+          <td class="source-name">Cb2 vs PK<div class="cell-note">reference Cb2, query PK</div></td>
+          <td>whole-genome alignment</td>
+          <td><span class="badge badge-warning">third-party</span></td>
+          <td><span class="badge badge-good">held</span></td>
+          <td class="num">1</td>
+          <td class="num">83.8 MB</td>
+          <td class="cell-note" style="margin:0;max-width:none;">GCA_016165845.1, GCA_000230575.5</td>
+        </tr>
+        <tr>
+          <td class="source-name">Cb2 vs Finola<div class="cell-note">reference Cb2, query Finola</div></td>
+          <td>whole-genome alignment</td>
+          <td><span class="badge badge-warning">third-party</span></td>
+          <td><span class="badge badge-good">held</span></td>
+          <td class="num">1</td>
+          <td class="num">120.6 MB</td>
+          <td class="cell-note" style="margin:0;max-width:none;">GCA_016165845.1, GCA_003417725.2</td>
+        </tr>
+        <tr>
+          <td class="source-name">Reference-free PGGB graph, 66 haplotypes<div class="cell-note">per-chromosome plus one merged graph; 6.48 Gb of sequence, 162.14 M nodes</div></td>
+          <td>pangenome graph</td>
+          <td><span class="badge badge-warning">third-party</span></td>
+          <td><span class="badge badge-good">held</span></td>
+          <td class="num">12</td>
+          <td class="num">18.9 GB</td>
+          <td class="cell-note" style="margin:0;max-width:none;">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name">SyRI-class SV coordinates (TRANS, INV, INVTR, DUP)<div class="cell-note">comparative output: translocations, inversions, inverted translocations, duplications</div></td>
+          <td>structural variants</td>
+          <td><span class="badge badge-warning">third-party</span></td>
+          <td><span class="badge badge-good">held</span></td>
+          <td class="num">4</td>
+          <td class="num">729 KB</td>
+          <td class="cell-note" style="margin:0;max-width:none;">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name">EDTA transposable-element annotation<div class="cell-note">TE annotation across the pangenome set</div></td>
+          <td>transposable elements</td>
+          <td><span class="badge badge-warning">third-party</span></td>
+          <td><span class="badge badge-good">held</span></td>
+          <td class="num">1</td>
+          <td class="num">1.9 GB</td>
+          <td class="cell-note" style="margin:0;max-width:none;">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name">NLR orthogroups (OrthoFinder and DeepClust)<div class="cell-note">⚠ NLR-RESTRICTED, not genome-wide: 207 OrthoFinder orthogroups over 88 haplotype columns and 96 DeepClust. Also carries 75 genotypes with assembly stats and SyRI SV/SNP tables</div></td>
+          <td>orthogroups</td>
+          <td><span class="badge badge-warning">third-party</span></td>
+          <td><span class="badge badge-good">held</span></td>
+          <td class="num">1</td>
+          <td class="num">186 KB</td>
+          <td class="cell-note" style="margin:0;max-width:none;">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name">cs10 gene copies lifted onto 8 phased haplotypes<div class="cell-note">a shared coordinate system for 8 haplotypes -- the thing this project lacks</div></td>
+          <td>annotation transfer</td>
+          <td><span class="badge badge-warning">third-party</span></td>
+          <td><span class="badge badge-good">held</span></td>
+          <td class="num">8</td>
+          <td class="num">61.3 MB</td>
+          <td class="cell-note" style="margin:0;max-width:none;">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name">TPS gene models, per haplotype<div class="cell-note">directly answers the TPS question Watts' RAD panel cannot</div></td>
+          <td>locus annotation</td>
+          <td><span class="badge badge-warning">third-party</span></td>
+          <td><span class="badge badge-good">held</span></td>
+          <td class="num">8</td>
+          <td class="num">1.5 MB</td>
+          <td class="cell-note" style="margin:0;max-width:none;">&mdash;</td>
+        </tr></tbody>
+        </table>
+      </div>
+    </details>
+
+    <details class="section" open>
+      <summary><h2>Comparison readiness &mdash; which genomes can actually be used</h2></summary>
+      <p class="section-note">Three things must be true at once before a genome can enter an ortholog or synteny analysis, and the harvest tracked only the first: the assembly must be <b>chromosome-scale</b>, it must carry <b>gene models</b> (both sides of a comparison need them), and it must be reachable in a <b>shared coordinate system</b>. Counting assemblies answers none of those, which is why the number of genomes has never been the size of the comparative set.</p>
+      <div class="callout">
+        Of <b>27</b> distinct genomes, <b>19</b> are chromosome-scale but only <b>4</b> also carry gene models &mdash; so an all-vs-all over what is usable today is <b>6</b> pairs, not the 351 the genome count suggests.
+        <div class="cell-note" style="margin-top:8px;"><b>2</b> more are chromosome-scale with gene models published elsewhere and not yet fetched; obtaining those alone would take the usable set to <b>6</b> genomes and <b>15</b> pairs. ⚠ A cultivar-NAME match is not an assembly match: those gene models transfer only if the outside annotation was built against the same assembly at the same version, which is an open question rather than an assumption. <b>3</b> genomes already appear in a third-party alignment.</div>
+      </div>
+      <div class="table-scroll" style="margin-top:16px;">
+        <table class="js-table" id="tbl-readiness">
+          <thead><tr><th>Assembly</th><th>For comparison</th><th>Level</th><th class="num">Gene models</th><th class="num">Alignments</th></tr></thead>
+          <tbody>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_029168945.1/" target="_blank" rel="noopener">GCA_029168945.1</a><div class="cell-note">Pink pepper</div></td>
+          <td><span class="badge badge-good">ready</span></td>
+          <td>Chromosome</td>
+          <td class="num">35.2K<div class="cell-note">NCBI</div></td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_054642775.1/" target="_blank" rel="noopener">GCA_054642775.1</a><div class="cell-note">(unnamed)</div></td>
+          <td><span class="badge badge-good">ready</span></td>
+          <td>Complete Genome</td>
+          <td class="num">31.1K<div class="cell-note">NCBI</div></td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_054642815.1/" target="_blank" rel="noopener">GCA_054642815.1</a><div class="cell-note">(unnamed)</div></td>
+          <td><span class="badge badge-good">ready</span></td>
+          <td>Complete Genome</td>
+          <td class="num">31.0K<div class="cell-note">NCBI</div></td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_900626175.2/" target="_blank" rel="noopener">GCA_900626175.2</a><div class="cell-note">(unnamed)</div></td>
+          <td><span class="badge badge-good">ready</span></td>
+          <td>Chromosome</td>
+          <td class="num">31.2K<div class="cell-note">NCBI</div></td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_003417725.2/" target="_blank" rel="noopener">GCA_003417725.2</a><div class="cell-note">Finola</div></td>
+          <td><span class="badge badge-warning">one download away</span></td>
+          <td>Chromosome</td>
+          <td class="num">50.1K<div class="cell-note">CannabisGDB, not fetched</div></td>
+          <td class="num">3</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_000230575.5/" target="_blank" rel="noopener">GCA_000230575.5</a><div class="cell-note">Purple Kush</div></td>
+          <td><span class="badge badge-warning">one download away</span></td>
+          <td>Chromosome</td>
+          <td class="num">48.0K<div class="cell-note">CannabisGDB, not fetched</div></td>
+          <td class="num">2</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_016165845.1/" target="_blank" rel="noopener">GCA_016165845.1</a><div class="cell-note">Cannbio-2</div></td>
+          <td><span class="badge badge-muted">no gene models</span></td>
+          <td>Chromosome</td>
+          <td class="num">&mdash;</td>
+          <td class="num">4</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_013030365.1/" target="_blank" rel="noopener">GCA_013030365.1</a><div class="cell-note">(unnamed)</div></td>
+          <td><span class="badge badge-muted">no gene models</span></td>
+          <td>Chromosome</td>
+          <td class="num">&mdash;</td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_025232715.1/" target="_blank" rel="noopener">GCA_025232715.1</a><div class="cell-note">Abacus</div></td>
+          <td><span class="badge badge-muted">no gene models</span></td>
+          <td>Chromosome</td>
+          <td class="num">&mdash;</td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_049724855.1/" target="_blank" rel="noopener">GCA_049724855.1</a><div class="cell-note">Punto Rojo x Cherry Pie</div></td>
+          <td><span class="badge badge-muted">no gene models</span></td>
+          <td>Chromosome</td>
+          <td class="num">&mdash;</td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_049725155.1/" target="_blank" rel="noopener">GCA_049725155.1</a><div class="cell-note">Punto Rojo x Cherry Pie</div></td>
+          <td><span class="badge badge-muted">no gene models</span></td>
+          <td>Chromosome</td>
+          <td class="num">&mdash;</td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_051911645.1/" target="_blank" rel="noopener">GCA_051911645.1</a><div class="cell-note">Hawthorne OG</div></td>
+          <td><span class="badge badge-muted">no gene models</span></td>
+          <td>Chromosome</td>
+          <td class="num">&mdash;</td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_051911655.1/" target="_blank" rel="noopener">GCA_051911655.1</a><div class="cell-note">Anders CBD</div></td>
+          <td><span class="badge badge-muted">no gene models</span></td>
+          <td>Chromosome</td>
+          <td class="num">&mdash;</td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_051911675.1/" target="_blank" rel="noopener">GCA_051911675.1</a><div class="cell-note">Anders CBD</div></td>
+          <td><span class="badge badge-muted">no gene models</span></td>
+          <td>Chromosome</td>
+          <td class="num">&mdash;</td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_051911705.1/" target="_blank" rel="noopener">GCA_051911705.1</a><div class="cell-note">Hawthorne OG</div></td>
+          <td><span class="badge badge-muted">no gene models</span></td>
+          <td>Chromosome</td>
+          <td class="num">&mdash;</td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_051911715.1/" target="_blank" rel="noopener">GCA_051911715.1</a><div class="cell-note">Sri Lankan</div></td>
+          <td><span class="badge badge-muted">no gene models</span></td>
+          <td>Chromosome</td>
+          <td class="num">&mdash;</td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_051911735.1/" target="_blank" rel="noopener">GCA_051911735.1</a><div class="cell-note">Sri Lankan</div></td>
+          <td><span class="badge badge-muted">no gene models</span></td>
+          <td>Chromosome</td>
+          <td class="num">&mdash;</td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_051911765.1/" target="_blank" rel="noopener">GCA_051911765.1</a><div class="cell-note">Travis CBD</div></td>
+          <td><span class="badge badge-muted">no gene models</span></td>
+          <td>Chromosome</td>
+          <td class="num">&mdash;</td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_051911785.1/" target="_blank" rel="noopener">GCA_051911785.1</a><div class="cell-note">Travis CBD</div></td>
+          <td><span class="badge badge-muted">no gene models</span></td>
+          <td>Chromosome</td>
+          <td class="num">&mdash;</td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_001509995.1/" target="_blank" rel="noopener">GCA_001509995.1</a><div class="cell-note">Chemdog91</div></td>
+          <td><span class="badge badge-muted">not chromosome-scale</span></td>
+          <td>Scaffold</td>
+          <td class="num">16.5K<div class="cell-note">CannabisGDB, not fetched</div></td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_001510005.1/" target="_blank" rel="noopener">GCA_001510005.1</a><div class="cell-note">LA Confidential</div></td>
+          <td><span class="badge badge-muted">not chromosome-scale</span></td>
+          <td>Contig</td>
+          <td class="num">24.5K<div class="cell-note">CannabisGDB, not fetched</div></td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_001865755.1/" target="_blank" rel="noopener">GCA_001865755.1</a><div class="cell-note">Cannatonic</div></td>
+          <td><span class="badge badge-muted">not chromosome-scale</span></td>
+          <td>Contig</td>
+          <td class="num">26.5K<div class="cell-note">CannabisGDB, not fetched</div></td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_002090435.1/" target="_blank" rel="noopener">GCA_002090435.1</a><div class="cell-note">Pineapple Banana Bubba Kush</div></td>
+          <td><span class="badge badge-muted">not chromosome-scale</span></td>
+          <td>Contig</td>
+          <td class="num">26.5K<div class="cell-note">CannabisGDB, not fetched</div></td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_003660325.2/" target="_blank" rel="noopener">GCA_003660325.2</a><div class="cell-note">Jamaican Lion DASH</div></td>
+          <td><span class="badge badge-muted">not chromosome-scale</span></td>
+          <td>Contig</td>
+          <td class="num">61.1K<div class="cell-note">CannabisGDB, not fetched</div></td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_012923435.1/" target="_blank" rel="noopener">GCA_012923435.1</a><div class="cell-note">Jamaican Lion ^4</div></td>
+          <td><span class="badge badge-muted">not chromosome-scale</span></td>
+          <td>Contig</td>
+          <td class="num">27.4K<div class="cell-note">NCBI</div></td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_013030025.1/" target="_blank" rel="noopener">GCA_013030025.1</a><div class="cell-note">Jamaican Lion ^4</div></td>
+          <td><span class="badge badge-muted">not chromosome-scale</span></td>
+          <td>Contig</td>
+          <td class="num">31.6K<div class="cell-note">NCBI</div></td>
+          <td class="num">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_016415525.1/" target="_blank" rel="noopener">GCA_016415525.1</a><div class="cell-note">Jamaican Lion ^4</div></td>
+          <td><span class="badge badge-muted">not chromosome-scale</span></td>
+          <td>Contig</td>
+          <td class="num">&mdash;</td>
+          <td class="num">&mdash;</td>
+        </tr></tbody>
+        </table>
+      </div>
+    </details>
+
     <details class="section">
       <summary><h2>Genome annotation &mdash; what we hold, and how deep</h2></summary>
       <p class="section-note">The assembly table above prints an "annotated" badge, which answers whether <i>somebody</i> annotated a genome. This answers a different and more useful question: which annotation sets exist for <i>Cannabis sativa</i> across every source we harvest, and how much of each we actually hold. The two diverge &mdash; several annotations here are not NCBI records at all, so no badge above can show them. <b>Depth is the point, not the count:</b> a gene count copied out of a metadata field and a full gene table both read as "annotation" and support completely different work, so they are never added together.</p>
@@ -2189,7 +2580,7 @@
       <summary><h2>Publication coverage</h2></summary>
       <p class="section-note">Which NCBI BioProjects have a known paper, found local-first (CannabisGDB citations, GigaDB BioProject cross-refs), then NCBI's elink (dbfrom=bioproject → db=pubmed, computed links), then a <b>PMC full-text search</b> for the accession string itself -- one row per paper (a BioProject can have more than one), newest first; undated papers (GigaDB citations carry no year) sort last. The PMC step matters: elink's computed links have real, confirmed gaps -- e.g. Cannbio-2's BioProject (PRJNA667278) is explicitly named in its own paper's Data Availability text, yet elink finds nothing in *either* direction (bioproject→pubmed or pubmed→bioproject). PubMed itself only indexes title/abstract (a plain search for the accession finds nothing there), but PMC indexes full text -- searching it directly for each BioProject accession recovered <b>72 additional BioProjects</b> that neither local signals nor elink had caught, taking coverage from 25% to 50%. Still a <b>lower bound</b>, not a true rate -- a BioProject with no hit here may still have a paper that isn't open-access in PMC, or doesn't use PMC's indexed accession format. Deliberately does NOT use SRA runinfo's own <code>Study_Pubmed_id</code> column -- verified it's corrupted (its two values resolve to unrelated 1975 biochemistry papers). Where a BioProject has more than one paper, <span class="badge badge-good" style="margin-right:2px;">deposit</span> flags the one most likely to describe the original deposit (closest to when the data first appeared) vs. <span class="badge badge-muted" style="margin-right:2px;">reuse</span> for later papers that just used already-public data -- a heuristic, not a fact. "First appeared" deliberately isn't just BioProject <code>registration_date</code>: that field can reflect a later re-curation rather than the true original submission (PRJNA73819's reads 2018, seven years after van Bakel et al.'s actual 2011 genome project), so this takes whichever is earlier, that date or the earliest linked SRA run's release date.</p>
       <div class="callout">
-        <b>145/288</b> BioProjects (50%) have at least one known paper -- but that covers <b>71%</b> of all SRA runs, since the BioProjects found this way tend to be the larger, more actively-reused ones. The rest (143) are data-only as far as we can tell -- not necessarily unpublished, just not traceably linked -- but every one of them still has a recorded owner in the table above, so provenance isn't lost even without a citation.
+        <b>145/288</b> BioProjects (50%) have at least one known paper -- but that covers <b>70%</b> of all SRA runs, since the BioProjects found this way tend to be the larger, more actively-reused ones. The rest (143) are data-only as far as we can tell -- not necessarily unpublished, just not traceably linked -- but every one of them still has a recorded owner in the table above, so provenance isn't lost even without a citation.
       </div>
       <div class="filter-bar"><input class="js-filter" type="search" data-target="tbl-publications" placeholder="Filter papers: title, accession, source…" aria-label="Filter papers"><span class="filter-count" id="tbl-publications-count"></span></div>
         <div class="table-scroll" style="margin-top:16px;">
@@ -2506,6 +2897,13 @@
         </tr>
         <tr>
           <td class="num">2026</td>
+          <td><span class="badge badge-good">deposit</span></td>
+          <td>Identification of circRNAs in industrial hemp (Cannabis sativa L.) and prediction of regulatory networks underlying female differentiation.</td>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1445027" target="_blank" rel="noopener">PRJNA1445027</a></td>
+          <td class="cell-note" style="margin:0;max-width:none;">pmc_fulltext</td>
+        </tr>
+        <tr>
+          <td class="num">2026</td>
           <td><span class="badge badge-muted">reuse</span></td>
           <td>Ancient hybridization and phylogenetic discordance: Exploring evolutionary complexity in Asteraceae.</td>
           <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJEB4922" target="_blank" rel="noopener">PRJEB4922</a></td>
@@ -2649,13 +3047,6 @@
           <td><span class="badge badge-muted">reuse</span></td>
           <td>Defining the cultured and uncultured bacterial fractions in Cannabis seeds.</td>
           <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJEB64469" target="_blank" rel="noopener">PRJEB64469</a></td>
-          <td class="cell-note" style="margin:0;max-width:none;">pmc_fulltext</td>
-        </tr>
-        <tr>
-          <td class="num">2025</td>
-          <td><span class="badge badge-good">deposit</span></td>
-          <td>Discovery of major QTL and a massive haplotype associated with cannabinoid biosynthesis in drug-type Cannabis.</td>
-          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1047573" target="_blank" rel="noopener">PRJNA1047573</a></td>
           <td class="cell-note" style="margin:0;max-width:none;">pmc_fulltext</td>
         </tr>
         <tr>
@@ -4006,6 +4397,14 @@
         </div>
 
         <div class="bar-row">
+          <div class="bar-label">Laval University</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:17.6%"></div>
+          </div>
+          <div class="bar-value">3</div>
+        </div>
+
+        <div class="bar-row">
           <div class="bar-label">Heilongjiang Academy of Agricultural Sciences</div>
           <div class="bar-track">
             <div class="bar-fill" style="width:17.6%"></div>
@@ -4023,14 +4422,6 @@
 
         <div class="bar-row">
           <div class="bar-label">La Trobe University</div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width:11.8%"></div>
-          </div>
-          <div class="bar-value">2</div>
-        </div>
-
-        <div class="bar-row">
-          <div class="bar-label">Yunnan University</div>
           <div class="bar-track">
             <div class="bar-fill" style="width:11.8%"></div>
           </div>
@@ -4090,6 +4481,12 @@
           <td class="num"><b>3</b></td>
         </tr>
         <tr>
+          <td class="source-name">Laval University</td>
+          <td class="num">3</td>
+          <td class="num">—</td>
+          <td class="num"><b>3</b></td>
+        </tr>
+        <tr>
           <td class="source-name">Heilongjiang Academy of Agricultural Sciences</td>
           <td class="num">3</td>
           <td class="num">—</td>
@@ -4120,18 +4517,6 @@
           <td class="num"><b>2</b></td>
         </tr>
         <tr>
-          <td class="source-name">Laval University</td>
-          <td class="num">2</td>
-          <td class="num">—</td>
-          <td class="num"><b>2</b></td>
-        </tr>
-        <tr>
-          <td class="source-name">Qiqihar University</td>
-          <td class="num">2</td>
-          <td class="num">—</td>
-          <td class="num"><b>2</b></td>
-        </tr>
-        <tr>
           <td class="source-name">Institute of Bast Fiber Crops,Chinese Academy of Agricultural Sciences</td>
           <td class="num">2</td>
           <td class="num">—</td>
@@ -4157,6 +4542,12 @@
         </tr>
         <tr>
           <td class="source-name">Northeast Agricultural University</td>
+          <td class="num">1</td>
+          <td class="num">—</td>
+          <td class="num"><b>1</b></td>
+        </tr>
+        <tr>
+          <td class="source-name">LIST-Luxembourg Institute of Science and Technology</td>
           <td class="num">1</td>
           <td class="num">—</td>
           <td class="num"><b>1</b></td>
@@ -4827,7 +5218,7 @@
         <tr>
           <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1047573" target="_blank" rel="noopener">PRJNA1047573</a> </td>
           <td>Laval University</td>
-          <td><span class="badge badge-good">yes</span></td>
+          <td><span class="badge badge-muted">—</span></td>
           <td class="num">—</td>
           <td class="num">176</td>
           <td class="num">480.0M</td>
@@ -4911,7 +5302,7 @@
         <tr>
           <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1445027" target="_blank" rel="noopener">PRJNA1445027</a> </td>
           <td>Qiqihar University</td>
-          <td><span class="badge badge-muted">—</span></td>
+          <td><span class="badge badge-good">yes</span></td>
           <td class="num">—</td>
           <td class="num">12</td>
           <td class="num">402.2M</td>
