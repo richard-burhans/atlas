@@ -837,15 +837,16 @@
     </details>
 
     <details class="section">
-      <summary><h2>Repeat content &mdash; and how much masking misses</h2></summary>
+      <summary><h2>Repeat content, masking, and what the aligner actually sees</h2></summary>
       <p class="section-note">An all-vs-all alignment over <i>Cannabis</i> is an alignment over roughly two-thirds repeat, so masking is a decision that has to be made <b>before</b> aligning, not annotation to be done afterwards. This measures how self-similar each assembly is from its own k-mers &mdash; a canonical 21-mer counted across the whole assembly, so it works on the assemblies nobody has annotated, which is most of them.</p>
       <div class="callout">
         <b>58&ndash;74%</b> of each assembly occurs more than once. Only <b>1</b> of <b>11</b> carries any repeat masking at all &mdash; and on the one that does, masking covers <b>13 percentage points less</b> than the sequence that genuinely repeats.
         <div class="cell-note" style="margin-top:8px;">That gap is the number that matters for alignment: it is real repeat a library-based masker did not recognise, and it is what drives spurious seeding. ⚠ <b>A COLLAPSED REPEAT LOOKS UNIQUE.</b> An assembly that failed to resolve a tandem array stores one copy where the plant has many, so a fragmented assembly reports LESS repeat than it holds &mdash; this statistic is partly a measure of assembly quality, and the most repetitive row here is also the largest, which is the signature of uncollapsed haplotypes rather than of biology. ⚠ It measures <b>self-similarity, not repeat families</b>: it cannot say which families they are or where they sit, and only that can drive masking.</div>
+        <div class="cell-note" style="margin-top:8px;">⛔ <b>AND MASKING ALONE CANNOT FIX THE SEEDING.</b> KegAlign seeds on a spaced pattern with <b>12 care positions</b>, not a long k-mer, so the sequence it repeatedly hits is far more common than the columns above suggest: <b>29&ndash;35%</b> of every assembly sits in seeds occurring more than a thousand times, and the worst single seed occurs <b>670.5K</b> times. Even masking everything windowmasker finds would leave about a third of the remainder in that band. <b>Seed specificity and dynamic masking therefore matter more than static masking does</b> &mdash; measured, and the reverse of what this project assumed when it planned the alignment.</div>
       </div>
       <div class="table-scroll" style="margin-top:16px;">
         <table class="js-table" id="tbl-repeat">
-          <thead><tr><th>Assembly</th><th class="num">Occurs &gt;once (k=21)</th><th class="num">Soft-masked</th><th class="num">Unmasked repeat</th><th class="num">Bases</th></tr></thead>
+          <thead><tr><th>Assembly</th><th class="num">Occurs &gt;once (k=21)</th><th class="num">Soft-masked</th><th class="num">Unmasked repeat</th><th class="num">In seeds &gt;1000&times;</th><th class="num">Worst seed</th><th class="num">Bases</th></tr></thead>
           <tbody>
         <tr>
           <td class="source-name">Cannbio-2 (GigaDB)</td>
@@ -853,6 +854,8 @@
             <div class="bar-track" style="margin-top:4px;"><div class="bar-fill" style="width:74%"></div></div></td>
           <td class="num"><span class="badge badge-warning">none</span></td>
           <td class="num">&mdash;</td>
+          <td class="num">35%</td>
+          <td class="num">670.5K</td>
           <td class="num">903.2M</td>
         </tr>
         <tr>
@@ -861,6 +864,8 @@
             <div class="bar-track" style="margin-top:4px;"><div class="bar-fill" style="width:64%"></div></div></td>
           <td class="num"><span class="badge badge-warning">none</span></td>
           <td class="num">&mdash;</td>
+          <td class="num">33%</td>
+          <td class="num">606.7K</td>
           <td class="num">748.3M</td>
         </tr>
         <tr>
@@ -869,6 +874,8 @@
             <div class="bar-track" style="margin-top:4px;"><div class="bar-fill" style="width:63%"></div></div></td>
           <td class="num"><span class="badge badge-warning">none</span></td>
           <td class="num">&mdash;</td>
+          <td class="num">32%</td>
+          <td class="num">575.3K</td>
           <td class="num">713.2M</td>
         </tr>
         <tr>
@@ -877,6 +884,8 @@
             <div class="bar-track" style="margin-top:4px;"><div class="bar-fill" style="width:63%"></div></div></td>
           <td class="num"><span class="badge badge-warning">none</span></td>
           <td class="num">&mdash;</td>
+          <td class="num">33%</td>
+          <td class="num">538.5K</td>
           <td class="num">738.6M</td>
         </tr>
         <tr>
@@ -885,6 +894,8 @@
             <div class="bar-track" style="margin-top:4px;"><div class="bar-fill" style="width:63%"></div></div></td>
           <td class="num"><span class="badge badge-warning">none</span></td>
           <td class="num">&mdash;</td>
+          <td class="num">33%</td>
+          <td class="num">534.7K</td>
           <td class="num">735.5M</td>
         </tr>
         <tr>
@@ -893,6 +904,8 @@
             <div class="bar-track" style="margin-top:4px;"><div class="bar-fill" style="width:62%"></div></div></td>
           <td class="num"><span class="badge badge-warning">none</span></td>
           <td class="num">&mdash;</td>
+          <td class="num">32%</td>
+          <td class="num">467.9K</td>
           <td class="num">699.7M</td>
         </tr>
         <tr>
@@ -901,6 +914,8 @@
             <div class="bar-track" style="margin-top:4px;"><div class="bar-fill" style="width:61%"></div></div></td>
           <td class="num"><span class="badge badge-warning">none</span></td>
           <td class="num">&mdash;</td>
+          <td class="num">31%</td>
+          <td class="num">460.4K</td>
           <td class="num">682.5M</td>
         </tr>
         <tr>
@@ -909,6 +924,8 @@
             <div class="bar-track" style="margin-top:4px;"><div class="bar-fill" style="width:60%"></div></div></td>
           <td class="num"><span class="badge badge-warning">none</span></td>
           <td class="num">&mdash;</td>
+          <td class="num">31%</td>
+          <td class="num">373.5K</td>
           <td class="num">736.2M</td>
         </tr>
         <tr>
@@ -917,6 +934,8 @@
             <div class="bar-track" style="margin-top:4px;"><div class="bar-fill" style="width:60%"></div></div></td>
           <td class="num">46.8%</td>
           <td class="num"><b>+13.3</b> pts</td>
+          <td class="num">31%</td>
+          <td class="num">373.5K</td>
           <td class="num">736.6M</td>
         </tr>
         <tr>
@@ -925,6 +944,8 @@
             <div class="bar-track" style="margin-top:4px;"><div class="bar-fill" style="width:58%"></div></div></td>
           <td class="num"><span class="badge badge-warning">none</span></td>
           <td class="num">&mdash;</td>
+          <td class="num">29%</td>
+          <td class="num">483.4K</td>
           <td class="num">646.0M</td>
         </tr>
         <tr>
@@ -933,6 +954,8 @@
             <div class="bar-track" style="margin-top:4px;"><div class="bar-fill" style="width:58%"></div></div></td>
           <td class="num"><span class="badge badge-warning">none</span></td>
           <td class="num">&mdash;</td>
+          <td class="num">29%</td>
+          <td class="num">481.6K</td>
           <td class="num">641.7M</td>
         </tr></tbody>
         </table>
