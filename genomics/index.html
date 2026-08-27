@@ -1767,6 +1767,147 @@
 
 
     <details class="section">
+      <summary><h2>Genome annotation &mdash; what we hold, and how deep</h2></summary>
+      <p class="section-note">The assembly table above prints an "annotated" badge, which answers whether <i>somebody</i> annotated a genome. This answers a different and more useful question: which annotation sets exist for <i>Cannabis sativa</i> across every source we harvest, and how much of each we actually hold. The two diverge &mdash; several annotations here are not NCBI records at all, so no badge above can show them. <b>Depth is the point, not the count:</b> a gene count copied out of a metadata field and a full gene table both read as "annotation" and support completely different work, so they are never added together.</p>
+      <div class="callout">
+        <b>18</b> annotation sets across <b>5</b> sources &mdash; but we hold a gene-level table for only <b>1</b> of them. That one table is <b>35.3K</b> gene records; every other set here is a gene count, a download link, or a file manifest.
+        <div class="cell-note" style="margin-top:8px;">Functional annotation within the table we do hold: <b>55%</b> of genes carry at least one GO term, <b>99%</b> carry an Ensembl cross-reference, and <b>0%</b> a Swiss-Prot accession &mdash; so a GO-driven analysis is possible on roughly half of it and a Swiss-Prot-driven one on almost none. Gene types: PROTEIN_CODING 28.8K, ncRNA 2,623, snoRNA 1,894, PSEUDO 949, tRNA 579, rRNA 337. Organelles are annotated separately: chloroplast <b>139</b> genes in 153.9K bp; mitochondrion <b>55</b> genes in 415.6K bp; the mitochondrion's genes sit inside the nuclear annotation as chromosome <code>MT</code> rather than in a record of their own, which is why the two do not sum.</div>
+      </div>
+      <div class="table-scroll" style="margin-top:16px;">
+        <table class="js-table" id="tbl-annotation">
+          <thead><tr><th>Source</th><th>Target</th><th>Annotation</th><th>Genes</th><th>What we hold</th></tr></thead>
+          <tbody>
+        <tr>
+          <td class="source-name">NCBI<div class="cell-note">NCBI RefSeq</div></td>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_029168945.1/" target="_blank" rel="noopener">GCF_029168945.1</a></td>
+          <td>GCF_029168945.1-RS_2023_11</td>
+          <td class="num">35.2K</td>
+          <td><span class="badge badge-good">gene table</span><div class="cell-note">35.2K gene records</div></td>
+        </tr>
+        <tr>
+          <td class="source-name">NCBI<div class="cell-note">Institute of Medicinal Plant Development, Chinese Academy of Medical Sciences, Peking Union Medical</div></td>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_054642775.1/" target="_blank" rel="noopener">GCA_054642775.1</a></td>
+          <td>Annotation submitted by Institute of Medicinal Plant Development, Chinese Academy of Medical Sciences, Peking Union Medical</td>
+          <td class="num">31.1K</td>
+          <td><span class="badge badge-muted">metadata only</span><div class="cell-note">gene count only</div></td>
+        </tr>
+        <tr>
+          <td class="source-name">NCBI<div class="cell-note">Institute of Medicinal Plant Development, Chinese Academy of Medical Sciences, Peking Union Medical</div></td>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_054642815.1/" target="_blank" rel="noopener">GCA_054642815.1</a></td>
+          <td>Annotation submitted by Institute of Medicinal Plant Development, Chinese Academy of Medical Sciences, Peking Union Medical</td>
+          <td class="num">31.0K</td>
+          <td><span class="badge badge-muted">metadata only</span><div class="cell-note">gene count only</div></td>
+        </tr>
+        <tr>
+          <td class="source-name">NCBI<div class="cell-note">Medicinal Genomics</div></td>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_012923435.1/" target="_blank" rel="noopener">GCA_012923435.1</a></td>
+          <td>Annotation submitted by Medicinal Genomics</td>
+          <td class="num">27.4K</td>
+          <td><span class="badge badge-muted">metadata only</span><div class="cell-note">gene count only</div></td>
+        </tr>
+        <tr>
+          <td class="source-name">NCBI<div class="cell-note">Medicinal Genomics</div></td>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_013030025.1/" target="_blank" rel="noopener">GCA_013030025.1</a></td>
+          <td>Annotation submitted by Medicinal Genomics</td>
+          <td class="num">31.6K</td>
+          <td><span class="badge badge-muted">metadata only</span><div class="cell-note">gene count only</div></td>
+        </tr>
+        <tr>
+          <td class="source-name">NCBI<div class="cell-note">NCBI RefSeq</div></td>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_900626175.2/" target="_blank" rel="noopener">GCF_900626175.2</a></td>
+          <td>NCBI Cannabis sativa Updated Annotation Release 100.20200513</td>
+          <td class="num">31.2K</td>
+          <td><span class="badge badge-muted">metadata only</span><div class="cell-note">gene count only</div></td>
+        </tr>
+        <tr>
+          <td class="source-name">CannabisGDB<div class="cell-note">McKernan et al., 2018</div></td>
+          <td class="source-name"><a href="https://gdb.supercann.net/index.php/genomes/genomejld" target="_blank" rel="noopener">Jamaican Lion DASH</a></td>
+          <td>GFF3 + protein + CDS</td>
+          <td class="num">61.1K</td>
+          <td><span class="badge badge-muted">metadata only</span><div class="cell-note">download links only</div></td>
+        </tr>
+        <tr>
+          <td class="source-name">CannabisGDB<div class="cell-note">Laverty et al., 2018</div></td>
+          <td class="source-name"><a href="https://gdb.supercann.net/index.php/genomes/genomefinola" target="_blank" rel="noopener">Finola</a></td>
+          <td>GFF3 + protein + CDS</td>
+          <td class="num">50.1K</td>
+          <td><span class="badge badge-muted">metadata only</span><div class="cell-note">download links only</div></td>
+        </tr>
+        <tr>
+          <td class="source-name">CannabisGDB<div class="cell-note">Laverty et al., 2018</div></td>
+          <td class="source-name"><a href="https://gdb.supercann.net/index.php/genomes/genomepk" target="_blank" rel="noopener">Purple Kush</a></td>
+          <td>GFF3 + protein + CDS</td>
+          <td class="num">48.0K</td>
+          <td><span class="badge badge-muted">metadata only</span><div class="cell-note">download links only</div></td>
+        </tr>
+        <tr>
+          <td class="source-name">CannabisGDB<div class="cell-note">Grassa et al., 2018</div></td>
+          <td class="source-name"><a href="https://gdb.supercann.net/index.php/genomes/genomecbd" target="_blank" rel="noopener">CBDRx-18</a></td>
+          <td>GFF3 + protein + CDS</td>
+          <td class="num">33.4K</td>
+          <td><span class="badge badge-muted">metadata only</span><div class="cell-note">download links only</div></td>
+        </tr>
+        <tr>
+          <td class="source-name">CannabisGDB<div class="cell-note">(unstated)</div></td>
+          <td class="source-name"><a href="https://gdb.supercann.net/index.php/genomes/genomepbk" target="_blank" rel="noopener">Pineapple Banana Bubba Kush</a></td>
+          <td>GFF3 + protein + CDS</td>
+          <td class="num">26.5K</td>
+          <td><span class="badge badge-muted">metadata only</span><div class="cell-note">download links only</div></td>
+        </tr>
+        <tr>
+          <td class="source-name">CannabisGDB<div class="cell-note">(unstated)</div></td>
+          <td class="source-name"><a href="https://gdb.supercann.net/index.php/genomes/genomela" target="_blank" rel="noopener">LA Confidential</a></td>
+          <td>GFF3 + protein + CDS</td>
+          <td class="num">24.5K</td>
+          <td><span class="badge badge-muted">metadata only</span><div class="cell-note">download links only</div></td>
+        </tr>
+        <tr>
+          <td class="source-name">CannabisGDB<div class="cell-note">(unstated)</div></td>
+          <td class="source-name"><a href="https://gdb.supercann.net/index.php/genomes/genomecd91" target="_blank" rel="noopener">Chemdog91</a></td>
+          <td>GFF3 + protein + CDS</td>
+          <td class="num">16.5K</td>
+          <td><span class="badge badge-muted">metadata only</span><div class="cell-note">download links only</div></td>
+        </tr>
+        <tr>
+          <td class="source-name">CannabisGDB<div class="cell-note">(unstated)</div></td>
+          <td class="source-name"><a href="https://gdb.supercann.net/index.php/genomes/genomeca" target="_blank" rel="noopener">Cannatonic</a></td>
+          <td>GFF3 + protein + CDS</td>
+          <td class="num">26.5K</td>
+          <td><span class="badge badge-muted">metadata only</span><div class="cell-note">download links only</div></td>
+        </tr>
+        <tr>
+          <td class="source-name">GigaDB<div class="cell-note">dataset 10.5524/100821</div></td>
+          <td class="source-name"><a href="https://s3.ap-northeast-1.wasabisys.com/gigadb-datasets/live/pub/10.5524/100001_101000/100821/Cannabis-sativa-v1.0.a1-merged-annotations.gff3" target="_blank" rel="noopener">Cannabis-sativa-v1.0.a1-merged-annotations.gff3</a></td>
+          <td>102.3 MB GFF3</td>
+          <td class="num">&mdash;</td>
+          <td><span class="badge badge-muted">metadata only</span><div class="cell-note">file manifest only</div></td>
+        </tr>
+        <tr>
+          <td class="source-name">Repository deposit<div class="cell-note">figshare+ deposit</div></td>
+          <td class="source-name"><a href="https://plus.figshare.com/articles/dataset/Cannabis_Pangenome_Annotation_Data/25909024" target="_blank" rel="noopener">Cannabis Pangenome Annotation Data</a></td>
+          <td>10.25452/figshare.plus.25909024.v1</td>
+          <td class="num">&mdash;</td>
+          <td><span class="badge badge-muted">metadata only</span><div class="cell-note">file manifest only</div></td>
+        </tr>
+        <tr>
+          <td class="source-name">Repository deposit<div class="cell-note">4TU.ResearchData deposit</div></td>
+          <td class="source-name"><a href="https://data.4tu.nl/articles/dataset/Dataset_for_the_annotations_of_the_transcriptome_of_the_hemp_cultivar_C_sativa_Finola_finola1_and_the_marihuana_cultivar_C_sativa_Purple_Kush_/13121885" target="_blank" rel="noopener">Dataset for the annotations of the transcriptome of the hemp cultivar C. sativa ‘Finola’ (finola1) and the marihuana cultivar C. sativa ‘Purple Kush’</a></td>
+          <td>10.4121/13121885.v1</td>
+          <td class="num">&mdash;</td>
+          <td><span class="badge badge-muted">metadata only</span><div class="cell-note">file manifest only</div></td>
+        </tr>
+        <tr>
+          <td class="source-name">Ensembl Plants<div class="cell-note">Ensembl genebuild</div></td>
+          <td class="source-name"><a href="https://plants.ensembl.org/Cannabis_sativa_female/Info/Index" target="_blank" rel="noopener">GCA_900626175.1</a></td>
+          <td>genebuild 2020-02-CS10/2020-02</td>
+          <td class="num">&mdash;</td>
+          <td><span class="badge badge-muted">metadata only</span><div class="cell-note">no gene table held</div></td>
+        </tr></tbody>
+        </table>
+      </div>
+    </details>
+
+    <details class="section">
       <summary><h2>NCBI data by owner</h2></summary>
       <p class="section-note">Every BioProject's <code>submitter_organization</code> ("owner"), and how much of NCBI's Cannabis sativa data traces to them: BioProjects, SRA runs, sequenced bases, and assemblies. The BioProjects column includes 8 accessions beyond the core 288 (see the headline KPI above) that our organism-scoped BioProject search missed but that SRA runs still reference -- genus-level "Cannabis" tags, hemp "retting metagenome" projects, and raw-reads sub-projects that inherit their organism tag from an untraversed parent -- resolved by <code>fetch_missing_bioprojects.py</code>. <b>(unknown)</b> is the true last resort: it falls back to the SRA run's own <code>CenterName</code> where possible, and only reads "(unknown)" for the handful of runs where even that's blank.</p>
       <div class="bar-chart">
