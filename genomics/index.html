@@ -121,6 +121,14 @@
   .source-name a { color: var(--text-primary); font-weight: 600; text-decoration: none; }
   .source-name a:hover { text-decoration: underline; }
   .source-name .cell-note { margin-left: 0; max-width: 260px; }
+  /* ⛔ `.cell-note` is a TABLE-CELL style: 220px wide and pushed right by `margin-left: auto`, so a
+     numeric column's footnote sits under its number. Inside a callout that is a layout bug -- the
+     first line runs the full width, then the note collapses into a thin column jammed against the
+     right edge with a field of blank space beside it. It was latent for as long as any callout has
+     carried a note; the sections added 2026-08-27 made it obvious. Reset it wherever a note is
+     PROSE rather than a cell annotation. */
+  .callout .cell-note { max-width: none; margin-left: 0; margin-top: 8px; }
+  .section-note .cell-note { max-width: none; margin-left: 0; }
 
   .badge { display: inline-block; font-size: 11px; font-weight: 650; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
   .badge-good { background: var(--status-good-bg); color: var(--status-good); }
@@ -840,9 +848,7 @@
       <summary><h2>Repeat content, masking, and what the aligner actually sees</h2></summary>
       <p class="section-note">An all-vs-all alignment over <i>Cannabis</i> is an alignment over roughly two-thirds repeat, so masking is a decision that has to be made <b>before</b> aligning, not annotation to be done afterwards. This measures how self-similar each assembly is from its own k-mers &mdash; a canonical 21-mer counted across the whole assembly, so it works on the assemblies nobody has annotated, which is most of them.</p>
       <div class="callout">
-        <b>58&ndash;74%</b> of each assembly occurs more than once. Only <b>1</b> of <b>11</b> carries any repeat masking at all &mdash; and on the one that does, masking covers <b>13 percentage points less</b> than the sequence that genuinely repeats.
-        <div class="cell-note" style="margin-top:8px;">That gap is the number that matters for alignment: it is real repeat a library-based masker did not recognise, and it is what drives spurious seeding. ⚠ <b>A COLLAPSED REPEAT LOOKS UNIQUE.</b> An assembly that failed to resolve a tandem array stores one copy where the plant has many, so a fragmented assembly reports LESS repeat than it holds &mdash; this statistic is partly a measure of assembly quality, and the most repetitive row here is also the largest, which is the signature of uncollapsed haplotypes rather than of biology. ⚠ It measures <b>self-similarity, not repeat families</b>: it cannot say which families they are or where they sit, and only that can drive masking.</div>
-        <div class="cell-note" style="margin-top:8px;">⛔ <b>AND MASKING ALONE CANNOT FIX THE SEEDING.</b> KegAlign seeds on a spaced pattern with <b>12 care positions</b>, not a long k-mer, so the sequence it repeatedly hits is far more common than the columns above suggest: <b>29&ndash;35%</b> of every assembly sits in seeds occurring more than a thousand times, and the worst single seed occurs <b>670.5K</b> times. Even masking everything windowmasker finds would leave about a third of the remainder in that band. <b>Seed specificity and dynamic masking therefore matter more than static masking does</b> &mdash; measured, and the reverse of what this project assumed when it planned the alignment.</div>
+        <b>58&ndash;74%</b> of each assembly occurs more than once; only <b>1</b> of <b>11</b> carries any masking. <span style="color:var(--text-muted);">What that means for the alignment is discussed below.</span>
       </div>
       <div class="table-scroll" style="margin-top:16px;">
         <table class="js-table" id="tbl-repeat">
