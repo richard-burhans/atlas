@@ -1024,7 +1024,7 @@
       <summary><h2>Pipeline fit &mdash; what this survey could actually feed</h2></summary>
       <p class="section-note"><a href="https://github.com/nekrut/brc-tools" target="_blank" rel="noopener">brc-tools</a> wraps the comparative stack this survey collects data for. Its graph is harvested into <code>brc_workflows.csv</code>, so this table moves when the pipeline does. <b>An assessment, not a measurement</b>: the fit of each input is a judgement made by reading the port descriptions, while every count beside it is derived from <code>data/processed/</code>.</p>
       <div class="callout">
-        Of <b>113</b> ports across <b>12</b> workflows, <b>32</b> are external &mdash; data a user supplies. <b>9</b> of the assessed ones this survey can serve directly and <b>1</b> it cannot serve at all.
+        Of <b>113</b> ports across <b>12</b> workflows, <b>32</b> are external &mdash; data a user supplies. <b>10</b> of the assessed ones this survey can serve directly and <b>1</b> it cannot serve at all.
         <div class="cell-note" style="margin-top:8px;">⛔ <b>Holding an inventory is not holding the data.</b> This survey harvests catalogues &mdash; accessions, counts, metadata. A <i>direct</i> fit means it can say exactly which accessions to fetch and that the fields line up, not that the bytes are here.</div>
         <div class="cell-note" style="margin-top:8px;">⚠ <b>6 of 12 workflows have never been observed running.</b> Reviewed &mdash; a step-level page exists behind them with a real sample from a named invocation &mdash; are <b>A, B, C, C2, E, I</b>; unreviewed are <b>D, F, G, H, J, K</b>, whose ports come from the workflow files alone. <b>17</b> of the <b>32</b> external inputs sit on an unreviewed workflow, so a fit stated for one of those rests on a DECLARED port rather than an observed one.</div>
       </div>
@@ -1045,13 +1045,6 @@
           <td><code>collection/gff3</code> &times;3</td>
           <td class="num">6</td>
           <td>only the annotated assemblies can be anchors; the GFF3s are fetched per accession, not held here</td>
-        </tr>
-        <tr>
-          <td class="source-name">A<div class="cell-note">proteomes</div></td>
-          <td><span class="badge badge-muted">derived</span></td>
-          <td><code>collection/fasta</code> &times;8</td>
-          <td class="num">6</td>
-          <td>⚠ NO proteome inventory is harvested. Only the annotated assemblies could supply one, and each needs a separate fetch</td>
         </tr>
         <tr>
           <td class="source-name">C2<div class="cell-note">anchor_gene_gff3s</div></td>
@@ -1080,6 +1073,13 @@
           <td><code>collection/fasta</code> &times;8</td>
           <td class="num">21</td>
           <td>the chromosome-level NCBI assemblies are the candidate panel</td>
+        </tr>
+        <tr>
+          <td class="source-name">A<div class="cell-note">proteomes</div></td>
+          <td><span class="badge badge-good">direct</span></td>
+          <td><code>collection/fasta</code> &times;8</td>
+          <td class="num">4</td>
+          <td>⛔ AVAILABLE BUT NOT COMPARABLE AS SHIPPED. RefSeq carries every isoform, GenBank submitter annotations often one protein per gene: cs10 is 1.33 isoforms/gene against 1.00 for the T2T pair, which REVERSES the ranking by protein count. Collapse to one protein per gene before any orthogroup step, or the inflated proteome dominates</td>
         </tr>
         <tr>
           <td class="source-name">B<div class="cell-note">assemblies</div></td>
