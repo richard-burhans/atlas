@@ -141,6 +141,15 @@
 
   footer { font-size: 11.5px; color: var(--text-muted); border-top: 1px solid var(--gridline); padding-top: 16px; margin-top: 48px; line-height: 1.6; }
   code { background: var(--gridline); padding: 1px 5px; border-radius: 4px; font-size: 11px; }
+  .toc { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline;
+          margin: 18px 0 6px; padding: 14px 16px; border: 1px solid var(--gridline);
+          border-radius: 8px; }
+  .toc-label { font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+                opacity: .65; margin-right: 4px; white-space: nowrap; }
+  .toc a { font-size: 12.5px; text-decoration: none; padding: 2px 8px;
+            border-radius: 999px; border: 1px solid var(--gridline); white-space: nowrap; }
+  .toc a:hover { border-color: currentColor; }
+  :target { scroll-margin-top: 12px; }
   .tier-rule { display: flex; align-items: center; gap: 14px; margin: 8px 0 28px; }
   .tier-rule::after { content: ""; flex: 1; height: 1px; background: var(--gridline); }
   .tier-label { font-size: 11.5px; font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; }
@@ -193,8 +202,11 @@
       </div>
     </div>
 
+    
+    <nav class="toc" aria-label="Sections"><span class="toc-label">Jump to</span><a href="#sec-comparison-readiness-which-genomes-can-actually-">Comparison readiness &mdash; which genomes can actually be used</a><a href="#sec-comparative-artifacts-alignments-graphs-orthogro">Comparative artifacts &mdash; alignments, graphs, orthogroups</a><a href="#sec-assembly-quality-for-whole-genome-alignment">Assembly quality for whole-genome alignment</a><a href="#sec-repeat-content-masking-and-what-the-aligner-actu">Repeat content, masking, and what the aligner actually sees</a><a href="#sec-repeats-and-masking-what-we-measured-and-what-it">Repeats and masking &mdash; what we measured, and what it changed</a><a href="#sec-pipeline-fit-what-this-survey-could-actually-fee">Pipeline fit &mdash; what this survey could actually feed</a><a href="#sec-holdings-what-is-actually-on-disk">Holdings &mdash; what is actually on disk</a><a href="#sec-genome-annotation-what-we-hold-and-how-deep">Genome annotation &mdash; what we hold, and how deep</a><a href="#sec-genome-assemblies-in-detail">Genome assemblies in detail</a><a href="#sec-data-volume-what-a-full-mirror-would-cost">Data volume — what a full mirror would cost</a><a href="#sec-genome-assemblies-by-source">Genome assemblies by source</a><a href="#sec-coverage-by-source">Coverage by source</a><a href="#sec-pangenome-projects">Pangenome projects</a><a href="#sec-data-found-in-only-one-place">Data found in only one place</a><a href="#sec-growth-over-time">Growth over time</a><a href="#sec-known-gaps">Known gaps</a><a href="#sec-source-freshness">Source freshness</a><a href="#sec-ncbi-data-by-owner">NCBI data by owner</a><a href="#sec-publication-coverage">Publication coverage</a><a href="#sec-unpublished-data-by-owner">Unpublished data by owner</a><a href="#sec-sequencing-data-per-bioproject-orphan-biosample">Sequencing data per BioProject / orphan BioSample</a><a href="#sec-data-beyond-raw-reads-eva-tsa-geo-arrayexpress-o">Data beyond raw reads: EVA, TSA, GEO, ArrayExpress &amp; oneKP</a></nav>
+
     <div class="tier-rule"><span class="tier-label">Can we do the work?</span></div>
-    <details class="section" open>
+    <details class="section" id="sec-comparison-readiness-which-genomes-can-actually-" open>
       <summary><h2>Comparison readiness &mdash; which genomes can actually be used</h2></summary>
       <p class="section-note">Three things must be true at once before a genome can enter an ortholog or synteny analysis, and the harvest tracked only the first: the assembly must be <b>chromosome-scale</b>, it must carry <b>gene models</b> (both sides of a comparison need them), and it must be reachable in a <b>shared coordinate system</b>. Counting assemblies answers none of those, which is why the number of genomes has never been the size of the comparative set.</p>
       <div class="callout">
@@ -398,7 +410,7 @@
       </div>
     </details>
 
-    <details class="section" open>
+    <details class="section" id="sec-comparative-artifacts-alignments-graphs-orthogro" open>
       <summary><h2>Comparative artifacts &mdash; alignments, graphs, orthogroups</h2></summary>
       <p class="section-note">Everything else this dashboard catalogues describes <i>one</i> genome: its level, its size, its annotation. A comparative resource is built out of statements about <b>pairs and sets</b> of genomes, and until this table existed the harvest had nowhere to put one. <b>The column that decides what this project can defend is <i>Whose</i>, not <i>Kind</i></b> &mdash; holding a pangenome graph and having computed one are different claims, and only the second makes this a resource rather than a mirror.</p>
       <div class="callout">
@@ -530,7 +542,7 @@
       </div>
     </details>
 
-    <details class="section">
+    <details class="section" id="sec-assembly-quality-for-whole-genome-alignment">
       <summary><h2>Assembly quality for whole-genome alignment</h2></summary>
       <p class="section-note">The same assemblies as the detail table below, judged by a different question: can this genome go into a pairwise alignment as it stands? Mirrors of one assembly are collapsed first, so this counts genomes rather than records. <b>Usable</b> means chromosome-level <i>and</i> a scaffold N50 of at least 10.0M bp &mdash; the second half matters because 2 assemblies report chromosomes over scaffolds far smaller than one, which is a linkage-map overlay rather than assembled sequence. The other flags are things to notice, not verdicts: <b>oversize</b> is more than 900.0M bp, above the haploid genome and so likely carrying uncollapsed haplotypes; <b>fragmented</b> is a contig N50 under 200.0K bp, too small to chain through; <b>duplicate-name</b> means another assembly carries the same cultivar name, which on a shared release date means a haplotype pair of one plant rather than two genomes to compare. Which of those to exclude is a judgement about what the comparison means, so they are flagged here rather than dropped.</p>
       <div class="callout"><b>17 of 27</b> distinct genomes are chromosome-scale and usable as-is &mdash; an all-vs-all over them is <b>136</b> pairs (272 if run in both directions, since target and query are not interchangeable), covering <b>12.9</b> Gbp. Flagged for a decision first: 6 cultivars with more than one assembly, 5 above the haploid genome size, 6 too fragmented to chain.</div>
@@ -844,7 +856,7 @@
       </div>
     </details>
 
-    <details class="section">
+    <details class="section" id="sec-repeat-content-masking-and-what-the-aligner-actu">
       <summary><h2>Repeat content, masking, and what the aligner actually sees</h2></summary>
       <p class="section-note">An all-vs-all alignment over <i>Cannabis</i> is an alignment over roughly two-thirds repeat, so masking is a decision that has to be made <b>before</b> aligning, not annotation to be done afterwards. This measures how self-similar each assembly is from its own k-mers &mdash; a canonical 21-mer counted across the whole assembly, so it works on the assemblies nobody has annotated, which is most of them.</p>
       <div class="callout">
@@ -968,7 +980,7 @@
       </div>
     </details>
 
-    <details class="section" open>
+    <details class="section" id="sec-repeats-and-masking-what-we-measured-and-what-it" open>
       <summary><h2>Repeats and masking &mdash; what we measured, and what it changed</h2></summary>
       <p class="section-note">A discussion rather than a table. The numbers behind every claim here are in the two sections above and in <code>data/processed/masking_pilot.csv</code>; this says what they mean for the plan.</p>
 
@@ -1008,7 +1020,7 @@
       <p class="section-note">⚠ <b>What is still unknown.</b> The pilot ran on a <b>draft</b> assembly, so it describes the parameters rather than the genome; the benchmark belongs on the two gapless assemblies. No transposable-element masker has been run at all. And a collapsed repeat looks unique to every method here, so a fragmented assembly under-reports its own repeat content &mdash; the most repetitive assembly on this page is also the largest, which is the signature of uncollapsed haplotypes rather than of biology.</p>
     </details>
 
-    <details class="section">
+    <details class="section" id="sec-pipeline-fit-what-this-survey-could-actually-fee">
       <summary><h2>Pipeline fit &mdash; what this survey could actually feed</h2></summary>
       <p class="section-note"><a href="https://github.com/nekrut/brc-tools" target="_blank" rel="noopener">brc-tools</a> wraps the comparative stack this survey collects data for. Its graph is harvested into <code>brc_workflows.csv</code>, so this table moves when the pipeline does. <b>An assessment, not a measurement</b>: the fit of each input is a judgement made by reading the port descriptions, while every count beside it is derived from <code>data/processed/</code>.</p>
       <div class="callout">
@@ -1018,95 +1030,110 @@
       </div>
       <div class="table-scroll" style="margin-top:16px;">
         <table class="js-table" id="tbl-brc-ports">
-          <thead><tr><th>Workflow / port</th><th>Fit</th><th class="num">Candidates</th><th>What we hold</th></tr></thead>
+          <thead><tr><th>Workflow / port</th><th>Fit</th><th>Observed</th><th class="num">Candidates</th><th>What we hold</th></tr></thead>
           <tbody>
         <tr>
           <td class="source-name">J<div class="cell-note">cohort_vcf</div></td>
           <td><span class="badge badge-warning">none</span></td>
+          <td><span class="cell-note">not observed</span></td>
           <td class="num">2</td>
           <td>⛔ THE PIPELINE'S ONLY VARIANT INPUT AND THE SURVEY'S THINNEST HOLDING. EVA is catalogued but no cohort VCF is harvested, and nothing here calls variants</td>
         </tr>
         <tr>
           <td class="source-name">A<div class="cell-note">anchor_gene_gff3s</div></td>
           <td><span class="badge badge-muted">derived</span></td>
+          <td><code>collection/gff3</code> &times;3</td>
           <td class="num">6</td>
           <td>only the annotated assemblies can be anchors; the GFF3s are fetched per accession, not held here</td>
         </tr>
         <tr>
           <td class="source-name">A<div class="cell-note">proteomes</div></td>
           <td><span class="badge badge-muted">derived</span></td>
+          <td><code>collection/fasta</code> &times;8</td>
           <td class="num">6</td>
           <td>⚠ NO proteome inventory is harvested. Only the annotated assemblies could supply one, and each needs a separate fetch</td>
         </tr>
         <tr>
           <td class="source-name">C2<div class="cell-note">anchor_gene_gff3s</div></td>
           <td><span class="badge badge-muted">derived</span></td>
+          <td><code>collection/gff3</code> &times;3</td>
           <td class="num">6</td>
           <td>same set</td>
         </tr>
         <tr>
           <td class="source-name">E<div class="cell-note">native_annotations</div></td>
           <td><span class="badge badge-muted">derived</span></td>
+          <td><code>collection/gff3</code> &times;8</td>
           <td class="num">6</td>
           <td>one GFF3 per annotated assembly; the orthogroup NODES</td>
         </tr>
         <tr>
           <td class="source-name">F<div class="cell-note">ref_gff</div></td>
           <td><span class="badge badge-muted">derived</span></td>
+          <td><span class="cell-note">not observed</span></td>
           <td class="num">6</td>
           <td>the reference's own GFF3</td>
         </tr>
         <tr>
           <td class="source-name">A<div class="cell-note">assemblies</div></td>
           <td><span class="badge badge-good">direct</span></td>
+          <td><code>collection/fasta</code> &times;8</td>
           <td class="num">21</td>
           <td>the chromosome-level NCBI assemblies are the candidate panel</td>
         </tr>
         <tr>
           <td class="source-name">B<div class="cell-note">assemblies</div></td>
           <td><span class="badge badge-good">direct</span></td>
+          <td><code>collection/fasta</code> &times;8</td>
           <td class="num">21</td>
           <td>same panel; WF-B maps over it</td>
         </tr>
         <tr>
           <td class="source-name">C2<div class="cell-note">anchor_assemblies</div></td>
           <td><span class="badge badge-good">direct</span></td>
+          <td><code>collection/fasta</code> &times;3</td>
           <td class="num">6</td>
           <td>an anchor must carry an annotation to project from</td>
         </tr>
         <tr>
           <td class="source-name">C2<div class="cell-note">assemblies</div></td>
           <td><span class="badge badge-good">direct</span></td>
+          <td><code>collection/fasta</code> &times;8</td>
           <td class="num">21</td>
           <td>Liftoff targets</td>
         </tr>
         <tr>
           <td class="source-name">D<div class="cell-note">strain_fastas</div></td>
           <td><span class="badge badge-good">direct</span></td>
+          <td><span class="cell-note">not observed</span></td>
           <td class="num">21</td>
           <td>same panel</td>
         </tr>
         <tr>
           <td class="source-name">J<div class="cell-note">chrom_rename</div></td>
           <td><span class="badge badge-good">direct</span></td>
+          <td><span class="cell-note">not observed</span></td>
           <td class="num">214</td>
           <td>⛔ `ncbi_sequence_reports.csv` IS this file — chr_name to genbank_accession, exactly the two columns the port wants</td>
         </tr>
         <tr>
           <td class="source-name">K<div class="cell-note">assemblies</div></td>
           <td><span class="badge badge-good">direct</span></td>
+          <td><span class="cell-note">not observed</span></td>
           <td class="num">21</td>
           <td>faToTwoBit source, keyed by accession</td>
         </tr>
         <tr>
           <td class="source-name">K<div class="cell-note">hub_metadata</div></td>
           <td><span class="badge badge-good">direct</span></td>
+          <td><span class="cell-note">not observed</span></td>
           <td class="num">29</td>
           <td>accession, organism, scientificName and description are all columns of `assemblies.csv`</td>
         </tr>
         <tr>
           <td class="source-name">K<div class="cell-note">ref_sizes</div></td>
           <td><span class="badge badge-good">direct</span></td>
+          <td><span class="cell-note">not observed</span></td>
           <td class="num">11</td>
           <td>chrom sizes in accession space, straight from the sequence reports; no FASTA index needed</td>
         </tr></tbody>
@@ -1188,7 +1215,7 @@
     </details>
 
     <div class="tier-rule"><span class="tier-label">What we hold</span></div>
-    <details class="section" open>
+    <details class="section" id="sec-holdings-what-is-actually-on-disk" open>
       <summary><h2>Holdings &mdash; what is actually on disk</h2></summary>
       <p class="section-note">Every other table on this page counts what a repository <i>says</i> exists. This one counts what was downloaded, and separately what was checked against the publisher's own checksum. <b>Those are three different claims</b>, and treating them as one is how a project convinces itself it holds data it has never opened &mdash; which is not hypothetical here: a gap analysis written the same week concluded that no whole-genome alignments existed anywhere, and seven were sitting inside a dataset this project had already catalogued and never fetched. Provenance for every file (source, DOI, retrieval date, URL, sha256) is recorded by <code>scripts/annotation_provenance.py</code>, which refuses to hash a file that is still downloading.</p>
       <div class="callout">
@@ -1259,7 +1286,7 @@
       </div>
     </details>
 
-    <details class="section">
+    <details class="section" id="sec-genome-annotation-what-we-hold-and-how-deep">
       <summary><h2>Genome annotation &mdash; what we hold, and how deep</h2></summary>
       <p class="section-note">The assembly table above prints an "annotated" badge, which answers whether <i>somebody</i> annotated a genome. This answers a different and more useful question: which annotation sets exist for <i>Cannabis sativa</i> across every source we harvest, and how much of each we actually hold. The two diverge &mdash; several annotations here are not NCBI records at all, so no badge above can show them. <b>Depth is the point, not the count:</b> a gene count copied out of a metadata field and a full gene table both read as "annotation" and support completely different work, so they are never added together.</p>
       <div class="callout">
@@ -1400,7 +1427,7 @@
       </div>
     </details>
 
-    <details class="section">
+    <details class="section" id="sec-genome-assemblies-in-detail">
       <summary><h2>Genome assemblies in detail</h2></summary>
       <p class="section-note">Every assembly in the NCBI Datasets report, one row each, sorted by release date (newest first): level (chromosome/scaffold/contig), size, scaffold N50, whether NCBI has run its Eukaryotic Genome Annotation Pipeline (or a submitter-provided annotation) against it, and gene counts where annotated. <span class="badge badge-good" style="margin:0 2px;">T2T</span> marks a telomere-to-telomere assembly -- gapless and chromosome-scale, i.e. its chromosome count exactly equals both its contig and scaffold counts (no gaps left to fill in). Level mix: Chromosome: 19, Contig: 7, Complete Genome: 2, Scaffold: 1.</p>
       <div class="callout">
@@ -1841,7 +1868,7 @@
     </details>
 
 
-    <details class="section">
+    <details class="section" id="sec-data-volume-what-a-full-mirror-would-cost">
       <summary><h2>Data volume — what a full mirror would cost</h2></summary>
       <p class="section-note">Every figure here comes from the repository's own API (SRA's reported archive size, NCBI Datasets' <code>download_summary</code>, figshare/Zenodo file manifests, Dryad's <code>storageSize</code>, GEO's FTP listings) — none are estimated from sequence length. Bars are scaled against the largest non-raw-reads row, because SRA alone is roughly 67&times; everything else combined and would otherwise flatten every other bar to nothing.</p>
       <div class="callout">
@@ -2031,7 +2058,7 @@
 
 
     <div class="tier-rule"><span class="tier-label">What the landscape looks like</span></div>
-    <details class="section">
+    <details class="section" id="sec-genome-assemblies-by-source">
       <summary><h2>Genome assemblies by source</h2></summary>
       <p class="section-note">Raw counts, including re-hosted copies of the same underlying genome (see callout above and the overlap notes in the table below).</p>
       <div class="bar-chart">
@@ -2086,7 +2113,7 @@
       </div>
     </details>
 
-    <details class="section">
+    <details class="section" id="sec-coverage-by-source">
       <summary><h2>Coverage by source</h2></summary>
       <p class="section-note">Every source found, what kind of data it has, and how much. "—" means that category hasn't been found/scripted at that source yet, not that it doesn't exist. Hover a badge or note for detail.</p>
       <div class="table-scroll">
@@ -2167,7 +2194,7 @@
       </div>
     </details>
 
-    <details class="section">
+    <details class="section" id="sec-pangenome-projects">
       <summary><h2>Pangenome projects</h2></summary>
       <p class="section-note">The inverse of this page's headline finding. Most "new" genomes turn out to be re-hosted copies of something already in NCBI — pangenome projects are the opposite: registered at NCBI as BioProjects, but with the assemblies deposited elsewhere, so an NCBI-only count misses them entirely. Matched on the projects' own title/description text (<code>pan-?genome</code>), not a curated accession list, so new deposits appear automatically.</p>
       <div class="callout">
@@ -2334,7 +2361,7 @@
             <span class="cell-note" style="display:inline;">— figshare 25889050, 2024-05-30</span></li></ul>
     </details>
 
-    <details class="section">
+    <details class="section" id="sec-data-found-in-only-one-place">
       <summary><h2>Data found in only one place</h2></summary>
       <p class="section-note">Almost everything outside NCBI is a re-hosted copy of a genome already there, so these are the records that would be lost if the source disappeared — <b>45</b> items across <b>4</b> sources. Limited to what the collected metadata can establish: assemblies whose cultivar matches nothing in NCBI, BioProjects whose only data is EVA/TSA/GEO, and transcriptomes absent from NCBI's TSA. Not exhaustive — figshare is searched by title keyword and carries no per-record assembly classification, so its holdings sit under “supplementary” in the coverage matrix rather than being asserted as unique here.</p>
       
@@ -2368,7 +2395,7 @@
         </div>
     </details>
 
-    <details class="section">
+    <details class="section" id="sec-growth-over-time">
       <summary><h2>Growth over time</h2></summary>
       <p class="section-note">When this field's data actually accumulated, by deposition year (SRA release date, assembly release date, BioProject registration date) — every other view on this page is a snapshot of the current total. Peak year for sequencing deposition: <b>2025</b>.</p>
       <div class="table-scroll">
@@ -2523,7 +2550,7 @@
       </div>
     </details>
 
-    <details class="section">
+    <details class="section" id="sec-known-gaps">
       <summary><h2>Known gaps</h2></summary>
       <p class="section-note">What this survey says is <em>missing</em>, gathered from figures otherwise scattered across the detail tables below. These are lower bounds derived from what was collected — absence of a link here is not proof of absence in the world.</p>
       <div class="gap-grid">
@@ -2556,7 +2583,7 @@
       </div>
     </details>
 
-    <details class="section">
+    <details class="section" id="sec-source-freshness">
       <summary><h2>Source freshness</h2></summary>
       <p class="section-note">When each source last produced an output file, and which are currently erroring — 16 of 21 need attention. Dates come from the artifact's modification time, so this panel changes only when data is actually re-fetched.</p>
       <div class="table-scroll">
@@ -2697,7 +2724,7 @@
 
 
 
-    <details class="section">
+    <details class="section" id="sec-ncbi-data-by-owner">
       <summary><h2>NCBI data by owner</h2></summary>
       <p class="section-note">Every BioProject's <code>submitter_organization</code> ("owner"), and how much of NCBI's Cannabis sativa data traces to them: BioProjects, SRA runs, sequenced bases, and assemblies. The BioProjects column includes 8 accessions beyond the core 288 (see the headline KPI above) that our organism-scoped BioProject search missed but that SRA runs still reference -- genus-level "Cannabis" tags, hemp "retting metagenome" projects, and raw-reads sub-projects that inherit their organism tag from an untraversed parent -- resolved by <code>fetch_missing_bioprojects.py</code>. <b>(unknown)</b> is the true last resort: it falls back to the SRA run's own <code>CenterName</code> where possible, and only reads "(unknown)" for the handful of runs where even that's blank.</p>
       <div class="bar-chart">
@@ -2975,7 +3002,7 @@
       </div>
     </details>
 
-    <details class="section">
+    <details class="section" id="sec-publication-coverage">
       <summary><h2>Publication coverage</h2></summary>
       <p class="section-note">Which NCBI BioProjects have a known paper, found local-first (CannabisGDB citations, GigaDB BioProject cross-refs), then NCBI's elink (dbfrom=bioproject → db=pubmed, computed links), then a <b>PMC full-text search</b> for the accession string itself -- one row per paper (a BioProject can have more than one), newest first; undated papers (GigaDB citations carry no year) sort last. The PMC step matters: elink's computed links have real, confirmed gaps -- e.g. Cannbio-2's BioProject (PRJNA667278) is explicitly named in its own paper's Data Availability text, yet elink finds nothing in *either* direction (bioproject→pubmed or pubmed→bioproject). PubMed itself only indexes title/abstract (a plain search for the accession finds nothing there), but PMC indexes full text -- searching it directly for each BioProject accession recovered <b>72 additional BioProjects</b> that neither local signals nor elink had caught, taking coverage from 25% to 50%. Still a <b>lower bound</b>, not a true rate -- a BioProject with no hit here may still have a paper that isn't open-access in PMC, or doesn't use PMC's indexed accession format. Deliberately does NOT use SRA runinfo's own <code>Study_Pubmed_id</code> column -- verified it's corrupted (its two values resolve to unrelated 1975 biochemistry papers). Where a BioProject has more than one paper, <span class="badge badge-good" style="margin-right:2px;">deposit</span> flags the one most likely to describe the original deposit (closest to when the data first appeared) vs. <span class="badge badge-muted" style="margin-right:2px;">reuse</span> for later papers that just used already-public data -- a heuristic, not a fact. "First appeared" deliberately isn't just BioProject <code>registration_date</code>: that field can reflect a later re-curation rather than the true original submission (PRJNA73819's reads 2018, seven years after van Bakel et al.'s actual 2011 genome project), so this takes whichever is earlier, that date or the earliest linked SRA run's release date.</p>
       <div class="callout">
@@ -4726,7 +4753,7 @@
       </div>
     </details>
 
-    <details class="section">
+    <details class="section" id="sec-unpublished-data-by-owner">
       <summary><h2>Unpublished data by owner</h2></summary>
       <p class="section-note">The inverse of the publication coverage table above: for every BioProject and orphan BioSample where no paper was found at all (local signals + elink + PMC full-text search all came up empty), who owns it? BioProjects use their own <code>submitter_organization</code>; orphan BioSamples (no BioProject to carry that field) fall back to the SRA run's <code>CenterName</code>, same as the ownership table earlier on this page. This isn't a claim the data is unpublished -- see the caveats above -- just that we haven't found a paper for it yet, and who to credit either way.</p>
       <div class="bar-chart">
@@ -4961,7 +4988,7 @@
       </div>
     </details>
 
-    <details class="section">
+    <details class="section" id="sec-sequencing-data-per-bioproject-orphan-biosample">
       <summary><h2>Sequencing data per BioProject / orphan BioSample</h2></summary>
       <p class="section-note">What's actually attached to each NCBI BioProject (and each "orphan" BioSample with no NCBI BioProject) -- SRA runs, total reads, single/paired-end layout, average read length range across those runs, sequencing instrument(s), and total bases -- sorted by bases descending. <span class="badge badge-warning" style="margin:0 2px;">orphan sample</span> marks the 4 BioSamples with no NCBI BioProject. 3 of those 4 (SAMD01771643, SAMD01771642, SAMD01771641) turned out not to be truly homeless: their own BioSample records carry an <code>ngdc_project_id</code> attribute pointing at PRJCA044550, a China National Center for Bioinformation (NGDC) GSA project our NCBI-BioProject-only pipeline doesn't otherwise see -- shown here as their owner, and counted published (PMID 40943284, independently confirmed via PMC full-text search on the NGDC submission accession). The remaining 1 (SAMN00630395) checked out as a genuine dead end: a 2011 pre-BioProject-mandate submission batch mixing unrelated organisms from the same center, none of which have a BioProject either. Read length is a min–max range because a single BioProject frequently mixes runs from different platforms or library preps; a single averaged number would hide that variability. Instrument lists the top 3 models seen for that accession by run count.</p>
       <div class="callout">
@@ -8546,7 +8573,7 @@
       </div>
     </details>
 
-    <details class="section">
+    <details class="section" id="sec-data-beyond-raw-reads-eva-tsa-geo-arrayexpress-o">
       <summary><h2>Data beyond raw reads: EVA, TSA, GEO, ArrayExpress &amp; oneKP</h2></summary>
       <p class="section-note">Five data types this pipeline had no visibility into before: variant/genotype calls at EBI's European Variation Archive (EVA), assembled transcripts in NCBI's TSA (Transcriptome Shotgun Assembly) database, processed expression/epigenomic result files (count matrices, peak calls, etc.) in NCBI's GEO, old microarray studies in EBI BioStudies/ArrayExpress, and de-novo-assembled transcriptomes from the 1000 Plants (oneKP) initiative hosted on CNGB's FTP. <span class="badge badge-warning" style="margin:0 2px;">only data source</span> marks a BioProject with zero SRA runs against it -- this row is the *only* data our pipeline has for it, not an extra layer on top of reads already tracked. <span class="badge badge-good" style="margin:0 2px;">new BioProject</span> marks one not in bioprojects.csv at all: GEO SuperSeries GSE249738's BioProject (PRJNA1050262) has no organism tag of its own -- it's an umbrella project bundling a multi-species ChIP-seq methods paper (Arabidopsis, tomato, hemp) -- so our BioProject-level Cannabis[Organism] search structurally can't find it; only 6 of its 229 samples are actually hemp (counted from sample titles, not assumed). GEO's <code>n_samples</code> column reads "cannabis/total" for any series spanning more than one species. BioStudies' organism-tagged Cannabis hits are mostly its own mirrors of GEO series already counted above (2 of 3, filtered out of the table below) -- the one shown is a 2007 cDNA microarray study that predates SRA/GEO entirely, so there's no raw-read equivalent to find anywhere else. oneKP's 4 samples' raw reads are already known (BioProject PRJEB21674, already in <code>bioprojects.csv</code>) -- only their assembled transcriptomes are new.</p>
       <div class="callout">
@@ -8830,6 +8857,26 @@
       if (out) out.textContent = q ? shown + " matching" : "";
     });
   });
+})();
+</script>
+<script>
+// A link into a collapsed <details> scrolls to a closed section and shows a bare summary bar,
+// which reads as an empty section. Open the target and every ancestor, on load and on hash change.
+(function () {
+  function reveal() {
+    var id = location.hash.slice(1);
+    if (!id) return;
+    var el = document.getElementById(id);
+    while (el) {
+      if (el.tagName === 'DETAILS') el.open = true;
+      el = el.parentElement;
+    }
+    var t = document.getElementById(id);
+    if (t) t.scrollIntoView();
+  }
+  window.addEventListener('hashchange', reveal);
+  if (document.readyState !== 'loading') reveal();
+  else document.addEventListener('DOMContentLoaded', reveal);
 })();
 </script>
   </div>
