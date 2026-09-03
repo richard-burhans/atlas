@@ -179,7 +179,7 @@
       <div class="stat-tile"><div class="stat-label">Distinct genomes</div><div class="stat-value">59</div><div class="stat-note">14 of 73 mentions are the same genome re-hosted</div></div>
       <div class="stat-tile"><div class="stat-label">Usable for comparison</div><div class="stat-value">4</div><div class="stat-note">of the 27 NCBI holds an assembly for &mdash; chromosome-scale AND carrying gene models</div></div>
       <div class="stat-tile"><div class="stat-label">Comparisons we computed</div><div class="stat-value">0</div><div class="stat-note">of 13 comparative artifacts held; the rest are other people's</div></div>
-      <div class="stat-tile"><div class="stat-label">Held on disk</div><div class="stat-value">26.2 GB</div><div class="stat-note">89 files, 53 publisher-verified</div></div>
+      <div class="stat-tile"><div class="stat-label">Held on disk</div><div class="stat-value">35.1 GB</div><div class="stat-note">11.8K files, 59 publisher-verified</div></div>
       <div class="stat-tile"><div class="stat-label">Annotation sets known</div><div class="stat-value">18</div><div class="stat-note">across 5 sources; gene-level tables for 1</div></div>
       <div class="stat-tile"><div class="stat-label">SRA sequencing runs</div><div class="stat-value">12.5K</div><div class="stat-note">~44.1 Tb across 288 BioProjects</div></div>
     </div>
@@ -1008,13 +1008,192 @@
       <p class="section-note">⚠ <b>What is still unknown.</b> The pilot ran on a <b>draft</b> assembly, so it describes the parameters rather than the genome; the benchmark belongs on the two gapless assemblies. No transposable-element masker has been run at all. And a collapsed repeat looks unique to every method here, so a fragmented assembly under-reports its own repeat content &mdash; the most repetitive assembly on this page is also the largest, which is the signature of uncollapsed haplotypes rather than of biology.</p>
     </details>
 
+    <details class="section">
+      <summary><h2>Pipeline fit &mdash; what this survey could actually feed</h2></summary>
+      <p class="section-note"><a href="https://github.com/nekrut/brc-tools" target="_blank" rel="noopener">brc-tools</a> wraps the comparative stack this survey collects data for. Its graph is harvested into <code>brc_workflows.csv</code>, so this table moves when the pipeline does. <b>An assessment, not a measurement</b>: the fit of each input is a judgement made by reading the port descriptions, while every count beside it is derived from <code>data/processed/</code>.</p>
+      <div class="callout">
+        Of <b>113</b> ports across <b>12</b> workflows, <b>32</b> are external &mdash; data a user supplies. <b>9</b> of the assessed ones this survey can serve directly and <b>1</b> it cannot serve at all.
+        <div class="cell-note" style="margin-top:8px;">⛔ <b>Holding an inventory is not holding the data.</b> This survey harvests catalogues &mdash; accessions, counts, metadata. A <i>direct</i> fit means it can say exactly which accessions to fetch and that the fields line up, not that the bytes are here.</div>
+        <div class="cell-note" style="margin-top:8px;">⚠ <b>6 of 12 workflows have never been observed running.</b> Reviewed &mdash; a step-level page exists behind them with a real sample from a named invocation &mdash; are <b>A, B, C, C2, E, I</b>; unreviewed are <b>D, F, G, H, J, K</b>, whose ports come from the workflow files alone. <b>17</b> of the <b>32</b> external inputs sit on an unreviewed workflow, so a fit stated for one of those rests on a DECLARED port rather than an observed one.</div>
+      </div>
+      <div class="table-scroll" style="margin-top:16px;">
+        <table class="js-table" id="tbl-brc-ports">
+          <thead><tr><th>Workflow / port</th><th>Fit</th><th class="num">Candidates</th><th>What we hold</th></tr></thead>
+          <tbody>
+        <tr>
+          <td class="source-name">J<div class="cell-note">cohort_vcf</div></td>
+          <td><span class="badge badge-warning">none</span></td>
+          <td class="num">2</td>
+          <td>⛔ THE PIPELINE'S ONLY VARIANT INPUT AND THE SURVEY'S THINNEST HOLDING. EVA is catalogued but no cohort VCF is harvested, and nothing here calls variants</td>
+        </tr>
+        <tr>
+          <td class="source-name">A<div class="cell-note">anchor_gene_gff3s</div></td>
+          <td><span class="badge badge-muted">derived</span></td>
+          <td class="num">6</td>
+          <td>only the annotated assemblies can be anchors; the GFF3s are fetched per accession, not held here</td>
+        </tr>
+        <tr>
+          <td class="source-name">A<div class="cell-note">proteomes</div></td>
+          <td><span class="badge badge-muted">derived</span></td>
+          <td class="num">6</td>
+          <td>⚠ NO proteome inventory is harvested. Only the annotated assemblies could supply one, and each needs a separate fetch</td>
+        </tr>
+        <tr>
+          <td class="source-name">C2<div class="cell-note">anchor_gene_gff3s</div></td>
+          <td><span class="badge badge-muted">derived</span></td>
+          <td class="num">6</td>
+          <td>same set</td>
+        </tr>
+        <tr>
+          <td class="source-name">E<div class="cell-note">native_annotations</div></td>
+          <td><span class="badge badge-muted">derived</span></td>
+          <td class="num">6</td>
+          <td>one GFF3 per annotated assembly; the orthogroup NODES</td>
+        </tr>
+        <tr>
+          <td class="source-name">F<div class="cell-note">ref_gff</div></td>
+          <td><span class="badge badge-muted">derived</span></td>
+          <td class="num">6</td>
+          <td>the reference's own GFF3</td>
+        </tr>
+        <tr>
+          <td class="source-name">A<div class="cell-note">assemblies</div></td>
+          <td><span class="badge badge-good">direct</span></td>
+          <td class="num">21</td>
+          <td>the chromosome-level NCBI assemblies are the candidate panel</td>
+        </tr>
+        <tr>
+          <td class="source-name">B<div class="cell-note">assemblies</div></td>
+          <td><span class="badge badge-good">direct</span></td>
+          <td class="num">21</td>
+          <td>same panel; WF-B maps over it</td>
+        </tr>
+        <tr>
+          <td class="source-name">C2<div class="cell-note">anchor_assemblies</div></td>
+          <td><span class="badge badge-good">direct</span></td>
+          <td class="num">6</td>
+          <td>an anchor must carry an annotation to project from</td>
+        </tr>
+        <tr>
+          <td class="source-name">C2<div class="cell-note">assemblies</div></td>
+          <td><span class="badge badge-good">direct</span></td>
+          <td class="num">21</td>
+          <td>Liftoff targets</td>
+        </tr>
+        <tr>
+          <td class="source-name">D<div class="cell-note">strain_fastas</div></td>
+          <td><span class="badge badge-good">direct</span></td>
+          <td class="num">21</td>
+          <td>same panel</td>
+        </tr>
+        <tr>
+          <td class="source-name">J<div class="cell-note">chrom_rename</div></td>
+          <td><span class="badge badge-good">direct</span></td>
+          <td class="num">214</td>
+          <td>⛔ `ncbi_sequence_reports.csv` IS this file — chr_name to genbank_accession, exactly the two columns the port wants</td>
+        </tr>
+        <tr>
+          <td class="source-name">K<div class="cell-note">assemblies</div></td>
+          <td><span class="badge badge-good">direct</span></td>
+          <td class="num">21</td>
+          <td>faToTwoBit source, keyed by accession</td>
+        </tr>
+        <tr>
+          <td class="source-name">K<div class="cell-note">hub_metadata</div></td>
+          <td><span class="badge badge-good">direct</span></td>
+          <td class="num">29</td>
+          <td>accession, organism, scientificName and description are all columns of `assemblies.csv`</td>
+        </tr>
+        <tr>
+          <td class="source-name">K<div class="cell-note">ref_sizes</div></td>
+          <td><span class="badge badge-good">direct</span></td>
+          <td class="num">11</td>
+          <td>chrom sizes in accession space, straight from the sequence reports; no FASTA index needed</td>
+        </tr></tbody>
+        </table>
+      </div>
+      <p class="section-note" style="margin-top:20px;">The other direction: not <i>can we serve this port</i> but <i>we hold this &mdash; what is it for?</i>. <b>6</b> of the <b>11</b> inventories assessed feed no workflow input at all. That is the boundary between a data survey and a comparative-genomics pipeline: the pipeline starts at assembled, annotated FASTAs, and most of what this survey catalogues sits upstream of that line (reads, variants) or beside it (publications, germplasm metadata, our own validation measurements).</p>
+      <div class="table-scroll" style="margin-top:16px;">
+        <table class="js-table" id="tbl-brc-placement">
+          <thead><tr><th>Our artifact</th><th>Feeds</th><th>Best fit</th><th>Why</th></tr></thead>
+          <tbody>
+        <tr>
+          <td class="source-name"><code>sra_runs.csv</code></td>
+          <td><span class="badge badge-warning">nothing</span></td>
+          <td>upstream of the whole pipeline</td>
+          <td>raw reads. ⛔ THE PIPELINE TAKES NO READS AT ANY WORKFLOW — it begins at assembled FASTAs. These become relevant only by assembling them, or by calling variants to produce WF-J's cohort_vcf, and neither step exists in brc-tools</td>
+        </tr>
+        <tr>
+          <td class="source-name"><code>kannapedia_strains.csv</code></td>
+          <td><code>J.cohort_vcf</code></td>
+          <td>the closest thing we hold to variant data</td>
+          <td>genotyping reports, not a cohort VCF. Would need conversion and a shared coordinate system before WF-J could read them</td>
+        </tr>
+        <tr>
+          <td class="source-name"><code>eva_studies.csv</code></td>
+          <td><code>J.cohort_vcf</code></td>
+          <td>the intended source</td>
+          <td>the archive that would hold a real cohort VCF; only the study catalogue is harvested</td>
+        </tr>
+        <tr>
+          <td class="source-name"><code>ncbi_genes.csv</code></td>
+          <td><code>E.native_annotations</code></td>
+          <td>one annotation's gene set</td>
+          <td>⚠ a single assembly's annotation, not a cross-assembly union — it can seed the reference side of WF-E and WF-F, never the panel</td>
+        </tr>
+        <tr>
+          <td class="source-name"><code>ncbi_sequence_reports.csv</code></td>
+          <td><code>J.chrom_rename</code></td>
+          <td>also WF-C `sizes` and WF-I `target_sizes`/`query_sizes`</td>
+          <td>those three are produced INSIDE the pipeline by WF-A, but the same numbers are already harvested here, so they can be checked against it rather than trusted</td>
+        </tr>
+        <tr>
+          <td class="source-name"><code>ncbi_organelles.csv</code></td>
+          <td><span class="badge badge-warning">nothing</span></td>
+          <td>explicitly OUT of the panel</td>
+          <td>the pipeline is nuclear. Organellar genomes must be excluded from `assemblies` rather than fed to it, or they become spurious alignment targets</td>
+        </tr>
+        <tr>
+          <td class="source-name"><code>kmer_seed_burden_k12.csv</code></td>
+          <td><span class="badge badge-warning">nothing</span></td>
+          <td>WF-C parameter evidence</td>
+          <td>seed burden per assembly. Not an input, but it is the measurement that justifies a seeding choice in the aligner WF-C runs</td>
+        </tr>
+        <tr>
+          <td class="source-name"><code>mask_comparison.csv</code></td>
+          <td><span class="badge badge-warning">nothing</span></td>
+          <td>WF-B validation</td>
+          <td>our own masker comparison. WF-B produces a masking_table; this is the independent check on it rather than a feed into it</td>
+        </tr>
+        <tr>
+          <td class="source-name"><code>publications.csv</code></td>
+          <td><span class="badge badge-warning">nothing</span></td>
+          <td>no workflow</td>
+          <td>provenance and reporting only. Names which assemblies have a paper behind them, which is a panel-selection input for a human, not for a workflow</td>
+        </tr>
+        <tr>
+          <td class="source-name"><code>icgrc_biological_samples.csv</code></td>
+          <td><code>K.hub_metadata</code></td>
+          <td>germplasm metadata</td>
+          <td>sample-level context that could enrich a hub description; not required by any step</td>
+        </tr>
+        <tr>
+          <td class="source-name"><code>ncbi_tsa.csv</code></td>
+          <td><span class="badge badge-warning">nothing</span></td>
+          <td>annotation evidence</td>
+          <td>assembled transcripts. Would support building a native annotation for an assembly that lacks one — the gap WF-E's native_annotations runs into</td>
+        </tr></tbody>
+        </table>
+      </div>
+    </details>
+
     <div class="tier-rule"><span class="tier-label">What we hold</span></div>
     <details class="section" open>
       <summary><h2>Holdings &mdash; what is actually on disk</h2></summary>
       <p class="section-note">Every other table on this page counts what a repository <i>says</i> exists. This one counts what was downloaded, and separately what was checked against the publisher's own checksum. <b>Those are three different claims</b>, and treating them as one is how a project convinces itself it holds data it has never opened &mdash; which is not hypothetical here: a gap analysis written the same week concluded that no whole-genome alignments existed anywhere, and seven were sitting inside a dataset this project had already catalogued and never fetched. Provenance for every file (source, DOI, retrieval date, URL, sha256) is recorded by <code>scripts/annotation_provenance.py</code>, which refuses to hash a file that is still downloading.</p>
       <div class="callout">
-        <b>89</b> files, <b>26.2 GB</b>, across <b>5</b> sources. <b>53</b> match the publisher's own checksum, so they are demonstrably the file the DOI resolves to.
-        <div class="cell-note" style="margin-top:8px;">The other 36 are <b>local-checksum only</b> &mdash; GigaDB, the Ensembl FTP and 4TU publish no checksum on the paths used, so all that can be proved is that the bytes have not changed since they were fetched. That is a weaker claim and it is kept in its own column rather than allowed to borrow the stronger one.</div>
+        <b>11.8K</b> files, <b>35.1 GB</b>, across <b>7</b> sources. <b>59</b> match the publisher's own checksum, so they are demonstrably the file the DOI resolves to.
+        <div class="cell-note" style="margin-top:8px;">The other 11.7K are <b>local-checksum only</b> &mdash; GigaDB, the Ensembl FTP and 4TU publish no checksum on the paths used, so all that can be proved is that the bytes have not changed since they were fetched. That is a weaker claim and it is kept in its own column rather than allowed to borrow the stronger one.</div>
       </div>
       <div class="table-scroll" style="margin-top:16px;">
         <table class="js-table" id="tbl-holdings">
@@ -1027,6 +1206,14 @@
           <td class="num">20.5 GB</td>
           <td><span class="badge badge-good">all publisher-verified</span></td>
           <td>2026-08-27</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://gdb.supercann.net" target="_blank" rel="noopener">CannabisGDB</a></td>
+          <td>JBrowse mirror: 8 cultivar assemblies, gene/repeat/Iso-Seq tracks and bigwigs</td>
+          <td class="num">11.7K</td>
+          <td class="num">8.5 GB</td>
+          <td><span class="badge badge-muted">0% publisher-verified</span></td>
+          <td>2026-08-31</td>
         </tr>
         <tr>
           <td class="source-name"><a href="https://doi.org/10.5524/100821" target="_blank" rel="noopener">GigaDB</a><div class="cell-note"><a href="https://doi.org/10.5524/100821" target="_blank" rel="noopener">10.5524/100821</a></div></td>
@@ -1047,10 +1234,18 @@
         <tr>
           <td class="source-name"><a href="https://plants.ensembl.org/Cannabis_sativa_female/Info/Index" target="_blank" rel="noopener">Ensembl Plants</a></td>
           <td>Cannabis sativa female, cs10, release 63</td>
-          <td class="num">4</td>
-          <td class="num">238.7 MB</td>
+          <td class="num">6</td>
+          <td class="num">548.1 MB</td>
           <td><span class="badge badge-muted">0% publisher-verified</span></td>
           <td>2026-08-27</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/" target="_blank" rel="noopener">NCBI (INSDC)</a></td>
+          <td>Published GFF3 and protein FASTA for the annotated panel assemblies</td>
+          <td class="num">6</td>
+          <td class="num">37.8 MB</td>
+          <td><span class="badge badge-good">all publisher-verified</span></td>
+          <td>2026-09-01</td>
         </tr>
         <tr>
           <td class="source-name"><a href="https://data.4tu.nl/articles/dataset/13121885" target="_blank" rel="noopener">4TU.ResearchData</a><div class="cell-note"><a href="https://doi.org/10.4121/13121885" target="_blank" rel="noopener">10.4121/13121885</a></div></td>
@@ -1076,11 +1271,18 @@
           <thead><tr><th>Source</th><th>Target</th><th>Annotation</th><th>Genes</th><th>What we hold</th></tr></thead>
           <tbody>
         <tr>
-          <td class="source-name">NCBI<div class="cell-note">NCBI RefSeq</div></td>
-          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_029168945.1/" target="_blank" rel="noopener">GCF_029168945.1</a></td>
-          <td>GCF_029168945.1-RS_2023_11</td>
-          <td class="num">35.2K</td>
-          <td><span class="badge badge-good">gene table</span><div class="cell-note">35.2K gene records</div></td>
+          <td class="source-name">NCBI<div class="cell-note">Medicinal Genomics</div></td>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_012923435.1/" target="_blank" rel="noopener">GCA_012923435.1</a></td>
+          <td>Annotation submitted by Medicinal Genomics</td>
+          <td class="num">27.4K</td>
+          <td><span class="badge badge-muted">metadata only</span><div class="cell-note">gene count only</div></td>
+        </tr>
+        <tr>
+          <td class="source-name">NCBI<div class="cell-note">Medicinal Genomics</div></td>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_013030025.1/" target="_blank" rel="noopener">GCA_013030025.1</a></td>
+          <td>Annotation submitted by Medicinal Genomics</td>
+          <td class="num">31.6K</td>
+          <td><span class="badge badge-muted">metadata only</span><div class="cell-note">gene count only</div></td>
         </tr>
         <tr>
           <td class="source-name">NCBI<div class="cell-note">Institute of Medicinal Plant Development, Chinese Academy of Medical Sciences, Peking Union Medical</div></td>
@@ -1097,18 +1299,11 @@
           <td><span class="badge badge-muted">metadata only</span><div class="cell-note">gene count only</div></td>
         </tr>
         <tr>
-          <td class="source-name">NCBI<div class="cell-note">Medicinal Genomics</div></td>
-          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_012923435.1/" target="_blank" rel="noopener">GCA_012923435.1</a></td>
-          <td>Annotation submitted by Medicinal Genomics</td>
-          <td class="num">27.4K</td>
-          <td><span class="badge badge-muted">metadata only</span><div class="cell-note">gene count only</div></td>
-        </tr>
-        <tr>
-          <td class="source-name">NCBI<div class="cell-note">Medicinal Genomics</div></td>
-          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_013030025.1/" target="_blank" rel="noopener">GCA_013030025.1</a></td>
-          <td>Annotation submitted by Medicinal Genomics</td>
-          <td class="num">31.6K</td>
-          <td><span class="badge badge-muted">metadata only</span><div class="cell-note">gene count only</div></td>
+          <td class="source-name">NCBI<div class="cell-note">NCBI RefSeq</div></td>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_029168945.1/" target="_blank" rel="noopener">GCF_029168945.1</a></td>
+          <td>GCF_029168945.1-RS_2023_11</td>
+          <td class="num">35.2K</td>
+          <td><span class="badge badge-good">gene table</span><div class="cell-note">35.2K gene records</div></td>
         </tr>
         <tr>
           <td class="source-name">NCBI<div class="cell-note">NCBI RefSeq</div></td>
@@ -1378,6 +1573,39 @@
           <td>2025-08-11</td>
         </tr>
         <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_051911705.1/" target="_blank" rel="noopener">GCA_051911705.1</a><div class="cell-note">ASM5191170v1</div></td>
+          <td>Hawthorne OG</td>
+          <td>Chromosome</td>
+          <td class="num">682.5M</td>
+          <td class="num">73.1M</td>
+          <td><span class="badge badge-muted">no annotation</span><div class="cell-note"></div></td>
+          <td>Pontificia Universidad Javeriana</td>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1272572" target="_blank" rel="noopener">PRJNA1272572</a></td>
+          <td>2025-08-11</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_051911715.1/" target="_blank" rel="noopener">GCA_051911715.1</a><div class="cell-note">ASM5191171v1</div></td>
+          <td>Sri Lankan</td>
+          <td>Chromosome</td>
+          <td class="num">641.8M</td>
+          <td class="num">66.4M</td>
+          <td><span class="badge badge-muted">no annotation</span><div class="cell-note"></div></td>
+          <td>Pontificia Universidad Javeriana</td>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1272579" target="_blank" rel="noopener">PRJNA1272579</a></td>
+          <td>2025-08-11</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_051911735.1/" target="_blank" rel="noopener">GCA_051911735.1</a><div class="cell-note">ASM5191173v1</div></td>
+          <td>Sri Lankan</td>
+          <td>Chromosome</td>
+          <td class="num">646.0M</td>
+          <td class="num">68.3M</td>
+          <td><span class="badge badge-muted">no annotation</span><div class="cell-note"></div></td>
+          <td>Pontificia Universidad Javeriana</td>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1272580" target="_blank" rel="noopener">PRJNA1272580</a></td>
+          <td>2025-08-11</td>
+        </tr>
+        <tr>
           <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_051911765.1/" target="_blank" rel="noopener">GCA_051911765.1</a><div class="cell-note">ASM5191176v1</div></td>
           <td>Travis CBD</td>
           <td>Chromosome</td>
@@ -1400,37 +1628,15 @@
           <td>2025-08-11</td>
         </tr>
         <tr>
-          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_051911705.1/" target="_blank" rel="noopener">GCA_051911705.1</a><div class="cell-note">ASM5191170v1</div></td>
-          <td>Hawthorne OG</td>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_049724855.1/" target="_blank" rel="noopener">GCA_049724855.1</a><div class="cell-note">Cherry Pie</div></td>
+          <td>Punto Rojo x Cherry Pie</td>
           <td>Chromosome</td>
-          <td class="num">682.5M</td>
-          <td class="num">73.1M</td>
+          <td class="num">802.2M</td>
+          <td class="num">81.1M</td>
           <td><span class="badge badge-muted">no annotation</span><div class="cell-note"></div></td>
           <td>Pontificia Universidad Javeriana</td>
-          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1272572" target="_blank" rel="noopener">PRJNA1272572</a></td>
-          <td>2025-08-11</td>
-        </tr>
-        <tr>
-          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_051911735.1/" target="_blank" rel="noopener">GCA_051911735.1</a><div class="cell-note">ASM5191173v1</div></td>
-          <td>Sri Lankan</td>
-          <td>Chromosome</td>
-          <td class="num">646.0M</td>
-          <td class="num">68.3M</td>
-          <td><span class="badge badge-muted">no annotation</span><div class="cell-note"></div></td>
-          <td>Pontificia Universidad Javeriana</td>
-          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1272580" target="_blank" rel="noopener">PRJNA1272580</a></td>
-          <td>2025-08-11</td>
-        </tr>
-        <tr>
-          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_051911715.1/" target="_blank" rel="noopener">GCA_051911715.1</a><div class="cell-note">ASM5191171v1</div></td>
-          <td>Sri Lankan</td>
-          <td>Chromosome</td>
-          <td class="num">641.8M</td>
-          <td class="num">66.4M</td>
-          <td><span class="badge badge-muted">no annotation</span><div class="cell-note"></div></td>
-          <td>Pontificia Universidad Javeriana</td>
-          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1272579" target="_blank" rel="noopener">PRJNA1272579</a></td>
-          <td>2025-08-11</td>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1090024" target="_blank" rel="noopener">PRJNA1090024</a></td>
+          <td>2025-04-17</td>
         </tr>
         <tr>
           <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_049725155.1/" target="_blank" rel="noopener">GCA_049725155.1</a><div class="cell-note">Punto Rojo</div></td>
@@ -1441,17 +1647,6 @@
           <td><span class="badge badge-muted">no annotation</span><div class="cell-note"></div></td>
           <td>Pontificia Universidad Javeriana</td>
           <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1058441" target="_blank" rel="noopener">PRJNA1058441</a></td>
-          <td>2025-04-17</td>
-        </tr>
-        <tr>
-          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_049724855.1/" target="_blank" rel="noopener">GCA_049724855.1</a><div class="cell-note">Cherry Pie</div></td>
-          <td>Punto Rojo x Cherry Pie</td>
-          <td>Chromosome</td>
-          <td class="num">802.2M</td>
-          <td class="num">81.1M</td>
-          <td><span class="badge badge-muted">no annotation</span><div class="cell-note"></div></td>
-          <td>Pontificia Universidad Javeriana</td>
-          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1090024" target="_blank" rel="noopener">PRJNA1090024</a></td>
           <td>2025-04-17</td>
         </tr>
         <tr>
@@ -1510,17 +1705,6 @@
           <td>2020-05-12</td>
         </tr>
         <tr>
-          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_016415525.1/" target="_blank" rel="noopener">GCA_016415525.1</a><div class="cell-note">JL5</div></td>
-          <td>Jamaican Lion ^4</td>
-          <td>Contig</td>
-          <td class="num">999.1M</td>
-          <td class="num">3.5M</td>
-          <td><span class="badge badge-muted">no annotation</span><div class="cell-note"></div></td>
-          <td>Medicinal Genomics</td>
-          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA575581" target="_blank" rel="noopener">PRJNA575581</a></td>
-          <td>2020-04-28</td>
-        </tr>
-        <tr>
           <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_012923435.1/" target="_blank" rel="noopener">GCA_012923435.1</a><div class="cell-note">JL_Mother</div></td>
           <td>Jamaican Lion ^4</td>
           <td>Contig</td>
@@ -1538,6 +1722,17 @@
           <td class="num">1.0B</td>
           <td class="num">1.7M</td>
           <td><span class="badge badge-good">annotated</span><div class="cell-note">31.6K genes (31.6K protein-coding)</div></td>
+          <td>Medicinal Genomics</td>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA575581" target="_blank" rel="noopener">PRJNA575581</a></td>
+          <td>2020-04-28</td>
+        </tr>
+        <tr>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_016415525.1/" target="_blank" rel="noopener">GCA_016415525.1</a><div class="cell-note">JL5</div></td>
+          <td>Jamaican Lion ^4</td>
+          <td>Contig</td>
+          <td class="num">999.1M</td>
+          <td class="num">3.5M</td>
+          <td><span class="badge badge-muted">no annotation</span><div class="cell-note"></div></td>
           <td>Medicinal Genomics</td>
           <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA575581" target="_blank" rel="noopener">PRJNA575581</a></td>
           <td>2020-04-28</td>
@@ -1620,22 +1815,22 @@
           <td>2016-11-03</td>
         </tr>
         <tr>
-          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_001510005.1/" target="_blank" rel="noopener">GCA_001510005.1</a><div class="cell-note">ASM151000v1</div></td>
-          <td>LA Confidential</td>
-          <td>Contig</td>
-          <td class="num">595.4M</td>
-          <td class="num">2,649</td>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_001509995.1/" target="_blank" rel="noopener">GCA_001509995.1</a><div class="cell-note">Chemdog91_175268</div></td>
+          <td>Chemdog91</td>
+          <td>Scaffold</td>
+          <td class="num">285.9M</td>
+          <td class="num">2,250</td>
           <td><span class="badge badge-muted">no annotation</span><div class="cell-note"></div></td>
           <td>Courtage Life Sciences</td>
           <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA297710" target="_blank" rel="noopener">PRJNA297710</a></td>
           <td>2016-01-11</td>
         </tr>
         <tr>
-          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_001509995.1/" target="_blank" rel="noopener">GCA_001509995.1</a><div class="cell-note">Chemdog91_175268</div></td>
-          <td>Chemdog91</td>
-          <td>Scaffold</td>
-          <td class="num">285.9M</td>
-          <td class="num">2,250</td>
+          <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_001510005.1/" target="_blank" rel="noopener">GCA_001510005.1</a><div class="cell-note">ASM151000v1</div></td>
+          <td>LA Confidential</td>
+          <td>Contig</td>
+          <td class="num">595.4M</td>
+          <td class="num">2,649</td>
           <td><span class="badge badge-muted">no annotation</span><div class="cell-note"></div></td>
           <td>Courtage Life Sciences</td>
           <td class="source-name"><a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA297710" target="_blank" rel="noopener">PRJNA297710</a></td>
@@ -2363,112 +2558,136 @@
 
     <details class="section">
       <summary><h2>Source freshness</h2></summary>
-      <p class="section-note">When each source last produced an output file, and which are currently erroring — 0 of 17 need attention. Dates come from the artifact's modification time, so this panel changes only when data is actually re-fetched.</p>
+      <p class="section-note">When each source last produced an output file, and which are currently erroring — 16 of 21 need attention. Dates come from the artifact's modification time, so this panel changes only when data is actually re-fetched.</p>
       <div class="table-scroll">
         <table class="js-table">
           <thead><tr><th>Source</th><th>State</th><th>Last output</th><th>Artifact</th></tr></thead>
           <tbody>
         <tr>
-          <td class="source-name">NCBI GEO<div class="cell-note">fetch_ncbi_geo.py</div></td>
-          <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-13</td>
-          <td><code>ncbi_geo.csv</code></td>
-        </tr>
-        <tr>
-          <td class="source-name">NCBI TSA<div class="cell-note">fetch_ncbi_tsa.py</div></td>
-          <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-13</td>
-          <td><code>ncbi_tsa.csv</code></td>
-        </tr>
-        <tr>
-          <td class="source-name">GigaDB<div class="cell-note">fetch_gigadb.py</div></td>
-          <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-13</td>
-          <td><code>gigadb_datasets.csv</code></td>
-        </tr>
-        <tr>
-          <td class="source-name">ICGRC<div class="cell-note">fetch_icgrc.py</div></td>
-          <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-13</td>
-          <td><code>icgrc_biological_samples.csv</code></td>
-        </tr>
-        <tr>
-          <td class="source-name">figshare<div class="cell-note">fetch_figshare.py</div></td>
-          <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-13</td>
-          <td><code>figshare_datasets.csv</code></td>
-        </tr>
-        <tr>
-          <td class="source-name">EVA<div class="cell-note">fetch_eva.py</div></td>
-          <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-18</td>
-          <td><code>eva_studies.csv</code></td>
-        </tr>
-        <tr>
-          <td class="source-name">BioStudies / ArrayExpress<div class="cell-note">fetch_biostudies.py</div></td>
-          <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-18</td>
-          <td><code>biostudies_arrayexpress.csv</code></td>
-        </tr>
-        <tr>
-          <td class="source-name">CannabisGDB<div class="cell-note">fetch_cannabisgdb.py</div></td>
-          <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-18</td>
-          <td><code>cannabisgdb_genomes.json</code></td>
-        </tr>
-        <tr>
-          <td class="source-name">Zenodo / Dryad<div class="cell-note">fetch_zenodo_dryad.py</div></td>
-          <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-18</td>
-          <td><code>zenodo_dryad_datasets.csv</code></td>
-        </tr>
-        <tr>
-          <td class="source-name">oneKP<div class="cell-note">fetch_onekp.py</div></td>
-          <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-18</td>
-          <td><code>onekp_samples.csv</code></td>
-        </tr>
-        <tr>
-          <td class="source-name">Ensembl Plants<div class="cell-note">fetch_ensembl_plants.py</div></td>
-          <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-18</td>
-          <td><code>ensembl_plants.json</code></td>
-        </tr>
-        <tr>
-          <td class="source-name">CoGe<div class="cell-note">fetch_coge.py</div></td>
-          <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-18</td>
-          <td><code>coge_genomes.json</code></td>
-        </tr>
-        <tr>
-          <td class="source-name">Kannapedia<div class="cell-note">fetch_kannapedia.py</div></td>
-          <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-21</td>
-          <td><code>kannapedia_strains.csv</code></td>
-        </tr>
-        <tr>
-          <td class="source-name">NCBI assemblies<div class="cell-note">fetch_assemblies.py</div></td>
-          <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-27</td>
-          <td><code>assemblies.csv</code></td>
-        </tr>
-        <tr>
           <td class="source-name">NCBI BioProjects<div class="cell-note">fetch_bioprojects.py</div></td>
-          <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-27</td>
+          <td><span class="badge badge-muted">date unknown</span><div class="cell-note">no harvest date recorded -- re-run its fetcher to set one</div></td>
+          <td class="num">—</td>
           <td><code>bioprojects.csv</code></td>
         </tr>
         <tr>
           <td class="source-name">NCBI SRA runs<div class="cell-note">fetch_sra_runinfo.py</div></td>
-          <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-27</td>
+          <td><span class="badge badge-muted">date unknown</span><div class="cell-note">no harvest date recorded -- re-run its fetcher to set one</div></td>
+          <td class="num">—</td>
           <td><code>sra_runs.csv</code></td>
         </tr>
         <tr>
+          <td class="source-name">NCBI GEO<div class="cell-note">fetch_ncbi_geo.py</div></td>
+          <td><span class="badge badge-muted">date unknown</span><div class="cell-note">no harvest date recorded -- re-run its fetcher to set one</div></td>
+          <td class="num">—</td>
+          <td><code>ncbi_geo.csv</code></td>
+        </tr>
+        <tr>
+          <td class="source-name">NCBI TSA<div class="cell-note">fetch_ncbi_tsa.py</div></td>
+          <td><span class="badge badge-muted">date unknown</span><div class="cell-note">no harvest date recorded -- re-run its fetcher to set one</div></td>
+          <td class="num">—</td>
+          <td><code>ncbi_tsa.csv</code></td>
+        </tr>
+        <tr>
           <td class="source-name">Publications<div class="cell-note">fetch_publications.py</div></td>
-          <td><span class="badge badge-good">ok</span></td>
-          <td class="num">2026-08-27</td>
+          <td><span class="badge badge-muted">date unknown</span><div class="cell-note">no harvest date recorded -- re-run its fetcher to set one</div></td>
+          <td class="num">—</td>
           <td><code>publications.csv</code></td>
+        </tr>
+        <tr>
+          <td class="source-name">EVA<div class="cell-note">fetch_eva.py</div></td>
+          <td><span class="badge badge-muted">date unknown</span><div class="cell-note">no harvest date recorded -- re-run its fetcher to set one</div></td>
+          <td class="num">—</td>
+          <td><code>eva_studies.csv</code></td>
+        </tr>
+        <tr>
+          <td class="source-name">BioStudies / ArrayExpress<div class="cell-note">fetch_biostudies.py</div></td>
+          <td><span class="badge badge-muted">date unknown</span><div class="cell-note">no harvest date recorded -- re-run its fetcher to set one</div></td>
+          <td class="num">—</td>
+          <td><code>biostudies_arrayexpress.csv</code></td>
+        </tr>
+        <tr>
+          <td class="source-name">CannabisGDB<div class="cell-note">fetch_cannabisgdb.py</div></td>
+          <td><span class="badge badge-muted">date unknown</span><div class="cell-note">no harvest date recorded -- re-run its fetcher to set one</div></td>
+          <td class="num">—</td>
+          <td><code>cannabisgdb_genomes.json</code></td>
+        </tr>
+        <tr>
+          <td class="source-name">GigaDB<div class="cell-note">fetch_gigadb.py</div></td>
+          <td><span class="badge badge-muted">date unknown</span><div class="cell-note">no harvest date recorded -- re-run its fetcher to set one</div></td>
+          <td class="num">—</td>
+          <td><code>gigadb_datasets.csv</code></td>
+        </tr>
+        <tr>
+          <td class="source-name">Kannapedia<div class="cell-note">fetch_kannapedia.py</div></td>
+          <td><span class="badge badge-muted">date unknown</span><div class="cell-note">no harvest date recorded -- re-run its fetcher to set one</div></td>
+          <td class="num">—</td>
+          <td><code>kannapedia_strains.csv</code></td>
+        </tr>
+        <tr>
+          <td class="source-name">ICGRC<div class="cell-note">fetch_icgrc.py</div></td>
+          <td><span class="badge badge-muted">date unknown</span><div class="cell-note">no harvest date recorded -- re-run its fetcher to set one</div></td>
+          <td class="num">—</td>
+          <td><code>icgrc_biological_samples.csv</code></td>
+        </tr>
+        <tr>
+          <td class="source-name">figshare<div class="cell-note">fetch_figshare.py</div></td>
+          <td><span class="badge badge-muted">date unknown</span><div class="cell-note">no harvest date recorded -- re-run its fetcher to set one</div></td>
+          <td class="num">—</td>
+          <td><code>figshare_datasets.csv</code></td>
+        </tr>
+        <tr>
+          <td class="source-name">Zenodo / Dryad<div class="cell-note">fetch_zenodo_dryad.py</div></td>
+          <td><span class="badge badge-muted">date unknown</span><div class="cell-note">no harvest date recorded -- re-run its fetcher to set one</div></td>
+          <td class="num">—</td>
+          <td><code>zenodo_dryad_datasets.csv</code></td>
+        </tr>
+        <tr>
+          <td class="source-name">oneKP<div class="cell-note">fetch_onekp.py</div></td>
+          <td><span class="badge badge-muted">date unknown</span><div class="cell-note">no harvest date recorded -- re-run its fetcher to set one</div></td>
+          <td class="num">—</td>
+          <td><code>onekp_samples.csv</code></td>
+        </tr>
+        <tr>
+          <td class="source-name">Ensembl Plants<div class="cell-note">fetch_ensembl_plants.py</div></td>
+          <td><span class="badge badge-muted">date unknown</span><div class="cell-note">no harvest date recorded -- re-run its fetcher to set one</div></td>
+          <td class="num">—</td>
+          <td><code>ensembl_plants.json</code></td>
+        </tr>
+        <tr>
+          <td class="source-name">CoGe<div class="cell-note">fetch_coge.py</div></td>
+          <td><span class="badge badge-muted">date unknown</span><div class="cell-note">no harvest date recorded -- re-run its fetcher to set one</div></td>
+          <td class="num">—</td>
+          <td><code>coge_genomes.json</code></td>
+        </tr>
+        <tr>
+          <td class="source-name">NCBI assemblies<div class="cell-note">fetch_assemblies.py</div></td>
+          <td><span class="badge badge-good">ok</span></td>
+          <td class="num">2026-09-02</td>
+          <td><code>assemblies.csv</code></td>
+        </tr>
+        <tr>
+          <td class="source-name">NCBI organelles<div class="cell-note">fetch_ncbi_organelles.py</div></td>
+          <td><span class="badge badge-good">ok</span></td>
+          <td class="num">2026-09-02</td>
+          <td><code>ncbi_organelles.csv</code></td>
+        </tr>
+        <tr>
+          <td class="source-name">NCBI genes<div class="cell-note">fetch_ncbi_genes.py</div></td>
+          <td><span class="badge badge-good">ok</span></td>
+          <td class="num">2026-09-02</td>
+          <td><code>ncbi_genes.csv</code></td>
+        </tr>
+        <tr>
+          <td class="source-name">NCBI sequence reports<div class="cell-note">fetch_ncbi_sequence_reports.py</div></td>
+          <td><span class="badge badge-good">ok</span></td>
+          <td class="num">2026-09-02</td>
+          <td><code>ncbi_sequence_reports.csv</code></td>
+        </tr>
+        <tr>
+          <td class="source-name">brc-tools workflows<div class="cell-note">fetch_brc_workflows.py</div></td>
+          <td><span class="badge badge-good">ok</span></td>
+          <td class="num">2026-09-03</td>
+          <td><code>brc_workflows.csv</code></td>
         </tr></tbody>
         </table>
       </div>
