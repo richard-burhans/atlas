@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dispensary map</title>
 <meta name="description" content="Every licensed dispensary the rung pipeline holds, on one map, coloured by the criterion you choose.">
-<meta name="generated" content="2026-10-16T01:03:09+00:00">
-<script type="application/json" id="site">{"generated":"2026-10-16T01:03:09+00:00","points":17883,"operators":7342,"jurisdictions":52}</script>
+<meta name="generated" content="2026-10-16T16:08:42+00:00">
+<script type="application/json" id="site">{"generated":"2026-10-16T16:08:42+00:00","points":17883,"operators":7321,"jurisdictions":52}</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.0/maplibre-gl.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.0/maplibre-gl.js"></script>
 <style>
@@ -69,7 +69,7 @@ footer a { color:var(--ok-fill); text-decoration:none; }
   <aside id="panel">
     <div class="pad">
       <h1>Dispensary map</h1>
-      <p class="sub" id="summary">17,883 stores · 7,342 operators · 52 jurisdictions · generated 2026-10-16T01:03:09+00:00</p>
+      <p class="sub" id="summary">17,883 stores · 7,321 operators · 52 jurisdictions · generated 2026-10-16T16:08:42+00:00</p>
       <label for="st">Jurisdiction</label>
       <select id="st"><option value="">All</option><option value="US">United States</option><option value="CA">Canada</option></select>
       <label for="op">Operator</label>
@@ -89,8 +89,9 @@ footer a { color:var(--ok-fill); text-decoration:none; }
 </div>
 <script>
 const KEYS = ["st", "color", "op", "class", "cluster", "base"];
-const CRITERIA = {"platform":{"label":"Menu platform","kind":"match","other":"Other platform","unknown":null,"unknown_label":"No menu handle","classes":[{"value":"leafly","label":"Leafly","color":{"light":"#2a78d6","dark":"#3987e5"}},{"value":"dutchie","label":"Dutchie","color":{"light":"#eb6834","dark":"#d95926"}},{"value":"weedmaps","label":"Weedmaps","color":{"light":"#1baf7a","dark":"#199e70"}},{"value":"custom","label":"Own site","color":{"light":"#eda100","dark":"#c98500"}},{"value":"sweedpos","label":"SweedPOS","color":{"light":"#e87ba4","dark":"#d55181"}},{"value":"canna_cabana","label":"Canna Cabana","color":{"light":"#008300","dark":"#008300"}},{"value":"jane","label":"Jane","color":{"light":"#6250d6","dark":"#9085e9"}},{"value":"valuebuds","label":"Value Buds","color":{"light":"#e34948","dark":"#e66767"}}]},"src":{"label":"Source","kind":"match","other":null,"unknown":null,"unknown_label":null,"classes":[{"value":"own","label":"Operator's own site","color":{"light":"#2a78d6","dark":"#3987e5"}},{"value":"both","label":"Own site and state list","color":{"light":"#1baf7a","dark":"#199e70"}},{"value":"roster","label":"State list only","color":{"light":"#eb6834","dark":"#d95926"}}]},"cc":{"label":"Country","kind":"match","other":null,"unknown":null,"unknown_label":null,"classes":[{"value":"US","label":"United States","color":{"light":"#2a78d6","dark":"#3987e5"}},{"value":"CA","label":"Canada","color":{"light":"#eb6834","dark":"#d95926"}}]},"menu":{"label":"Menu freshness","kind":"match","other":null,"unknown":"none","unknown_label":"No menu target","classes":[{"value":"fresh","label":"Fresh","color":{"light":"#0ca30c","dark":"#0ca30c"}},{"value":"stale","label":"Stale","color":{"light":"#fab219","dark":"#fab219"}},{"value":"silent","label":"Silently failing","color":{"light":"#ec835a","dark":"#ec835a"}},{"value":"gap","label":"Never scraped","color":{"light":"#d03b3b","dark":"#d03b3b"}},{"value":"unavailable","label":"Listing publishes no menu","color":{"light":"#1baf7a","dark":"#199e70"}}]},"life":{"label":"Lifecycle","kind":"match","other":null,"unknown":"unobserved","unknown_label":"Never observed","classes":[{"value":"listed","label":"Listed","color":{"light":"#2a78d6","dark":"#3987e5"}},{"value":"closed","label":"Closed","color":{"light":"#d03b3b","dark":"#d03b3b"}},{"value":"operator_changed","label":"Operator changed","color":{"light":"#ec835a","dark":"#ec835a"}},{"value":"contested","label":"Closure contested by a live menu","color":{"light":"#fab219","dark":"#fab219"}}]},"op":{"label":"Multi-state operators","kind":"match","other":"Other operator","unknown":null,"unknown_label":"State list only (no operator)","classes":[{"value":"trulieve.com","label":"Trulieve (7)","color":{"light":"#2a78d6","dark":"#3987e5"}},{"value":"curaleaf.com","label":"Curaleaf (13)","color":{"light":"#eb6834","dark":"#d95926"}},{"value":"risecannabis.com","label":"RISE (12)","color":{"light":"#1baf7a","dark":"#199e70"}},{"value":"valuebuds.com","label":"Value Buds (5)","color":{"light":"#eda100","dark":"#c98500"}},{"value":"cannacabana.com","label":"Canna Cabana (2)","color":{"light":"#e87ba4","dark":"#d55181"}},{"value":"sunnyside.shop","label":"Sunnyside* (5)","color":{"light":"#008300","dark":"#008300"}},{"value":"zenleafdispensaries.com","label":"Zen Leaf (11)","color":{"light":"#6250d6","dark":"#9085e9"}},{"value":"tokyosmoke.com","label":"Tokyo Smoke (3)","color":{"light":"#e34948","dark":"#e66767"}}]},"n_st":{"label":"Operator size (jurisdictions)","kind":"step","other":null,"unknown":null,"unknown_label":"State list only (no operator)","classes":[{"value":1,"label":"1","color":{"light":"#86b6ef","dark":"#86b6ef"}},{"value":2,"label":"2\u20133","color":{"light":"#5598e7","dark":"#5598e7"}},{"value":4,"label":"4\u20136","color":{"light":"#2a78d6","dark":"#3987e5"}},{"value":7,"label":"7\u20139","color":{"light":"#1c5cab","dark":"#256abf"}},{"value":10,"label":"10+","color":{"light":"#104281","dark":"#184f95"}}]}};
+const CRITERIA = {"platform":{"label":"Menu platform","kind":"match","other":"Other platform","unknown":null,"unknown_label":"No menu handle","classes":[{"value":"leafly","label":"Leafly","color":{"light":"#2a78d6","dark":"#3987e5"}},{"value":"dutchie","label":"Dutchie","color":{"light":"#eb6834","dark":"#d95926"}},{"value":"weedmaps","label":"Weedmaps","color":{"light":"#1baf7a","dark":"#199e70"}},{"value":"custom","label":"Own site","color":{"light":"#eda100","dark":"#c98500"}},{"value":"sweedpos","label":"SweedPOS","color":{"light":"#e87ba4","dark":"#d55181"}},{"value":"canna_cabana","label":"Canna Cabana","color":{"light":"#008300","dark":"#008300"}},{"value":"jane","label":"Jane","color":{"light":"#6250d6","dark":"#9085e9"}},{"value":"valuebuds","label":"Value Buds","color":{"light":"#e34948","dark":"#e66767"}}]},"src":{"label":"Source","kind":"match","other":null,"unknown":null,"unknown_label":null,"classes":[{"value":"own","label":"Operator's own site","color":{"light":"#2a78d6","dark":"#3987e5"}},{"value":"both","label":"Own site and state list","color":{"light":"#1baf7a","dark":"#199e70"}},{"value":"roster","label":"State list only","color":{"light":"#eb6834","dark":"#d95926"}}]},"cc":{"label":"Country","kind":"match","other":null,"unknown":null,"unknown_label":null,"classes":[{"value":"US","label":"United States","color":{"light":"#2a78d6","dark":"#3987e5"}},{"value":"CA","label":"Canada","color":{"light":"#eb6834","dark":"#d95926"}}]},"menu":{"label":"Menu freshness","kind":"match","other":null,"unknown":"none","unknown_label":"No menu target","classes":[{"value":"fresh","label":"Fresh","color":{"light":"#0ca30c","dark":"#0ca30c"}},{"value":"stale","label":"Stale","color":{"light":"#fab219","dark":"#fab219"}},{"value":"silent","label":"Silently failing","color":{"light":"#ec835a","dark":"#ec835a"}},{"value":"gap","label":"Never scraped","color":{"light":"#d03b3b","dark":"#d03b3b"}},{"value":"unavailable","label":"Listing publishes no menu","color":{"light":"#1baf7a","dark":"#199e70"}}]},"life":{"label":"Lifecycle","kind":"match","other":null,"unknown":"unobserved","unknown_label":"Never observed","classes":[{"value":"listed","label":"Listed","color":{"light":"#2a78d6","dark":"#3987e5"}},{"value":"closed","label":"Closed","color":{"light":"#d03b3b","dark":"#d03b3b"}},{"value":"operator_changed","label":"Operator changed","color":{"light":"#ec835a","dark":"#ec835a"}},{"value":"contested","label":"Closure contested by a live menu","color":{"light":"#fab219","dark":"#fab219"}}]},"op":{"label":"Multi-state operators","kind":"match","other":"Other operator","unknown":null,"unknown_label":"State list only (no operator)","classes":[{"value":"cannacabana.com","label":"Canna Cabana (5)","color":{"light":"#2a78d6","dark":"#3987e5"}},{"value":"trulieve.com","label":"Trulieve (7)","color":{"light":"#eb6834","dark":"#d95926"}},{"value":"curaleaf.com","label":"Curaleaf (13)","color":{"light":"#1baf7a","dark":"#199e70"}},{"value":"risecannabis.com","label":"RISE (12)","color":{"light":"#eda100","dark":"#c98500"}},{"value":"valuebuds.com","label":"Value Buds (5)","color":{"light":"#e87ba4","dark":"#d55181"}},{"value":"sunnyside.shop","label":"Sunnyside* (5)","color":{"light":"#008300","dark":"#008300"}},{"value":"tokyosmoke.com","label":"Tokyo Smoke (4)","color":{"light":"#6250d6","dark":"#9085e9"}},{"value":"spiritleaf.ca","label":"Spiritleaf (5)","color":{"light":"#e34948","dark":"#e66767"}}]},"n_st":{"label":"Operator size (jurisdictions)","kind":"step","other":null,"unknown":null,"unknown_label":"State list only (no operator)","classes":[{"value":1,"label":"1","color":{"light":"#86b6ef","dark":"#86b6ef"}},{"value":2,"label":"2\u20133","color":{"light":"#5598e7","dark":"#5598e7"}},{"value":4,"label":"4\u20136","color":{"light":"#2a78d6","dark":"#3987e5"}},{"value":7,"label":"7\u20139","color":{"light":"#1c5cab","dark":"#256abf"}},{"value":10,"label":"10+","color":{"light":"#104281","dark":"#184f95"}}]}};
 const STYLE_URL = "https://tiles.openfreemap.org/styles/liberty";
+const GLYPHS_URL = "https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf";
 const STYLE_TIMEOUT_MS = 4000;
 const DATA = {stores: "data/stores.geojson", jurisdictions: "data/jurisdictions.json",
               operators: "data/operators.json", boundaries: "data/boundaries.geojson"};
@@ -99,10 +100,14 @@ const UNKNOWN = {light: "#898781", dark: "#898781"};
 
 const mode = () => (document.documentElement.dataset.theme === "dark" ||
   (document.documentElement.dataset.theme !== "light" && matchMedia("(prefers-color-scheme: dark)").matches)) ? "dark" : "light";
-const flatStyle = () => ({version: 8, sources: {}, layers: [{id: "bg", type: "background",
+// The flat ground the page opens on (plan P-6.1, owner 2026-10-16): no sources, so nothing is
+// fetched to draw it. It names the tile host's glyphs so the cluster COUNT label can render on it —
+// a symbol layer is the only thing that requests a glyph file, so the host is asked for one only
+// once a viewer turns clustering on.
+const flatStyle = () => ({version: 8, sources: {}, glyphs: GLYPHS_URL, layers: [{id: "bg", type: "background",
   paint: {"background-color": mode() === "dark" ? "#0d0d0d" : "#f9f9f7"}}]});
 
-const state = {st: "", color: "platform", op: "", class: "", cluster: false, base: true};
+const state = {st: "", color: "platform", op: "", class: "", cluster: false, base: false};
 function readHash() {
   const h = new URLSearchParams(location.hash.replace(/^#/, ""));
   for (const k of KEYS) { if (!h.has(k)) continue; const v = h.get(k);
@@ -112,13 +117,12 @@ function readHash() {
 function writeHash() {
   const h = new URLSearchParams();
   for (const k of KEYS) { const v = state[k];
-    if (k === "cluster") { if (v) h.set(k, "1"); }
-    else if (k === "base") { if (!v) h.set(k, "0"); }
+    if (k === "cluster" || k === "base") { if (v) h.set(k, "1"); }
     else if (v) h.set(k, v); }
   history.replaceState(null, "", "#" + h.toString());
 }
 
-let map, stores, jurisdictions, operators, boundaries, styleObject = null;
+let map, stores, jurisdictions, operators, boundaries, styleObject = null, stylePromise = null;
 
 async function fetchJSON(url) { const r = await fetch(url); if (!r.ok) throw new Error(url + " " + r.status); return r.json(); }
 async function fetchStyle() {
@@ -126,6 +130,9 @@ async function fetchStyle() {
         if (!r.ok) throw new Error(r.status); return await r.json(); }
   catch (e) { console.warn("basemap style unavailable, flat ground instead", e); return null; }
 }
+// The tile style is fetched once, and only when a view asks for it: the page opens on the flat
+// ground, so a visit that never turns the basemap on never reaches the tile host.
+async function loadStyle() { if (!stylePromise) stylePromise = fetchStyle(); styleObject = await stylePromise; return styleObject; }
 
 // Colour expression for the active criterion: a `match` on the property (null folded to a sentinel so
 // the unknown class gets its own colour), or a `step` for the ordinal one.
@@ -211,8 +218,9 @@ function popupHTML(p) {
     `${k("lifecycle")}${life}` + (p.url ? `<br><a href="${p.url}" target="_blank" rel="noopener">menu ↗</a>` : "");
 }
 
-// The layers in draw order. The cluster COUNT label is a symbol layer and needs the style's glyphs,
-// which only the tile style carries; on the flat fallback the clusters are sized circles alone.
+// The layers in draw order. The cluster COUNT label is a symbol layer and needs the style's glyphs;
+// both styles name them (`flatStyle` carries the tile host's glyph URL), so the guard below is for a
+// style that does not.
 const STORE_LAYERS = ["clusters", "cluster-count", "stores"];
 function addBounds() {
   map.addSource("bounds", {type: "geojson", data: boundaries});
@@ -313,8 +321,12 @@ function buildControls() {
     byName.set(label, key); const opt = document.createElement("option"); opt.value = label; dl.appendChild(opt); }
   if (state.op && operators[state.op]) opInput.value = `${operators[state.op].name} (${operators[state.op].states.length} · ${operators[state.op].stores})`;
   opInput.addEventListener("change", () => { state.op = byName.get(opInput.value) || ""; if (!state.op) opInput.value = ""; state.class = ""; applyFilters(); });
-  const base = document.getElementById("base"); base.checked = state.base; base.disabled = !styleObject;
-  base.addEventListener("change", () => { if (map) setBasemap(base.checked); });
+  const base = document.getElementById("base"); base.checked = state.base;
+  base.addEventListener("change", async () => {
+    if (!map) return;
+    if (base.checked && !styleObject) { base.disabled = true; await loadStyle(); base.disabled = false; }
+    if (base.checked && !styleObject) { base.checked = false; base.title = "the tile host did not answer; flat ground kept"; return; }
+    setBasemap(base.checked); });
   const cluster = document.getElementById("cluster"); cluster.checked = state.cluster;
   cluster.addEventListener("change", () => { if (map) setCluster(cluster.checked); });
 }
@@ -322,11 +334,12 @@ function buildControls() {
 function fail(what, e) { document.getElementById("summary").textContent = what + ": " + (e && e.message || e); console.error(e); }
 async function main() {
   readHash();
-  let st, jur, ops, bnd, style;
-  try { [st, jur, ops, bnd, style] = await Promise.all([
-    fetchJSON(DATA.stores), fetchJSON(DATA.jurisdictions), fetchJSON(DATA.operators), fetchJSON(DATA.boundaries), fetchStyle()]); }
+  let st, jur, ops, bnd;
+  try { [st, jur, ops, bnd] = await Promise.all([
+    fetchJSON(DATA.stores), fetchJSON(DATA.jurisdictions), fetchJSON(DATA.operators), fetchJSON(DATA.boundaries),
+    state.base ? loadStyle() : null]); }   // the tile style only when the hash asks for it
   catch (e) { fail("The map's data could not be loaded", e); return; }
-  stores = st; jurisdictions = jur; operators = ops; boundaries = bnd; styleObject = style;
+  stores = st; jurisdictions = jur; operators = ops; boundaries = bnd;
   if (!styleObject) state.base = false;
   buildControls();
   // The legend counts in memory, so it stands even where the map cannot draw (no WebGL): the
