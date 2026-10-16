@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dispensary map</title>
 <meta name="description" content="Every licensed dispensary the rung pipeline holds, on one map, coloured by the criterion you choose.">
-<meta name="generated" content="2026-10-16T00:35:58+00:00">
-<script type="application/json" id="site">{"generated":"2026-10-16T00:35:58+00:00","points":17883,"operators":7342,"jurisdictions":52}</script>
+<meta name="generated" content="2026-10-16T01:03:09+00:00">
+<script type="application/json" id="site">{"generated":"2026-10-16T01:03:09+00:00","points":17883,"operators":7342,"jurisdictions":52}</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.0/maplibre-gl.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.0/maplibre-gl.js"></script>
 <style>
@@ -69,7 +69,7 @@ footer a { color:var(--ok-fill); text-decoration:none; }
   <aside id="panel">
     <div class="pad">
       <h1>Dispensary map</h1>
-      <p class="sub" id="summary">17,883 stores · 7,342 operators · 52 jurisdictions · generated 2026-10-16T00:35:58+00:00</p>
+      <p class="sub" id="summary">17,883 stores · 7,342 operators · 52 jurisdictions · generated 2026-10-16T01:03:09+00:00</p>
       <label for="st">Jurisdiction</label>
       <select id="st"><option value="">All</option><option value="US">United States</option><option value="CA">Canada</option></select>
       <label for="op">Operator</label>
@@ -211,20 +211,35 @@ function popupHTML(p) {
     `${k("lifecycle")}${life}` + (p.url ? `<br><a href="${p.url}" target="_blank" rel="noopener">menu ↗</a>` : "");
 }
 
-function addData() {
+// The layers in draw order. The cluster COUNT label is a symbol layer and needs the style's glyphs,
+// which only the tile style carries; on the flat fallback the clusters are sized circles alone.
+const STORE_LAYERS = ["clusters", "cluster-count", "stores"];
+function addBounds() {
   map.addSource("bounds", {type: "geojson", data: boundaries});
   map.addLayer({id: "bounds-line", type: "line", source: "bounds",
     paint: {"line-color": mode() === "dark" ? "#5a5955" : "#898781", "line-width": 0.8, "line-opacity": 0.7}});
-  map.addSource("stores", {type: "geojson", data: stores, cluster: state.cluster, clusterRadius: 40, clusterMaxZoom: 9});
+}
+function addStores() {
+  map.addSource("stores", {type: "geojson", data: state.cluster ? scoped() : stores, cluster: state.cluster, clusterRadius: 40, clusterMaxZoom: 9});
   map.addLayer({id: "clusters", type: "circle", source: "stores", filter: ["has", "point_count"],
     paint: {"circle-color": mode() === "dark" ? "#c3c2b7" : "#52514e", "circle-opacity": 0.75,
             "circle-radius": ["step", ["get", "point_count"], 10, 25, 14, 100, 18, 500, 24]}});
+  if (map.getStyle().glyphs) map.addLayer({id: "cluster-count", type: "symbol", source: "stores", filter: ["has", "point_count"],
+    layout: {"text-field": ["get", "point_count_abbreviated"], "text-font": ["Noto Sans Regular"], "text-size": 11, "text-allow-overlap": true},
+    paint: {"text-color": mode() === "dark" ? "#0d0d0d" : "#fcfcfb"}});
   map.addLayer({id: "stores", type: "circle", source: "stores", filter: ["!", ["has", "point_count"]],
     paint: {"circle-color": colorExpression(),
             "circle-radius": ["interpolate", ["linear"], ["zoom"], 3, 2.2, 7, 4, 11, 6.5],
             "circle-stroke-width": 0.8, "circle-stroke-color": mode() === "dark" ? "#1a1a19" : "#fcfcfb",
             "circle-opacity": 0.9}});
-  applyFilters(false);
+}
+function removeStores() {
+  for (const id of STORE_LAYERS) if (map.getLayer(id)) map.removeLayer(id);
+  if (map.getSource("stores")) map.removeSource("stores");
+}
+// Wired ONCE: a layer-scoped listener is bound to the layer ID, so it survives the cluster toggle's
+// remove-and-add, and wiring it again on every toggle would open two popups per click.
+function wireEvents() {
   map.on("click", "stores", e => { const p = e.features[0].properties;
     for (const key of ["names", "menus"]) if (typeof p[key] === "string") p[key] = JSON.parse(p[key]);
     new maplibregl.Popup({maxWidth: "320px"}).setLngLat(e.lngLat).setHTML(popupHTML(p)).addTo(map); });
@@ -235,10 +250,18 @@ function addData() {
     map.on("mouseleave", id, () => map.getCanvas().style.cursor = ""); }
   map.on("moveend", renderLegend);
 }
+function addData() { addBounds(); addStores(); wireEvents(); applyFilters(false); }
+// Clustering happens in the SOURCE, before any layer filter, so a clustered view would count every
+// store on the continent whatever the jurisdiction, operator or class filter says. When clustering
+// is on, the source is handed only the in-scope features instead.
+function scoped() {
+  return {type: "FeatureCollection", features: stores.features.filter(f => inScope(f, null) && (!state.class || classOf(f.properties) === state.class))};
+}
 function applyFilters(fit = true) {
   if (!map || !map.getLayer("stores")) { writeHash(); renderLegend(); return; }
   const f = layerFilter();
   map.setFilter("stores", f ? ["all", ["!", ["has", "point_count"]], f] : ["!", ["has", "point_count"]]);
+  if (state.cluster) map.getSource("stores").setData(scoped());
   map.setPaintProperty("stores", "circle-color", colorExpression());
   if (fit && state.op) { const pts = stores.features.filter(x => x.properties.op === state.op);
     if (pts.length) fitTo(pts.map(x => x.geometry.coordinates)); }
@@ -254,17 +277,21 @@ function fitTo(coords) {
 }
 function setCluster(on) {
   state.cluster = on;
-  for (const id of ["stores", "clusters"]) if (map.getLayer(id)) map.removeLayer(id);
-  if (map.getSource("stores")) map.removeSource("stores");
-  map.off("moveend", renderLegend);
-  addData();
+  removeStores();
+  addStores();
+  applyFilters(false);
 }
 function setBasemap(on) {
   state.base = on;
   const next = on && styleObject ? styleObject : flatStyle();
+  // Carry our sources and layers across the style swap; the count label only where the next style
+  // has glyphs (a symbol layer with text and no glyphs fails style validation), and add it back
+  // once a glyph-bearing style has loaded.
+  const keep = ["bounds-line", ...STORE_LAYERS.filter(id => id !== "cluster-count" || next.glyphs)];
   map.setStyle(next, {transformStyle: (prev, nxt) => ({...nxt,
     sources: {...nxt.sources, bounds: prev.sources.bounds, stores: prev.sources.stores},
-    layers: [...nxt.layers, ...prev.layers.filter(l => ["bounds-line", "clusters", "stores"].includes(l.id))]})});
+    layers: [...nxt.layers, ...prev.layers.filter(l => keep.includes(l.id))]})});
+  map.once("style.load", () => { if (state.cluster && map.getStyle().glyphs && !map.getLayer("cluster-count")) { removeStores(); addStores(); applyFilters(false); } });
   writeHash();
 }
 
