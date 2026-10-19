@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dispensary map</title>
 <meta name="description" content="Every licensed dispensary the rung pipeline holds, on one map, coloured by the criterion you choose.">
-<meta name="generated" content="2026-10-19T15:18:58+00:00">
-<script type="application/json" id="site">{"generated":"2026-10-19T15:18:58+00:00","points":18500,"operators":7231,"jurisdictions":52}</script>
+<meta name="generated" content="2026-10-19T18:32:30+00:00">
+<script type="application/json" id="site">{"generated":"2026-10-19T18:32:30+00:00","points":18497,"operators":7248,"jurisdictions":52}</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.0/maplibre-gl.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.0/maplibre-gl.js"></script>
 <style>
@@ -69,9 +69,9 @@ footer a { color:var(--ok-fill); text-decoration:none; }
   <aside id="panel">
     <div class="pad">
       <h1>Dispensary map</h1>
-      <p class="sub" id="summary">18,500 stores · 7,231 operators · 52 jurisdictions · generated 2026-10-19T15:18:58+00:00</p>
+      <p class="sub" id="summary">18,497 stores · 7,248 operators · 52 jurisdictions · generated 2026-10-19T18:32:30+00:00</p>
       <label for="st">Jurisdiction</label>
-      <select id="st"><option value="">All</option><option value="US">United States</option><option value="CA">Canada</option></select>
+      <select id="st"><option value="">All</option><option value="cc:US">United States</option><option value="cc:CA">Canada</option></select>
       <label for="op">Operator</label>
       <input id="op" list="ops" placeholder="Type to search…" autocomplete="off">
       <datalist id="ops"></datalist>
@@ -108,11 +108,19 @@ const flatStyle = () => ({version: 8, sources: {}, glyphs: GLYPHS_URL, layers: [
   paint: {"background-color": mode() === "dark" ? "#0d0d0d" : "#f9f9f7"}}]});
 
 const state = {st: "", color: "platform", op: "", class: "", cluster: false, base: false};
+// A COUNTRY IS NOT A JURISDICTION CODE. "CA" is California; Canada is "cc:CA". Until 2026-10-19 the
+// country option's value was the bare country code, so choosing Canada read "5,077 stores in
+// California" (the label looked the code up as a jurisdiction) and choosing California showed Canada
+// (the filter read it as the country) — California could not be selected at all.
+const COUNTRIES = {US: "the United States", CA: "Canada"};
+const countryOf = st => (st && st.startsWith("cc:")) ? st.slice(3) : null;
+
 function readHash() {
   const h = new URLSearchParams(location.hash.replace(/^#/, ""));
   for (const k of KEYS) { if (!h.has(k)) continue; const v = h.get(k);
     state[k] = (k === "cluster" || k === "base") ? v === "1" : v; }
   if (!CRITERIA[state.color]) state.color = "platform";
+  if (state.st === "US") state.st = "cc:US";   // an old link: no jurisdiction is called US ("CA" is California)
 }
 function writeHash() {
   const h = new URLSearchParams();
@@ -160,7 +168,7 @@ function classOf(props) {
 }
 function layerFilter() {
   const f = ["all"];
-  if (state.st === "US" || state.st === "CA") f.push(["==", ["get", "cc"], state.st]);
+  if (countryOf(state.st)) f.push(["==", ["get", "cc"], countryOf(state.st)]);
   else if (state.st) f.push(["==", ["get", "st"], state.st]);
   if (state.op) f.push(["==", ["coalesce", ["get", "op"], ""], state.op]);
   if (state.class) {
@@ -177,7 +185,7 @@ function layerFilter() {
 }
 function inScope(f, bounds) {
   const p = f.properties, [lon, lat] = f.geometry.coordinates;
-  if (state.st === "US" || state.st === "CA") { if (p.cc !== state.st) return false; }
+  if (countryOf(state.st)) { if (p.cc !== countryOf(state.st)) return false; }
   else if (state.st && p.st !== state.st) return false;
   if (state.op && p.op !== state.op) return false;
   if (bounds && !(lon >= bounds.getWest() && lon <= bounds.getEast() && lat >= bounds.getSouth() && lat <= bounds.getNorth())) return false;
@@ -196,7 +204,8 @@ function renderLegend() {
   if (c.other) rows.push({key: "__other__", label: c.other, color: OTHER[m], n: counts.get("__other__") || 0});
   if (c.unknown_label) rows.push({key: "__null__", label: c.unknown_label, color: UNKNOWN[m], n: counts.get("__null__") || 0});
   const max = Math.max(1, ...rows.map(r => r.n));
-  const scope = state.op ? "this operator" : state.st ? (jurisdictions[state.st] ? jurisdictions[state.st].name : state.st) : "the current view";
+  const scope = state.op ? "this operator" : countryOf(state.st) ? COUNTRIES[countryOf(state.st)]
+    : state.st ? (jurisdictions[state.st] ? jurisdictions[state.st].name : state.st) : "the current view";
   const el = document.getElementById("legend");
   el.innerHTML = `<h2>${c.label}</h2><p class="sub">${total.toLocaleString()} stores in ${scope} · click a row to isolate it</p>` +
     rows.map(r => `<div class="lrow${state.class === r.key ? " active" : state.class ? " off" : ""}" data-key="${r.key}" title="${r.label}: ${r.n.toLocaleString()}">
@@ -276,7 +285,8 @@ function applyFilters(fit = true) {
   if (fit && state.op) { const pts = stores.features.filter(x => x.properties.op === state.op);
     if (pts.length) fitTo(pts.map(x => x.geometry.coordinates)); }
   else if (fit && state.st) {
-    const box = state.st === "US" ? [-125, 24, -66.5, 49.5] : state.st === "CA" ? [-141, 41.5, -52, 62] : (jurisdictions[state.st] || {}).bbox;
+    const cc = countryOf(state.st);
+    const box = cc === "US" ? [-125, 24, -66.5, 49.5] : cc === "CA" ? [-141, 41.5, -52, 62] : (jurisdictions[state.st] || {}).bbox;
     if (box) map.fitBounds([[box[0], box[1]], [box[2], box[3]]], {padding: 30, duration: 500}); }
   writeHash(); renderLegend();
 }
