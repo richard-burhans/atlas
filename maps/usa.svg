@@ -24144,7 +24144,7 @@ z
     </g>
    </g>
    <g id="text_1">
-    <!-- US dispensaries — 19,480 geocoded across 41 states · 5,347,131 products -->
+    <!-- US dispensaries — 19,480 geocoded across 41 states · 5,341,895 products -->
     <g transform="translate(116.283984 18.597656) scale(0.15 -0.15)">
      <defs>
       <path id="DejaVuSans-38" d="M 556 4666 
@@ -24686,16 +24686,6 @@ Q 3450 3153 3228 2886
 Q 3006 2619 2597 2516 
 z
 " transform="scale(0.015625)"/>
-      <path id="DejaVuSans-1a" d="M 525 4666 
-L 3525 4666 
-L 3525 4397 
-L 1831 0 
-L 1172 0 
-L 2766 4134 
-L 525 4134 
-L 525 4666 
-z
-" transform="scale(0.015625)"/>
       <path id="DejaVuSans-58" d="M 544 1381 
 L 544 3500 
 L 1119 3500 
@@ -24776,11 +24766,11 @@ z
      <use xlink:href="#DejaVuSans-f" transform="translate(2839.734375 0)"/>
      <use xlink:href="#DejaVuSans-16" transform="translate(2871.515625 0)"/>
      <use xlink:href="#DejaVuSans-17" transform="translate(2935.140625 0)"/>
-     <use xlink:href="#DejaVuSans-1a" transform="translate(2998.765625 0)"/>
+     <use xlink:href="#DejaVuSans-14" transform="translate(2998.765625 0)"/>
      <use xlink:href="#DejaVuSans-f" transform="translate(3062.390625 0)"/>
-     <use xlink:href="#DejaVuSans-14" transform="translate(3094.171875 0)"/>
-     <use xlink:href="#DejaVuSans-16" transform="translate(3157.796875 0)"/>
-     <use xlink:href="#DejaVuSans-14" transform="translate(3221.421875 0)"/>
+     <use xlink:href="#DejaVuSans-1b" transform="translate(3094.171875 0)"/>
+     <use xlink:href="#DejaVuSans-1c" transform="translate(3157.796875 0)"/>
+     <use xlink:href="#DejaVuSans-18" transform="translate(3221.421875 0)"/>
      <use xlink:href="#DejaVuSans-3" transform="translate(3285.046875 0)"/>
      <use xlink:href="#DejaVuSans-53" transform="translate(3316.828125 0)"/>
      <use xlink:href="#DejaVuSans-55" transform="translate(3380.3125 0)"/>
